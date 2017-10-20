@@ -3,5 +3,6 @@
 import socket
 
 obj = socket.socket()
-obj.connect(('127.0.0.1', 8001))
+ip = ('127.0.0.1', 8002)
+obj.connect(ip)
 obj.close()
