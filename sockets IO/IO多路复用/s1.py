@@ -24,8 +24,10 @@ inputs = [sk1, sk2, sk3, ]
 while True:
     # [sk1, sk2, ], select内部自动监听sk1,sk2,sk3等对象，一旦某个句柄发生变化，写入r_list中
     r_list, w_list, e_list = select.select(inputs, [], [], 1)  # 最后一个参数1表示最多延迟1秒用于select检测，如果超时了，此次循环跳过
-    print(r_list)
-
+    for sk in r_list:
+        conn, ip = sk.accept()
+        conn.sendall(bytes('hello', encoding='utf-8'))
+        conn.close()
 
 
 
