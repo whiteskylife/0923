@@ -27,3 +27,5 @@ while True:
             data_bytes = sk.recv(1024)
             data_str = str(data_bytes, encoding='utf-8')
             sk.sendall(bytes(data_str + 'ok', encoding='utf-8'))
+
+
