@@ -16,6 +16,9 @@ outputs = []
 message_dict = {}
 
 while True:
+    '''
+    读信息和写信息分离
+    '''
     r_list, w_list, e_list = select.select(inputs, outputs, inputs, 1)  # select内部自动监听sk1,sk2,sk3等对象，一旦某个句柄发生变化，写入r_list中)
     # 每当有一个用户来连接时，sk1都会发生变化，select将会监听到sk1的变化, 放入r_list中，而用户的conn对象只有在有数据传输时才会发生变化。
     print('listening obj %d' % len(inputs))
