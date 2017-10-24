@@ -54,3 +54,6 @@ while True:
 
     for sk in e_list:
         inputs.remove(sk)
+
+
+# 小结： IO多路复用的实现，通过select监听多个文件描述符来实现一个伪并发。
