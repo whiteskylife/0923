@@ -18,15 +18,22 @@ while True:
     # 每当有一个用户来连接时，sk1都会发生变化，select将会监听到sk1的变化, 放入r_list中，而用户的conn对象只有在有数据传输时才会发生变化。
     print('listening obj %d' % len(inputs))
     print(r_list)
-    for sk in r_list:
+    for sk_or_conn in r_list:
         # 每有一个新的连接对象时，sk发生变化，放入r_list中
-        if sk == sk1:
-            conn, ip = sk.accept()
+        if sk_or_conn == sk1:
+            conn, ip = sk_or_conn.accept()
             inputs.append(conn)     # 把新的连接对象放入r_list中
         else:
-            data_bytes = sk.recv(1024)
-            data_str = str(data_bytes, encoding='utf-8')
-            sk.sendall(bytes(data_str + 'ok', encoding='utf-8'))
+            # 有用户发消息了
+            try:
+                data_bytes = sk_or_conn.recv(1024)
+                data_str = str(data_bytes, encoding='utf-8')
+                sk_or_conn.sendall(bytes(data_str + 'ok', encoding='utf-8'))
+            except Exception as ex:
+                inputs.remove(sk_or_conn)
+
+
+
 
 '''
 当c1来连接s1：
@@ -37,7 +44,8 @@ inputs中的元素为：sk1对象，c1的conn   				r_list中的元素：sk1对�
 inputs中的元素为：sk1对象，c1的conn, c2的conn    		r_list中的元素：sk1对象 			inputs添加的元素为：c3的conn
 
 当c1和s1通信时：
-inputs中的元素为：sk1对象，c1的conn, c2的conn, c3的conn   r_list中的元素：（存在sk1对象？）c1的conn
+inputs中的元素为：sk1对象，c1的conn, c2的conn, c3的conn   r_list中的元素：c1的conn（存在sk1对象?)
+
 '''
 
 
