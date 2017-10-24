@@ -15,7 +15,8 @@ inputs = [sk1, ]
 
 while True:
     r_list, w_list, e_list = select.select(inputs, [], inputs, 1)
-    # 每当有一个用户来连接时，sk1都会发生变化，select将会监听到sk1的变化，放入r_list中，而用户的conn只有在有数据传输时才会发生变化
+    # 每当有一个用户来连接时，sk1都会发生变化，select将会监听到sk1的变化(select内部自动监听sk1,sk2,sk3等对象，一旦某个句柄发生变化，写入r_list中),
+    # 放入r_list中，而用户的conn对象只有在有数据传输时才会发生变化。
     print('listening obj %d' % len(inputs))
     print(r_list)
     for sk in r_list:
@@ -27,5 +28,14 @@ while True:
             data_bytes = sk.recv(1024)
             data_str = str(data_bytes, encoding='utf-8')
             sk.sendall(bytes(data_str + 'ok', encoding='utf-8'))
+
+        if sk == sk1:
+            conn, ip = sk.accept()
+            inputs.append(conn)
+        else:
+            data_bytes = sk.recv(1024)
+            data_str = str(data_bytes, encoding='utf-8')
+            sk.sendall(bytes(data_str + 'ok', encoding='utf-8'))
+
 
 
