@@ -25,6 +25,7 @@ while True:
         if sk_or_conn == sk1:
             conn, ip = sk_or_conn.accept()
             inputs.append(conn)     # 把新的连接对象放入r_list中
+            message_dict[conn] = []
         else:
             # 有老用户发消息了
             try:
@@ -34,13 +35,19 @@ while True:
                 print(ex)
                 inputs.remove(sk_or_conn)
             else:
-                # # 用户正常发送消息
-                # data_str = str(data_bytes, encoding='utf-8')
+                # 用户正常发送消息
+                data_str = str(data_bytes, encoding='utf-8')
                 # sk_or_conn.sendall(bytes(data_str + 'ok', encoding='utf-8'))
+                message_dict[sk_or_conn].append(data_str)
                 outputs.append(sk_or_conn)
 
     for conn in w_list:                 # w_list 保存了谁给我发过信息，用于回复信息
-        conn.sendall(bytes('hello', encoding='utf-8'))
+        # conn.sendall(bytes('hello', encoding='utf-8'))
+        # outputs.remove(conn)
+        recv_str = message_dict[conn][0]
+        del message_dict[conn][0]
+        conn.sendall(bytes(recv_str + 'good', encoding='utf-8'))
         outputs.remove(conn)
 
-
+    for sk in e_list:
+        inputs.remove(sk)
