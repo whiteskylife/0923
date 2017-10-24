@@ -29,13 +29,7 @@ while True:
             data_str = str(data_bytes, encoding='utf-8')
             sk.sendall(bytes(data_str + 'ok', encoding='utf-8'))
 
-        if sk == sk1:
-            conn, ip = sk.accept()
-            inputs.append(conn)
-        else:
-            data_bytes = sk.recv(1024)
-            data_str = str(data_bytes, encoding='utf-8')
-            sk.sendall(bytes(data_str + 'ok', encoding='utf-8'))
+
 
 
 
