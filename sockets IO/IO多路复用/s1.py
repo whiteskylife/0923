@@ -36,6 +36,9 @@ while True:
 
 
 '''
+基于select实现的多路复用
+inputs中放了两类数据，一类是服务器端的socket，一类是客户端的socket。相比于用socket实现的多路复用，可以实现多个人同时连接，无需等待
+
 当c1来连接s1：
 inputs中的元素为：sk1对象   							r_list中的元素：sk1对象			inputs添加的元素为：c1的conn
 当c2来连接s1：
