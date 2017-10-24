@@ -13,6 +13,8 @@ sk1.listen()
 
 inputs = [sk1, ]
 outputs = []
+message_dict = {}
+
 while True:
     r_list, w_list, e_list = select.select(inputs, outputs, inputs, 1)  # select内部自动监听sk1,sk2,sk3等对象，一旦某个句柄发生变化，写入r_list中)
     # 每当有一个用户来连接时，sk1都会发生变化，select将会监听到sk1的变化, 放入r_list中，而用户的conn对象只有在有数据传输时才会发生变化。
@@ -37,7 +39,7 @@ while True:
                 # sk_or_conn.sendall(bytes(data_str + 'ok', encoding='utf-8'))
                 outputs.append(sk_or_conn)
 
-    for conn in w_list:                 # w_list 用于回复信息
+    for conn in w_list:                 # w_list 保存了谁给我发过信息，用于回复信息
         conn.sendall(bytes('hello', encoding='utf-8'))
         outputs.remove(conn)
 
