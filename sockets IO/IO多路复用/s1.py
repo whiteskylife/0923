@@ -57,3 +57,28 @@ while True:
 
 
 # 小结： IO多路复用的实现，通过select监听多个文件描述符来实现一个伪并发。
+# select 几乎不用，要懂原理，tornado、socketserver等的源码里面涉及到了，
+# 第一阶段：
+#       socket，服务端同时只能处理一个请求
+# 第二阶段：
+#       select + socket ， 伪并发
+#       1.r_list: 读信息，写信息
+#       2.r_list, w_list: 读写分离
+# 第三阶段：
+#       socketserver
+#           select/epoll + socket + 多线程
+#       并发操作
+
+'''
+# 初识多并发
+import threading
+import time
+
+def process(arg):
+    time.sleep(1)
+    print(arg)
+
+for i in range(1, 10):
+    t = threading.Thread(target=process, args=(i,))
+    t.start()
+'''
