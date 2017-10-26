@@ -6,6 +6,10 @@ import hashlib
 import socket
 import socketserver
 
+hash = hashlib.md5('python'.encode('utf-8'))
+hash.update('admin'.encode('utf-8'))
+print(hash.hexdigest())
+
 
 class MyServer(socketserver.BaseRequestHandler):
     '''
@@ -13,7 +17,7 @@ class MyServer(socketserver.BaseRequestHandler):
     '''
     def handle(self):
         conn = self.request
-        conn.sendall(bytes('this is server', encoding='utf-8'))
+        conn.sendall(bytes('欢迎登录FTP服务器---', encoding='utf-8'))
 
         while True:
             ret_bytes = conn.recv(1024)
@@ -22,19 +26,21 @@ class MyServer(socketserver.BaseRequestHandler):
                 break
             conn.sendall(bytes(ret_str + 'OK', encoding='utf-8'))
 
-if __name__ == '__main__':
-    '''
-    server_address = ('127.0.0.1', 9999)
-    RequestHandlerClass = MyServer
 
 
-    ThreadingTCPServer负责：
-    1. ThreadingMixIn:  创建进程
-    2. TCPServer：      初始化:服务器IP，端口。  绑定IP、端口，并监听
-    3. BaseServer:      self.server_address = server_address      self.RequestHandlerClass = RequestHandlerClass
-    4. serve_forever:   通过select.select实现的IO多路复用
-    '''
+# if __name__ == '__main__':
+#     '''
+#     server_address = ('127.0.0.1', 9999)
+#     RequestHandlerClass = MyServer
+#
+#     ThreadingTCPServer负责：
+#     1. ThreadingMixIn:  创建进程
+#     2. TCPServer：      初始化:服务器IP，端口。  绑定IP、端口，并监听
+#     3. BaseServer:      self.server_address = server_address      self.RequestHandlerClass = RequestHandlerClass
+#     4. serve_forever:   通过select.select实现的IO多路复用
+#     '''
+#
+#     server = socketserver.ThreadingTCPServer(('127.0.0.1', 9999), MyServer)
+#     server.serve_forever()
 
-    server = socketserver.ThreadingTCPServer(('127.0.0.1', 9999), MyServer)
-    server.serve_forever()
 
