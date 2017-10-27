@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# 利用反射
+# 面向对象中利用反射找方法
 
 class Common:
 
@@ -13,7 +13,7 @@ class Common:
 
     def f2(self):
         print('this is method f2')
-        if hasattr(self, 'start'):
+        if hasattr(self, 'f11'):
             print('11111111111111111')
         else:
             print('22222222222222222')
