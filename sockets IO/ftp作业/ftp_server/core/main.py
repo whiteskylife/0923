@@ -5,7 +5,7 @@ import optparse
 import socketserver
 
 from conf import settings
-from core import FtpServer
+from core.ftp_server import FtpServer
 
 
 class ArgvHandler(object):
