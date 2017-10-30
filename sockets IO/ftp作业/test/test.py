@@ -22,5 +22,5 @@ class Common:
         print('this is start method')
 
 
-obj = Common()
-obj.f2()
+#obj = Common()
+#obj.f2()
