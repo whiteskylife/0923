@@ -30,8 +30,26 @@ class FTPClient(object):
             else:
                 exit('Err: host port must in 0-65535')
 
+        if options.username is not None and options.password is not None:
+            print(' 1 OK')
+        else:
+            if options.username is None or options.pasword is None:
+                print('Err: username or password must be provided together')
+
+
+
+    def authenticate(self):
+        """
+        用户身份验证
+        :return:
+        """
+        pass
+
     def interactive(self):
         pass
+
+
+
 
 if __name__ == '__main__':
     ftp = FTPClient()
