@@ -2,9 +2,13 @@
 
 import socketserver
 
+
 class FtpServer(socketserver.BaseRequestHandler):
     def handler(self):
-        print('---------------------------------')
+        while True:
+            self.data = self.request.recv(1024).strip()
+            print(self.client_address[0])
+            print(self.data)
         pass
 
 if __name__ == '__main__':
