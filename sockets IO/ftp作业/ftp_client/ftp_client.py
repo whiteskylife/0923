@@ -23,20 +23,19 @@ class FTPClient(object):
         :param args:
         :return:
         """
+
+        if options.username is not None and options.password is not None:
+            pass
+        else:
+            if options.username is None or options.password is None:
+                print('Err: username or password must be provided together')
+
         if options.server and options.port:
             print(options)
             if options.port >0 and options.port <65535:
-                pass
-                #return True
+                return True
             else:
                 exit('Err: host port must in 0-65535')
-
-        if options.username is not None and options.password is not None:
-            print(' 1 OK')
-        else:
-            if options.username is None or options.pasword is None:
-                print('Err: username or password must be provided together')
-
 
 
     def authenticate(self):
@@ -44,7 +43,8 @@ class FTPClient(object):
         用户身份验证
         :return:
         """
-        pass
+
+
 
     def interactive(self):
         pass
