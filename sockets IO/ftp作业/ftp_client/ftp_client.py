@@ -32,6 +32,8 @@ class FTPClient(object):
 
         if options.username is not None and options.password is not None:
             print(' 1 OK')
+            print(options.username)
+            print(options.password)
         else:
             if options.username is None or options.pasword is None:
                 print('Err: username or password must be provided together')
