@@ -26,14 +26,13 @@ class FTPClient(object):
         if options.server and options.port:
             print(options)
             if options.port >0 and options.port <65535:
-                return True
+                pass
+                #return True
             else:
                 exit('Err: host port must in 0-65535')
 
         if options.username is not None and options.password is not None:
             print(' 1 OK')
-            print(options.username)
-            print(options.password)
         else:
             if options.username is None or options.pasword is None:
                 print('Err: username or password must be provided together')
@@ -49,8 +48,6 @@ class FTPClient(object):
 
     def interactive(self):
         pass
-
-
 
 
 if __name__ == '__main__':
