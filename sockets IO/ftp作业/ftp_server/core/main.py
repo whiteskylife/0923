@@ -2,6 +2,10 @@
 # -*- coding utf-8 -*-
 
 import optparse
+import socketserver
+
+from conf import settings
+from core import FtpServer
 
 
 class ArgvHandler(object):
@@ -27,3 +31,5 @@ class ArgvHandler(object):
 
     def start(self):
         print('start server...'.center(50, '-'))
+        server = socketserver.ThreadingTCPServer((settings.HOST, settings.PORT), FtpServer)
+        server.serve_forever()
