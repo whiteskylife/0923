@@ -4,6 +4,7 @@
 import os
 import json
 import optparse
+import socket
 
 
 class FTPClient(object):
@@ -15,6 +16,14 @@ class FTPClient(object):
         parser.add_option('-p', '--password', dest='password', help='password')
         self.options, self.args = parser.parse_args()
         self.verify_args(self.options, self.args)
+
+    def make_connection(self):
+        """
+        客户端连接服务器端
+        :return:
+        """
+        self.sock = socket.socket()
+        self.sock.connect((self.options.server, self.options.port))
 
     def verify_args(self, options, args):
         """
@@ -42,11 +51,35 @@ class FTPClient(object):
         用户身份验证
         :return:
         """
-        if self.options.username and self.options.password:
-            pass
+        if self.options.username:
+            print(self.options.username, self.options.password)
+            self.get_auth_result(self.options.username, self.options.password)
+        else:
+            retry_count = 0
+            while retry_count < 3:
+                username = input('username: ').strip()
+                password = input('password: ').strip()
+                self.get_auth_result(username, password)
+
+    def get_auth_result(self, user, password):
+        data = {'action': 'auth',
+                'username': user,
+                'password': password,
+                }
+        self.sock.send(json.dumps(data).encode())
+        self.get_response()
+    def get_response(self):
+        """
+        得到服务器端回复结果
+        :return:
+        """
+        data = self.sock.recv(1024)
+        data = json.loads(data)
+        print('response: ', data)
 
     def interactive(self):
-        pass
+        if self.authenticate():
+            print('')
 
 
 if __name__ == '__main__':
