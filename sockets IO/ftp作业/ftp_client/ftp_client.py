@@ -37,14 +37,13 @@ class FTPClient(object):
             else:
                 exit('Err: host port must in 0-65535')
 
-
     def authenticate(self):
         """
         用户身份验证
         :return:
         """
-
-
+        if self.options.username and self.options.password:
+            pass
 
     def interactive(self):
         pass
