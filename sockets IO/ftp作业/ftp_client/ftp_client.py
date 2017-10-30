@@ -13,8 +13,8 @@ class FTPClient(object):
         parser.add_option('-P', '--port', type='int', dest='port', help='ftp server port')
         parser.add_option('-u', '--username', dest='username', help='username')
         parser.add_option('-p', '--password', dest='password', help='password')
-        options, args = parser.parse_args()
-        self.verify_args(options, args)
+        self.options, self.args = parser.parse_args()
+        self.verify_args(self.options, self.args)
 
     def verify_args(self, options, args):
         """
@@ -26,13 +26,13 @@ class FTPClient(object):
         if options.server and options.port:
             print(options)
             if options.port >0 and options.port <65535:
-                pass
+                return True
             else:
-                print('Err: host port must in 0-65535')
+                exit('Err: host port must in 0-65535')
 
     def interactive(self):
         pass
 
 if __name__ == '__main__':
     ftp = FTPClient()
-    ftp.interactive()
+    ftp.interactive()  # 交互
