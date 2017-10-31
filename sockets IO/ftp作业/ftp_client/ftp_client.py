@@ -68,9 +68,10 @@ class FTPClient(object):
                 }
         self.sock.send(json.dumps(data).encode())
         self.get_response()
+
     def get_response(self):
         """
-        得到服务器端回复结果
+        得到服务器端回复结果,客户端和服务器端交互很多，单独写一个函数，标准化
         :return:
         """
         data = self.sock.recv(1024)
