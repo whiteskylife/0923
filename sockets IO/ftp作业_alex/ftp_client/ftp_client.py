@@ -80,7 +80,7 @@ class FTPClient(object):
 
     def interactive(self):
         if self.authenticate():
-            print('')
+            print('interactive now-----')
 
 
 if __name__ == '__main__':
