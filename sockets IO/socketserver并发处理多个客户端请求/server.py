@@ -36,6 +36,12 @@ class MyServer(socketserver.BaseRequestHandler):
             conn.sendall(bytes(ret_str + 'OK', encoding='utf-8'))
 
 if __name__ == '__main__':
+    """
+    server对象封装了：
+            self.server_address ==> ('127.0.0.1', 9999)
+            self.RequestHandlerClass ==> MyServer
+            self.socket             ==>  创建服务器端的socket对象
+    """
     server = socketserver.ThreadingTCPServer(('127.0.0.1', 9999), MyServer)
     server.serve_forever()
 
