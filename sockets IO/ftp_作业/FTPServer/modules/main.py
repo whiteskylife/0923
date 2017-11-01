@@ -48,8 +48,6 @@ class ArgvHandler:
         except KeyboardInterrupt:
             pass
 
-
-
     def help_msg(self):
         msg = '''
             start

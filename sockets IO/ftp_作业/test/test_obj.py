@@ -3,19 +3,21 @@
 
 
 class Foo:
-
     def __init__(self):
         self.name = 'whisky'
-        self.age = '26'
-        self.gender = 'male'
 
     def f1(self):
         print('f1 method')
 
-    def f2(self):
-        print('f2 method')
+
+class Son(Foo):
+    def __init__(self):
+        self.gender = 'male'
+
+    def f1(self):
+        print('%s is good guy' % self.name)
+
 
 obj = Foo()
-a = obj.name
-b = obj.age
-print(a, b)
+a = obj.gender
+print(a)
