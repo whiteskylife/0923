@@ -3,21 +3,20 @@
 
 
 class Foo:
-    def __init__(self):
-        self.name = 'whisky'
-
     def f1(self):
         print('f1 method')
+
+    def f2(self):
+        print(self.sock)
 
 
 class Son(Foo):
     def __init__(self):
-        self.gender = 'male'
+        self.sock = 'Son socket'
 
     def f1(self):
         print('%s is good guy' % self.name)
 
 
-obj = Foo()
-a = obj.gender
-print(a)
+obj = Son()
+obj.f1()
