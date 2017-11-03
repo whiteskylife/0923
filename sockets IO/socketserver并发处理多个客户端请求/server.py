@@ -99,7 +99,6 @@ class TCPServer(BaseServer):
         self.socket.close()
 
     def shutdown_request(self, request):
-        """Called to shutdown and close an individual request."""
         try:
             #explicitly shutdown.  socket.close() merely releases
             #the socket and waits for GC to perform the actual close.
@@ -109,7 +108,6 @@ class TCPServer(BaseServer):
         self.close_request(request)
 
     def close_request(self, request):
-        """Called to clean up an individual request."""
         request.close()
 
 
@@ -162,20 +160,15 @@ class BaseServer:
                 self.shutdown_request(request)
 
     def process_request(self, request, client_address):
-        """Call finish_request.
 
-        Overridden by ForkingMixIn and ThreadingMixIn.
 
-        """
         self.finish_request(request, client_address)
         self.shutdown_request(request)
 
     def finish_request(self, request, client_address):
-        """Finish one request by instantiating RequestHandlerClass."""
         self.RequestHandlerClass(request, client_address, self)
 
     def shutdown_request(self, request):
-        """Called to shutdown and close an individual request."""
         self.close_request(request)
 
 
