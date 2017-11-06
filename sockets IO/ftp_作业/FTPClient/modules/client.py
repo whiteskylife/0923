@@ -84,6 +84,16 @@ class Clinet:
     def interactive(self):
         pass
 
+    def get_response_code(self, response):
+        """
+        处理服务器端返回的状态码信息
+        :param response:
+        :return:
+        """
+        response_code = response.split('|')
+        code = response_code[1]
+        return code
+
     def auth(self):
         retry_count = 0
         while retry_count < 3:
@@ -98,3 +108,19 @@ class Clinet:
             auth_str = 'user_auth|%s' % (json.dumps({'username': username, 'password': md5.hexdigest()}))
             self.sock.send(auth_str.encode())
             server_response = self.sock.recv(1024).decode()
+            response_code = self.get_response_code(server_response)
+            if response_code == '200':
+                self.login_user = username
+                self.cwd = ['']
+                try:
+                    os.makedirs('%s/%s' % (self.USER_HOME, self.login_user))
+                except OSError:   # 已经创建文件夹，pass
+                    print('user dir is existed')
+                    pass
+                return True
+            else:
+                # 验证失败
+                retry_count += 1
+        else:
+            sys.exit('too many attemps')
+
