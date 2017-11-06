@@ -53,6 +53,7 @@ if __name__ == '__main__':
 # 类的参数，初始化 __init__ 只能通过传值？ 其他方式?
 
 """
+# socketserver中用到的大多数类和方法：
 class ThreadingMixIn:
     def process_request_thread(self, request, client_address):
         try:
@@ -67,9 +68,6 @@ class ThreadingMixIn:
                              args = (request, client_address))
         t.daemon = self.daemon_threads
         t.start()
-
-
-
 
 
 class TCPServer(BaseServer):
