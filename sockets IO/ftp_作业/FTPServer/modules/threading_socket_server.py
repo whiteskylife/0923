@@ -29,10 +29,27 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         :return:
         """
         while True:
+            """
+                # request：套接字对象，接收和发送数据。
+                request, client_address = self.get_request()
+                get_request方法:
+                    self.socket.accept()
+            """
             data = self.request.recv(1024).decode()
             print('received data:', data)
             if not data:
                 print('user disconnected')
                 break
+            self.instruction_distributor(data)
 
+    def instruction_distributor(self, instructions):
+        print('in1', instructions)
+        instructions = instructions.split('|')
+        print('in2', instructions)
 
+        function_str = instructions[0]
+        if hasattr(self, function_str):
+            func = getattr(self, function_str)
+            func(instructions[1])
+        else:
+            print('Invalid instruction')

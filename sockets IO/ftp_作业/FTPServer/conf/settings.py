@@ -3,6 +3,18 @@
 
 import os
 import sys
+import hashlib
 
-BIND_HOST = '127.0.0.1'
-BIND_PORT = '9999'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+USER_HOME = '%s\\var\\users' % BASE_DIR
+
+USER_ACCOUNT = {
+    'alex':{
+        'password': 'e10adc3949ba59abbe56e057f20f883e'
+    },
+    'whisky':{
+      'password': '202cb962ac59075b964b07152d234b70'
+    },
+
+}
+

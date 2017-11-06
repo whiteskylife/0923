@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding utf-8 -*-
 
+# ftp服务器端启动文件
 import os
 import sys
 

@@ -26,7 +26,7 @@ class MyServer(socketserver.BaseRequestHandler):
         # self 封装了属性如下，可以生成多个服务端响应请求
         # self.request(客户端请求), self.client_address（客户端地址）,self.servers（服务器对象）
         conn = self.request
-        print(self.server, '----------------------')
+        print(self.server, '----------------------')   # ThreadingTCPServer 对象在内存的位置
         print(self.request, '----------------------')
         print(self.client_address, '----------------------')
         conn.sendall(bytes('welcome login whiskys python world', encoding='utf-8'))
