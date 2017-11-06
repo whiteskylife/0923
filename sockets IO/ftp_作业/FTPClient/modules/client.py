@@ -34,7 +34,7 @@ class Clinet:
     def handle(self):
         self.connect(self.ftp_host, self.ftp_port)
         if self.auth():
-            self.interactive()
+            self.interactive()      # 用户验证通过，开始交互
 
     def argv_parse(self):
         """
@@ -82,7 +82,14 @@ class Clinet:
         print(msg)
 
     def interactive(self):
-        pass
+        """
+        交互函数，上传、下载等一系列操作
+        :return:
+        """
+        self.logout_flag = False
+        while self.logout_flag is not True:
+            user_input = input('[%s]:%s' % (self.login_user, self.current_dir(self.cwd))).strip()
+
 
     def get_response_code(self, response):
         """
@@ -93,6 +100,10 @@ class Clinet:
         response_code = response.split('|')
         code = response_code[1]
         return code
+
+    def current_dir(self, cwd):
+        return '/'.join(cwd) + '/'
+
 
     def auth(self):
         retry_count = 0
@@ -117,6 +128,7 @@ class Clinet:
                 except OSError:   # 已经创建文件夹，pass
                     print('user dir is existed')
                     pass
+
                 return True
             else:
                 # 验证失败
