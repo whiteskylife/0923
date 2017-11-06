@@ -61,15 +61,21 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
     def user_auth(self, data):
         """
-        用户认证
+        用户认证，检测用户名、密码，匹配成功：登录，返回状态码
         :param data: 用户、密码等信息（instructions[1]）
         :return:
         """
         auth_info = json.loads(data)        # 格式为字典
         if auth_info['username'] in settings.USER_ACCOUNT:   # 检测客户端发来的用户名是否在配置文件中
-            if settings.USER_ACCOUNT[auth_info['uaername']]['password '] == auth_info['password']:
-                #本地文件存储的密码和客户端发来的密码比对
-                self.login_user =
+            if settings.USER_ACCOUNT[auth_info['uaername']]['password '] == auth_info['password']:  # 检测密码是否匹配
+                self.login_user = user.User(auth_info['username'], settings.USER_ACCOUNT[auth_info['username']])
+                # 实例化用户名，和用户名对应的密码，limit_storage
+                response_code = '200'
+            else:
+                response_code = '201'
+        else:
+            response_code = '201'
 
-    def login_user(self):
-        pass
+        self.request.send('response|{0}'.format(response_code).encode())
+
+

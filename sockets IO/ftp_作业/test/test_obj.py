@@ -2,5 +2,5 @@
 # -*- coding utf-8 -*-
 
 
-a = 'whisky'
-print(len(a))
+tpl = "i am {1}, age {1}, really {0}".format("seven", 18)
+print(tpl)
