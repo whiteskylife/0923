@@ -26,6 +26,9 @@ class MyServer(socketserver.BaseRequestHandler):
         # self 封装了属性如下，可以生成多个服务端响应请求
         # self.request(客户端请求), self.client_address（客户端地址）,self.servers（服务器对象）
         conn = self.request
+        print(self.server, '----------------------')
+        print(self.request, '----------------------')
+        print(self.client_address, '----------------------')
         conn.sendall(bytes('welcome login whiskys python world', encoding='utf-8'))
         while True:
             ret_bytes = conn.recv(1024)
@@ -45,7 +48,6 @@ if __name__ == '__main__':
     """
 
     server = socketserver.ThreadingTCPServer(('127.0.0.1', 9999), MyServer)
-    server.
     server.serve_forever()
 
 # 类的参数，初始化 __init__ 只能通过传值？ 其他方式?
