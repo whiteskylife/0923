@@ -64,7 +64,6 @@ class Clinet:
         except socket.error as e:
             sys.exit('Failed to connect server: %s' % e)
 
-
     def help_msg(self):
         msg = """
         wrong input...
@@ -88,7 +87,9 @@ class Clinet:
         """
         self.logout_flag = False
         while self.logout_flag is not True:
-            user_input = input('[%s]:%s' % (self.login_user, self.current_dir(self.cwd))).strip()
+            user_input = input('[%s]:%s' % (self.login_user, self.current_dir(self.cwd))).strip() # ?
+            if len(user_input) == 0:
+                continue
 
 
     def get_response_code(self, response):
@@ -103,7 +104,6 @@ class Clinet:
 
     def current_dir(self, cwd):
         return '/'.join(cwd) + '/'
-
 
     def auth(self):
         retry_count = 0
@@ -136,3 +136,11 @@ class Clinet:
         else:
             sys.exit('too many attemps')
 
+    def parse_instruction(self, user_input):
+        """
+         输入的命令分析处理
+        :param user_input:
+        :return:
+        """
+        user_input_to_list = user_input.split()
+        func_str = user_input_to_list[0]
