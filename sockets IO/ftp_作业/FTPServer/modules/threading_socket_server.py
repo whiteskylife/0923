@@ -8,6 +8,7 @@ from conf import settings
 from modules import user
 import hashlib
 import subprocess
+import platform
 
 
 class MyTCPHandler(socketserver.BaseRequestHandler):
@@ -44,7 +45,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
     def instruction_distributor(self, instructions):
         """
-        指令分发函数
+        指令分发
         :param instructions: 客户端发送的指令信息
         :return:
         """
@@ -52,10 +53,10 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         instructions = instructions.split('|')
         print('in2', instructions)
 
-        function_str = instructions[0]      # 第一个参数user_auth，第二个参数：用户名、密码
+        function_str = instructions[0]      # 第一次接收数据，用户验证时：第一个参数user_auth，第二个参数：用户名、密码
         if hasattr(self, function_str):     # 有没有用户验证方法
             func = getattr(self, function_str)
-            func(instructions[1])           # 此处仍是json格式
+            func(instructions[1])            # 此处仍是json格式
         else:
             print('Invalid instruction')
 
@@ -78,4 +79,19 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
         self.request.send('response|{0}'.format(response_code).encode())
 
-
+    def ls(self, user_data):
+        """
+        ls 命令处理,区分平台处理
+        :param user_data:
+        :return:
+        """
+        directory_path = '%s\%s%s' % (settings.USER_HOME, self.login_user.username, '\\'.join(self.login_user) + '\\')
+        print('cwd>>>>', directory_path)
+        print('>>>', self.login_user.cwd)
+        if platform.system() == 'Windows':
+            cmd = 'dir %s' % directory_path
+        else:
+            cmd = 'ls %s' % directory_path
+        print(cmd)
+        cmd_call = subprocess.getoutput(cmd)
+        cmd_result = bytes(cmd_call, encoding='gbk')

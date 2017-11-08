@@ -65,6 +65,10 @@ class Clinet:
             sys.exit('Failed to connect server: %s' % e)
 
     def help_msg(self):
+        """
+        帮助信息
+        :return:
+        """
         msg = """
         wrong input...
         format： python ftp.py -s ftp_server_ip -p ftp_server_port
@@ -72,6 +76,10 @@ class Clinet:
         print(msg)
 
     def instruction_msg(self):
+        """
+        指令帮助信息
+        :return:
+        """
         msg = """
             get remote ftp_file
             put local remote
@@ -87,10 +95,20 @@ class Clinet:
         """
         self.logout_flag = False
         while self.logout_flag is not True:
-            user_input = input('[%s]:%s' % (self.login_user, self.current_dir(self.cwd))).strip() # ?
+            user_input = input('[%s]:%s' % (self.login_user, self.current_dir(self.cwd))).strip()  # ?
             if len(user_input) == 0:
                 continue
+            status, user_input_instructions = self.parse_instruction(user_input)
+            if status is True:
+                func = getattr(self, 'instruction_' + user_input_instructions[0])
+                func(user_input_instructions)
+            else:
+                print('Invalid instruction. ')
 
+    def instruction_ls(self, instructions):
+        self.sock.send(('ls|%s' % json.dumps({})).encode())
+        server_response = self.sock.recv(1024)
+        print(str(server_response, 'gbk'))
 
     def get_response_code(self, response):
         """
@@ -138,9 +156,14 @@ class Clinet:
 
     def parse_instruction(self, user_input):
         """
-         输入的命令分析处理
+         ftp客户端用户输入的指令分析处理
         :param user_input:
         :return:
         """
         user_input_to_list = user_input.split()
         func_str = user_input_to_list[0]
+        if hasattr(self, 'instruction_' + func_str):
+            return True, user_input_to_list      # 如果类中包含输入的方法，返回True标志位，和输入的指令
+        else:
+            return False, user_input_to_list
+
