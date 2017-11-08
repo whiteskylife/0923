@@ -85,7 +85,8 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         :param user_data:
         :return:
         """
-        directory_path = '%s\%s%s' % (settings.USER_HOME, self.login_user.username, '\\'.join(self.login_user) + '\\')
+        directory_path = '%s\%s%s' % (settings.USER_HOME, self.login_user.username, '\\'.join(self.login_user.cwd) + '\\')
+        # 确定当前目录，当客户端执行cd命令后，服务器端cd方法会在directory_path中的self.login_user.cwd添加对应路径
         print('cwd>>>>', directory_path)
         print('>>>', self.login_user.cwd)
         if platform.system() == 'Windows':
@@ -95,3 +96,5 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         print(cmd)
         cmd_call = subprocess.getoutput(cmd)
         cmd_result = bytes(cmd_call, encoding='gbk')
+        self.request.sendall(cmd_result)
+
