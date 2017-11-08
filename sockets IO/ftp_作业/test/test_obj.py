@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding utf-8 -*-
 
+import subprocess
 
-tpl = "i am {1}, age {1}, really {0}".format("seven", 18)
-print(tpl)
+command = input('input cmd: ')
+cmd_call = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
+cmd_result = cmd_call.stdout.read()
+print(str(cmd_result))

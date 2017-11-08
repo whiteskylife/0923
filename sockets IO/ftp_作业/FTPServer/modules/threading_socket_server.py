@@ -3,7 +3,7 @@
 
 import socketserver
 import json
-
+import os
 from conf import settings
 from modules import user
 import hashlib
@@ -97,4 +97,22 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         cmd_call = subprocess.getoutput(cmd)
         cmd_result = bytes(cmd_call, encoding='gbk')
         self.request.sendall(cmd_result)
+
+    def dir(self, user_data):
+        directory_path = '%s\\%s%s' % (settings.USER_HOME, self.login_user.username, '\\'.join(self.login_user.cwd) + '\\')
+        cmd = 'dir'
+        cmd_call = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+        cmd_result = cmd_call.stdout.read()
+        self.request.sendall(cmd_result)
+
+    def cd(self, user_data):
+        json_data = json.loads(user_data)
+        new_dir = json_data['cwd']
+        abs_dir = '%s\\%s%s' % (settings.USER_HOME, self.login_user.username, '\\'.join(new_dir))
+
+        if os.path.isdir(abs_dir):
+            self.request.sendall(json.dumps({'response': '601', 'cwd': new_dir}).encode())
+            self.login_user.cwd = new_dir
+        else:
+            self.request.sendall(json.dumps({'response': '602'}).encode())
 

@@ -95,20 +95,50 @@ class Clinet:
         """
         self.logout_flag = False
         while self.logout_flag is not True:
-            user_input = input('[%s]:%s' % (self.login_user, self.current_dir(self.cwd))).strip()  # ?
+            user_input = input('[%s]:%s' % (self.login_user, self.current_dir(self.cwd))).strip()  # 输入的命令信息，可能包括路径
             if len(user_input) == 0:
                 continue
             status, user_input_instructions = self.parse_instruction(user_input)
             if status is True:
-                func = getattr(self, 'instruction_' + user_input_instructions[0])
+                func = getattr(self, 'instruction_' + user_input_instructions[0])  # user_input_instructions[0]是命令
                 func(user_input_instructions)
             else:
                 print('Invalid instruction. ')
 
     def instruction_ls(self, instructions):
-        self.sock.send(('ls|%s' % json.dumps({})).encode())
+        self.sock.sendall(('ls|%s' % json.dumps({})).encode())      # ? dunps 空？
         server_response = self.sock.recv(1024)
         print(str(server_response, 'gbk'))
+
+    def instruction_dir(self, instructions):
+        self.sock.sendall(('dir|%s' % json.dumps({})).encode())
+        server_response = self.sock.recv(1024)
+        print(str(server_response, 'gbk'))
+
+    def instructions_cd(self, instructions):
+        """
+        :param instructions: 是命令列表
+        :return:
+        """
+        if len(instructions) == 1:
+            print('illegal instructions ')
+        elif len(instructions) == 2:
+            path = instructions[1]
+            if path.startswith('/'):
+                try_path = path.split('/')
+            else:
+                try_path = self.cwd
+                print('try_path', try_path)
+                split_path = path.split('/')
+                try_path.extend(split_path)
+                print('try_path1', try_path)
+            self.sock.sendall(('cd|%s' % json.dumps({'cwd': try_path})).encode())
+            server_response = json.loads(self.sock.recv(1024).decode())
+            if server_response['response'] == '601':
+                print('self.cwd', server_response['cwd'])
+                self.cwd = server_response['cwd']
+            elif server_response['response'] == '602':
+                print('directory does not exists ')
 
     def get_response_code(self, response):
         """
@@ -156,7 +186,7 @@ class Clinet:
 
     def parse_instruction(self, user_input):
         """
-         ftp客户端用户输入的指令分析处理
+         ftp客户端用户输入的指令分析处理, 判断输入的方法是否存在程序中
         :param user_input:
         :return:
         """
