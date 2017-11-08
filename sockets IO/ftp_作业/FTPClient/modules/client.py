@@ -127,9 +127,9 @@ class Clinet:
             if path.startswith('/'):
                 try_path = path.split('/')
             else:
-                try_path = self.cwd
+                try_path = self.cwd         # 第一次取值时为空
                 print('try_path', try_path)
-                split_path = path.split('/')
+                split_path = path.split('/')        # 实现cd多级目录功能，分割path/to/somewhere这种路径
                 try_path.extend(split_path)
                 print('try_path1', try_path)
             self.sock.sendall(('cd|%s' % json.dumps({'cwd': try_path})).encode())
