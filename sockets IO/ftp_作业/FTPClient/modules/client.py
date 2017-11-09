@@ -136,7 +136,7 @@ class Clinet:
             server_response = json.loads(self.sock.recv(1024).decode())
             if server_response['response'] == '601':
                 print('self.cwd', server_response['cwd'])
-                self.cwd = server_response['cwd']
+                self.cwd = server_response['cwd']           # cd命令，服务器端目录改变之后也要在客户端更改
             elif server_response['response'] == '602':
                 print('directory does not exists ')
 
@@ -151,7 +151,7 @@ class Clinet:
         return code
 
     def current_dir(self, cwd):
-        return '/'.join(cwd) + '/'
+        return '/'.join(cwd) + '/'  # cwd为空时，join拼接不起来，只剩后面的'/'
 
     def auth(self):
         retry_count = 0
@@ -176,7 +176,6 @@ class Clinet:
                 except OSError:   # 已经创建文件夹，pass
                     print('user dir is existed')
                     pass
-
                 return True
             else:
                 # 验证失败
