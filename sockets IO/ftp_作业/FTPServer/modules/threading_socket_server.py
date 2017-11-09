@@ -106,6 +106,11 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         self.request.sendall(cmd_result)
 
     def cd(self, user_data):
+        """
+        拼接绝对路径，判断绝对路径文件夹是否存在
+        :param user_data:
+        :return:
+        """
         json_data = json.loads(user_data)
         new_dir = json_data['cwd']
         abs_dir = '%s\\%s%s' % (settings.USER_HOME, self.login_user.username, '\\'.join(new_dir))

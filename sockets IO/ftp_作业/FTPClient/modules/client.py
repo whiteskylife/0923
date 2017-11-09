@@ -136,6 +136,9 @@ class Clinet:
             server_response = json.loads(self.sock.recv(1024).decode())
             if server_response['response'] == '601':
                 print('self.cwd', server_response['cwd'])
+                if server_response['cwd'][-1] == '..':
+                    server_response['cwd'].pop(-1)
+                    server_response['cwd'].pop(-1)
                 self.cwd = server_response['cwd']           # cd命令，服务器端目录改变之后也要在客户端更改
             elif server_response['response'] == '602':
                 print('directory does not exists ')
