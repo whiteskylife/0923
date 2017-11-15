@@ -40,7 +40,11 @@ q.qsize()   # 返回队列的大小 （不可靠）
 q.empty()   # 当队列为空的时候，返回True 否则返回False （不可靠）
 q.full()    # 当队列满的时候，返回True，否则返回False （不可靠）
 
-"""
+
+
+# multiprocessing模块, python多进程实现，用发放类似多线程模块
+# multiprocessing是python的多进程管理包，和threading.Thread类似。直接从侧面用subprocesses替换线程使用GIL的方式，由于这一点，multiprocessing模块可以让程序员在给定的机器上充分的利用CPU。
+# 在multiprocessing中，通过创建Process对象生成进程，然后调用它的start()方法，注意：由于进程之间的数据需要各自持有一份，所以创建进程需要的非常大的开销。
 
 from multiprocessing import Process
 
@@ -53,3 +57,35 @@ if __name__ == '__main__':              # 使用进程模块最好加上这句�
     p = Process(target=f, args=('bob',))
     p.start()
     p.join()
+"""
+
+
+
+
+# 进程池
+# 用Pool类创建一个进程池， 展开提交的任务给进程池
+
+from multiprocessing import Pool
+import time
+
+
+def myFun(i):
+    time.sleep(2)
+    return i+100
+
+
+def end_call(arg):
+    print("end_call", arg)
+
+
+# print(p.map(myFun,range(10)))
+if __name__ == '__main__':
+    p = Pool(5)             # 创建5个进程
+    for i in range(10):
+        p.apply_async(func=myFun, args=(i,), callback=end_call)  # callback是回调函数，func中的任务执行完后，会调用callback
+
+    print("end")
+    p.close()
+    p.join()
+
+
