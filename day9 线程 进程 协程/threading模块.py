@@ -133,15 +133,16 @@ if __name__ == '__main__':
     t1.start()
 """
 
+# 进程之间的数据不是共享的,示例代码：
 import multiprocessing
 li = []
+
 
 def foo(i):
     li.append(i)
     print('say hi', li)
 
-for i in range(10):
-    p = multiprocessing.Process(target=foo, args=(i,))
-    p.start()
-
-
+if __name__ == '__main__':
+    for i in range(10):
+        p = multiprocessing.Process(target=foo, args=(i,))
+        p.start()
