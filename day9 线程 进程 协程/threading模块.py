@@ -60,7 +60,7 @@ if __name__ == '__main__':              # 使用进程模块最好加上这句�
 """
 
 
-
+"""
 
 # 进程池
 # 用Pool类创建一个进程池， 展开提交的任务给进程池
@@ -79,13 +79,69 @@ def end_call(arg):
 
 
 # print(p.map(myFun,range(10)))
-if __name__ == '__main__':
-    p = Pool(5)             # 创建5个进程
+if __name__ == '__main__':      # 如果不写此句，windows下不支持进程的创建,临时模拟用，如果需要运行多进程，应在linux下运行
+    p = Pool(5)                 # 创建5个进程
     for i in range(10):
         p.apply_async(func=myFun, args=(i,), callback=end_call)  # callback是回调函数，func中的任务执行完后，会调用callback
 
     print("end")
     p.close()
     p.join()
+
+"""
+
+
+"""
+进程的daemon方法：
+# 代码从上到下解释，由主线程负责，主线程保存在主进程中；主线程又创建了两个子进程，两个子进程中的线程执行的print（a1）
+import multiprocessing
+import time
+
+
+def f1(a1):
+    time.sleep(2)
+    print(a1)
+
+if __name__ == '__main__':
+    for i in range(10):
+        t = multiprocessing.Process(target=f1, args=(i,))
+        # t.daemon = True             # 类似于线程中的setDaemon方法： 主进程执行完毕后是否等待子进程执行
+        t.start()
+        t1 = multiprocessing.Process(target=f1, args=(i,))
+        # t1.daemon = True
+        t1.start()
+        print('end')                  # 结果中先输出end，可知主线程一次执行完代码
+
+
+
+# 进程的join方法
+import multiprocessing
+import time
+
+
+def f1(a1):
+    time.sleep(2)
+    print(a1)
+
+if __name__ == '__main__':
+    t = multiprocessing.Process(target=f1, args=(1,))
+    t.start()
+    print('111')
+    t.join()             # 进程的阻塞，先输出111，等t进程执行结束，继续向下执行，join（2）最多等两秒
+    print('222')
+    t1 = multiprocessing.Process(target=f1, args=(2,))
+    t1.start()
+"""
+
+import multiprocessing
+li = []
+
+def foo(i):
+    li.append(i)
+    print('say hi', li)
+
+for i in range(10):
+    p = multiprocessing.Process(target=foo, args=(i,))
+    p.start()
 
 
