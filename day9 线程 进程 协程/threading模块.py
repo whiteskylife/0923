@@ -58,39 +58,6 @@ if __name__ == '__main__':              # 使用进程模块最好加上这句�
     p.start()
     p.join()
 """
-
-
-"""
-
-# 进程池
-# 用Pool类创建一个进程池， 展开提交的任务给进程池
-
-from multiprocessing import Pool
-import time
-
-
-def myFun(i):
-    time.sleep(2)
-    return i+100
-
-
-def end_call(arg):
-    print("end_call", arg)
-
-
-# print(p.map(myFun,range(10)))
-if __name__ == '__main__':      # 如果不写此句，windows下不支持进程的创建,临时模拟用，如果需要运行多进程，应在linux下运行
-    p = Pool(5)                 # 创建5个进程
-    for i in range(10):
-        p.apply_async(func=myFun, args=(i,), callback=end_call)  # callback是回调函数，func中的任务执行完后，会调用callback
-
-    print("end")
-    p.close()
-    p.join()
-
-"""
-
-
 """
 进程的daemon方法：
 # 代码从上到下解释，由主线程负责，主线程保存在主进程中；主线程又创建了两个子进程，两个子进程中的线程执行的print（a1）
@@ -131,18 +98,94 @@ if __name__ == '__main__':
     print('222')
     t1 = multiprocessing.Process(target=f1, args=(2,))
     t1.start()
-"""
 
-# 进程之间的数据不是共享的,示例代码：
-import multiprocessing
-li = []
+# 方法一，Array
+from multiprocessing import Process, Array
 
 
-def foo(i):
-    li.append(i)
-    print('say hi', li)
+def Foo(i, temp):
+    temp[i] = 100 + i
+    for item in temp:
+        print(i, '----->', item)
 
 if __name__ == '__main__':
-    for i in range(10):
-        p = multiprocessing.Process(target=foo, args=(i,))
+    temp = Array('i', [11, 22, 33, 44])
+    for i in range(2):
+        p = Process(target=Foo, args=(i, temp, ))
         p.start()
+
+#方法二：manage.dict()共享数据，字典中没有元素个数限制，也没有类型限制
+
+from multiprocessing import Process, Manager
+import time
+
+def Foo(i, dic):
+    dic[i] = 100 + i
+    #print(dic.values())
+    print(len(dic))
+
+if __name__ == '__main__':
+    manage = Manager()
+    dic = manage.dict()       # 特殊方法创建的字典，进程之间可以共享数据
+    # dic = {}               # 普通字典，进程之间无法共享数据
+    for i in range(2):
+        p = Process(target=Foo, args=(i, dic, ))
+        p.start()
+        #p.join()
+    time.sleep(5)
+"""
+
+
+
+
+# 进程池
+# 用Pool类创建一个进程池， 展开提交的任务给进程池
+"""
+from multiprocessing import Pool
+import time
+
+
+def myFun(i):
+    time.sleep(2)
+    return i+100
+
+
+def end_call(arg):
+    print("end_call", arg)
+
+
+# print(p.map(myFun,range(10)))
+if __name__ == '__main__':      # 如果不写此句，windows下不支持进程的创建,临时模拟用，如果需要运行多进程，应在linux下运行
+    p = Pool(5)                 # 创建5个进程
+    for i in range(10):
+        p.apply_async(func=myFun, args=(i,), callback=end_call)  # callback是回调函数，func中的任务执行完后，会调用callback
+
+    print("end")
+    p.close()
+    p.join()
+
+
+"""
+
+from multiprocessing import Pool
+import time
+
+
+def Foo(i):
+    time.sleep(2)
+    return i + 100
+
+
+def Bar(arg):
+    print(arg)
+
+pool = Pool(5)  # 最多创建5个进程
+# print pool.apply(Foo,(1,))                            # 生成一个进程去执行Foo
+# print pool.apply_async(func = Foo, args=(1,)).get()    # 执行完后Foo后执行另外一个函数表示执行完了
+
+for i in range(10):
+    pool.apply_async(func=Foo, args=(i,), callback=Bar)  # 回调函数callback：执行完Foo函数，自动去调用Bar方法，并且将Foo函数的返回值赋值给bar方法
+
+print('end')
+pool.close()
+pool.join()  # 进程池中进程执行完毕后再关闭，如果注释，那么程序直接关闭。
