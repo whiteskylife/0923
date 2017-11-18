@@ -135,9 +135,6 @@ if __name__ == '__main__':
     time.sleep(5)
 """
 
-
-
-
 # 进程池
 # 用Pool类创建一个进程池， 展开提交的任务给进程池
 """
@@ -165,7 +162,6 @@ if __name__ == '__main__':      # 如果不写此句，windows下不支持进程
     p.join()
 
 
-"""
 
 from multiprocessing import Pool
 import time
@@ -188,4 +184,38 @@ for i in range(10):
 
 print('end')
 pool.close()
-pool.join()  # 进程池中进程执行完毕后再关闭，如果注释，那么程序直接关闭。
+pool.join()  # 进程池的join方法，进程池中进程执行完毕后再关闭，如果注释，那么程序直接关闭。
+
+from multiprocessing import Pool
+import time
+
+
+def f1(a):
+    time.sleep(1)
+    print(a)
+    return 1000
+
+
+def f2(arg):
+    print(arg)
+
+
+if __name__ == '__main__':
+    pool = Pool(5)
+    for i in range(5):
+        #pool.apply(func=f1, args=(i,))       # apply申请进程池中的进程的时候是一个一个去申请并执行，执行后才申请下一个, 相当于加了一个join方法
+        pool.apply_async(func=f1, args=(i,), callback=f2)   # 异步申请进程，主进程没有等待子进程执行完再退出
+        print('111111111111111111')
+    pool.close()  # for循环中的任务执行完后，关闭进程池，终止主进程
+    # pool.terminate()  # 立即终止所有for循环中的任务。
+    pool.join()         # 进程池的join方法（等所有的子进程执行完，主进程终止），必须先执行close方法。（查看源码可知，如果没有执行进程池的close或terminate方法，会报错）
+
+# pool.apply        每个进程之间是串行执行的，每一个任务排队进行;每个进程都有一个join方法
+# pool.apply_async  进程之间并发执行，没有join方法，且进程的daemon=rue；另外可以设置回调函数：callback，回调函数的参数是f1函数中的返回值
+# pool.join()       进程池的join方法（等所有的子进程执行完，主进程终止），必须先执行close方法。（查看源码可知，如果没有执行进程池的close或terminate方法，会报错）
+# pool.close()      for循环中的任务执行完后，关闭进程池，终止主进程
+# pool.terminate()  立即终止所有for循环中的任务。
+
+"""
+
+
