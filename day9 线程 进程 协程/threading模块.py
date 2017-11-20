@@ -220,3 +220,35 @@ if __name__ == '__main__':
 
 
 # 自定义线程池：
+import queue
+import threading
+import time
+
+
+class ThreadPool:
+
+    def __init__(self, max_num):
+        self.queue = queue.Queue(max_num)
+        for i in range(max_num):
+            self.queue.put(threading.Thread)
+
+    def get_thread(self):
+        return self.queue.get()
+
+    def add_thread(self):
+        return self.queue.put(threading.Thread)
+
+
+def func(arg, p):
+    print(arg)
+    time.sleep(2)
+    p.add_thread()
+
+
+pool = ThreadPool(5)
+
+
+for i in range(30):
+    thread = pool.get_thread()
+    t = thread(target=func, args=(i, pool))
+    t.start()
