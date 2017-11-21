@@ -220,35 +220,59 @@ if __name__ == '__main__':
 
 
 # 自定义线程池：
+# 1. 队列中放任务，线程去队列中取任务
+
 import queue
 import threading
+import contextlib
 import time
 
 
-class ThreadPool:
+class ThreadPool(object):
 
     def __init__(self, max_num):
-        self.queue = queue.Queue(max_num)
-        for i in range(max_num):
-            self.queue.put(threading.Thread)
+        """
+        :param max_num:  最多创建的线程数（线程池最大容量）
+        """
+        self.q = queue.Queue()          # 队列长度无限制
+        self.max_num = max_num          # 最多创建的线程数（线程池最大容量）
 
-    def get_thread(self):
-        return self.queue.get()
+        self.generate_list = []        # 真实创建的线程数，放入列表（并发量很大，任务很耗时，线程数才会开满）
+        self.free_list = []             # 空闲线程数量，空闲线程（已经创建好的）大于0，则不用创建新的线程
 
-    def add_thread(self):
-        return self.queue.put(threading.Thread)
+    def run(self, func, args, callback=None):
+        """
+        线程池执行一个任务
+        :param func: 任务函数
+        :param args: 任务函数所需参数
+        :param callback: 任务执行成功或失败后执行的回调函数
+        :return: 如果线程池已经终止，则返回True否则None
+        """
+        w = (func, args, callback, )    # 封装任务信息到元组中
+        self.q.put(w)                   # 把任务放入队列中
+
+        if len(self.free_list) == 0 and len(self.generate_list) < self.max_num:
+            self.generate_thread()
+
+    def generate_thread(self):
+        """
+        创建线程
+        :return:
+        """
+        t = threading.Thread(target=)
+        t.start()
 
 
-def func(arg, p):
-    print(arg)
-    time.sleep(2)
-    p.add_thread()
+    def call(self):
 
 
-pool = ThreadPool(5)
 
 
-for i in range(30):
-    thread = pool.get_thread()
-    t = thread(target=func, args=(i, pool))
-    t.start()
+
+
+for i in range(300):
+    pool.run(action, (i,), callback)
+
+
+
+
