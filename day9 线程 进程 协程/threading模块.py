@@ -228,6 +228,9 @@ import contextlib
 import time
 
 
+StopEvent = object()   # StopEvent = 10  写成什么都可以
+
+
 class ThreadPool(object):
 
     def __init__(self, max_num):
@@ -259,15 +262,25 @@ class ThreadPool(object):
         创建线程
         :return:
         """
-        t = threading.Thread(target=)
+        t = threading.Thread(target=self.call)
         t.start()
 
-
     def call(self):
+        """
+        循环去获取任务函数并执行任务函数，每创建一个线程都会执行call方法
+        :return:
+        """
+        current_thread = threading.current_thread()  # Return the current Thread object 获取当前线程对象
+        self.generate_list.append(current_thread)
 
+        # 取任务并执行
+        event = self.q.get()
+        while event != StopEvent:
 
-
-
+            event = self.q.get()
+        else:
+            # event不是元组，不是任务
+            self.generate_list.remove(current_thread)
 
 
 for i in range(300):
