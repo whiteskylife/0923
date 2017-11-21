@@ -310,7 +310,7 @@ pool = ThreadPool(5)
 for itme in range(20):
     pool.run(func=work, args=(itme,))
 
-time.sleep(3)
+time.sleep(3)           # 阻塞主线程 查看实验结果
 print(len(pool.generate_list))   # 当任务耗时很小时，只需很少的线程即可完成任务，当任务耗时0.5秒free_list为0，不断创建新的线程
 
 
