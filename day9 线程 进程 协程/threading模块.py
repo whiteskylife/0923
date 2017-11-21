@@ -240,7 +240,7 @@ class ThreadPool(object):
         self.q = queue.Queue()          # 队列长度无限制
         self.max_num = max_num          # 最多创建的线程数（线程池最大容量）
 
-        self.generate_list = []        # 真实创建的线程数，放入列表（并发量很大，任务很耗时，线程数才会开满）
+        self.generate_list = []         # 真实创建的线程数，放入列表（并发量很大，任务很耗时，线程数才会开满）
         self.free_list = []             # 空闲线程数量，空闲线程（已经创建好的）大于0，则不用创建新的线程
 
     def run(self, func, args, callback=None):
@@ -254,7 +254,7 @@ class ThreadPool(object):
         w = (func, args, callback, )    # 封装任务信息到元组中
         self.q.put(w)                   # 把任务放入队列中
 
-        if len(self.free_list) == 0 and len(self.generate_list) < self.max_num:
+        if len(self.free_list) == 0 and len(self.generate_list) < self.max_num:  # 空闲线程为0且不超过最大线程数就会创建线程，有空闲线程不创建新的线程
             self.generate_thread()
 
     def generate_thread(self):
@@ -270,22 +270,48 @@ class ThreadPool(object):
         循环去获取任务函数并执行任务函数，每创建一个线程都会执行call方法
         :return:
         """
-        current_thread = threading.current_thread()  # Return the current Thread object 获取当前线程对象
+        current_thread = threading.currentThread()     # Return the current Thread object 获取当前线程对象
         self.generate_list.append(current_thread)
 
         # 取任务并执行
-        event = self.q.get()
+        event = self.q.get()                            # 取队列中的任务元组
         while event != StopEvent:
 
-            event = self.q.get()
+            func, args, callback = event                 # 开始执行任务
+            try:                                         # 执行任务可能失败
+                result = func(*args)
+                status = True
+            except Exception as e:
+                status = False
+                result = e
+
+            if callback is not None:                    # 回调函数存在
+                try:
+                    callback(status, result)            # 返回值传给回调函数
+                except Exception as e:
+                    pass
+
+            self.free_list.append(current_thread)        # 执行任务后线程空闲
+            event = self.q.get()                         # 去队列中取新的任务
+            self.free_list.remove(current_thread)        # 取到任务，移除当前线程
         else:
-            # event不是元组，不是任务
+            # event不是元组，不是任务, 线程池中任务取光了
             self.generate_list.remove(current_thread)
 
+    def action(self):
+        pass
 
-for i in range(300):
-    pool.run(action, (i,), callback)
 
+def work(i):
+    time.sleep(0.5)
+    print(i)
+
+pool = ThreadPool(5)
+for itme in range(20):
+    pool.run(func=work, args=(itme,))
+
+time.sleep(3)
+print(len(pool.generate_list))   # 当任务耗时很小时，只需很少的线程即可完成任务，当任务耗时0.5秒free_list为0，不断创建新的线程
 
 
 
