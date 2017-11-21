@@ -259,13 +259,16 @@ class ThreadPool(object):
         创建线程
         :return:
         """
-        t = threading.Thread(target=)
+        t = threading.Thread(target=self.call)
         t.start()
 
-
     def call(self):
-
-
+        """
+        循环去获取任务函数，并执行
+        :return:
+        """
+        current_thread = threading.current_thread()  # 获取当前线程
+        self.generate_list.append(current_thread)
 
 
 
