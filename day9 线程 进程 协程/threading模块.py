@@ -242,6 +242,7 @@ class ThreadPool(object):
 
         self.generate_list = []         # 真实创建的线程数，放入列表（并发量很大，任务很耗时，线程数才会开满）
         self.free_list = []             # 空闲线程数量，空闲线程（已经创建好的）大于0，则不用创建新的线程
+        self.terminal = False
 
     def run(self, func, args, callback=None):
         """
@@ -291,9 +292,12 @@ class ThreadPool(object):
                 except Exception as e:
                     pass
 
-            self.free_list.append(current_thread)        # 执行任务后线程空闲
-            event = self.q.get()                         # 去队列中取新的任务
-            self.free_list.remove(current_thread)        # 取到任务，移除当前线程
+            if self.terminal:
+                event = StopEvent
+            else:
+                self.free_list.append(current_thread)        # 执行任务后线程空闲
+                event = self.q.get()                         # 去队列中取新的任务
+                self.free_list.remove(current_thread)        # 取到任务，移除当前线程
         else:
             # event不是元组，不是任务, 线程池中任务取光了，接收到了停止符（StopEvent）
             self.generate_list.remove(current_thread)
@@ -308,6 +312,16 @@ class ThreadPool(object):
             self.q.put(StopEvent)
             num -= 1
 
+    def terminate(self):
+        """
+        立即结束执行任务的线程,清空任务队列
+        :return:
+        """
+        self.terminal = True
+        while self.generate_list:
+            self.q.put(StopEvent)
+        self.q.empty()
+
     def action(self):
         pass
 
@@ -320,7 +334,8 @@ pool = ThreadPool(5)
 for itme in range(20):
     pool.run(func=work, args=(itme,))
 
-pool.close()
+time.sleep(2)
+pool.terminate()
 
 #time.sleep(3)           # 阻塞主线程 查看实验结果
 #print(len(pool.generate_list))   # 当任务耗时很小时，只需很少的线程即可完成任务，当任务耗时0.5秒free_list为0，不断创建新的线程
