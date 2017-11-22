@@ -3,11 +3,13 @@
 
 import socket
 
+# http://www.cnblogs.com/yuanchenqi/articles/5603871.html
+
 
 def handle_request(client):
     client.recv(1024)
     client.sendall(bytes('HTTP/1.1 301 OK\r\n\r\n', 'utf8'))
-    client.sendall(bytes('hello, world', 'utf8'))
+    client.sendall(bytes("<h1 style='color:blue'>hello, world<h1>", 'utf8'))
 
 
 def main():
