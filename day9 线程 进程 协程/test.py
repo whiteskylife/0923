@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding utf-8 -*-
-test = (1, 2, 3)
-a, b, c = test
-print(a)
-print(b)
-print(c)
+
+num = 5
+while num:
+    print('in while')
+    num -= 1
+else:
+    print('end-------------------')
