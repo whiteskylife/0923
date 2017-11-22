@@ -287,7 +287,7 @@ class ThreadPool(object):
 
             if callback is not None:                    # 回调函数存在
                 try:
-                    callback(status, result)            # 返回值传给回调函数
+                    callback(status, result)              # 返回值传给回调函数
                 except Exception as e:
                     pass
 
@@ -300,7 +300,7 @@ class ThreadPool(object):
 
     def close(self):
         """
-        generate_thread 创建了多少线程，就添加多少个停止标记（StopEvent）
+        generate_thread 创建了多少线程，就添加多少个停止标记（StopEvent）,当遇到停止标记，退出call方法的while循环，线程停止，等待回收
         :return:
         """
         num = len(self.generate_list)
