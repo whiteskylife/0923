@@ -24,16 +24,17 @@ import time
 #
 
 
-def xrange():
-    print('start')
-    start = 0
-    while True:
-        yield
-        start += 1
-
-obj = xrange()
-r = obj.__next__()
-r = obj.__next__()
-r = obj.__next__()
-print(r)
+# def xrange():
+#     print('start')
+#     start = 0
+#     while True:
+#         yield
+#         start += 1
+#
+# obj = xrange()
+# r = obj.__next__()
+# r = obj.__next__()
+# r = obj.__next__()
+# print(r)
+#
 
