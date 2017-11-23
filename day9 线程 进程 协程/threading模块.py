@@ -219,6 +219,7 @@ if __name__ == '__main__':
 """
 
 
+
 # 自定义线程池：
 # 1. 队列中放任务，线程去队列中取任务,重复利用同一个线程执行多个任务
 
@@ -266,6 +267,20 @@ class ThreadPool(object):
         t = threading.Thread(target=self.call)
         t.start()
 
+    @contextlib.contextmanager
+    def work_state(self, state_list, worker_thread):
+        """
+        用于记录线程中正在等待的线程数，即空闲的线程数
+        :param state_list:         空闲列表
+        :param worker_thread:
+        :return:
+        """
+        state_list.append(worker_thread)
+        try:
+            yield
+        finally:
+            state_list.remove(worker_thread)
+
     def call(self):
         """
         循环去获取任务函数并执行任务函数，每创建一个线程都会执行call方法
@@ -295,12 +310,15 @@ class ThreadPool(object):
             if self.terminal:
                 event = StopEvent
             else:
-                self.free_list.append(current_thread)        # 执行任务后线程空闲
-                event = self.q.get()                         # 去队列中取新的任务
-                self.free_list.remove(current_thread)        # 取到任务，移除当前线程
+                with self.work_state(self.free_list, current_thread):         # 利用上下文管理优化代码
+                    event = self.q.get()
+                    # self.free_list.append(current_thread)        # 执行任务后线程空闲
+                    # event = self.q.get()                         # 去队列中取新的任务
+                    # self.free_list.remove(current_thread)        # 取到任务，移除当前线程
         else:
             # event不是元组，不是任务, 线程池中任务取光了，接收到了停止符（StopEvent）
             self.generate_list.remove(current_thread)
+
 
     def close(self):
         """
@@ -342,3 +360,8 @@ pool.terminate()
 
 
 
+
+
+"""
+
+"""
