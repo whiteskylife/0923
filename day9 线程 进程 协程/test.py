@@ -64,28 +64,20 @@ import time
 
 # 上下文管理
 
-
+# 自定义open，with open打开文件原理
 import contextlib
-import queue
 
 
 @contextlib.contextmanager
-def worker_state(xxx, val):
-    xxx.append(val)
+def myopen(file_path, mode):
+    f = open(file_path, mode, encoding='utf-8')
     try:
-        yield 123                  # 相当于断点
+        yield f
     finally:
-        xxx.remove(val)
+        f.close()
 
-q = queue.Queue()
-li = []
-# li.append(1)
-# q.get()
-# li.remove(1)
 
-with worker_state(li, 1) as f:           # 作用：管理上下文，功能相当于上面注释的三行代码
-    #print('before', li)
-    print(f)
-    q.get()
+with myopen('index.html', 'r') as file_obj:
+    print(file_obj.readline())
 
-#print('after', li)
+# yield f会把f返回给file_obj，
