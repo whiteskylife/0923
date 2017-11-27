@@ -2,14 +2,17 @@
 # -*- coding utf-8 -*-
 
 import socket
-
+import abc
 # http://www.cnblogs.com/yuanchenqi/articles/5603871.html
 
 
 def handle_request(client):
     client.recv(1024)
     client.sendall(bytes('HTTP/1.1 301 OK\r\n\r\n', 'utf8'))
-    client.sendall(bytes("<h1 style='color:blue'>hello, world<h1>", 'utf8'))
+    f = open("abc")
+    data = f.read()
+    f.close()
+    client.sendall(bytes(data, 'utf8'))
 
 
 def main():
