@@ -137,7 +137,7 @@ if __name__ == '__main__':
 
 # 进程池
 # 用Pool类创建一个进程池， 展开提交的任务给进程池
-"""
+'''
 from multiprocessing import Pool
 import time
 
@@ -216,7 +216,7 @@ if __name__ == '__main__':
 # pool.close()      for循环中的任务执行完后，关闭进程池，终止主进程
 # pool.terminate()  立即终止所有for循环中的任务。
 
-"""
+
 
 
 
@@ -362,7 +362,12 @@ pool.terminate()
 
 
 
+'''
 
 
 
 
+
+# 协程：
+
+import gevent
