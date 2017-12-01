@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+
+        /*div,p{*/
+            /*!*多元素选择器,哪个标签有就渲染哪个*!*/
+            /*font-size: 20px;*/
+            /*color:red;*/
+
+        /*}*/
+
+        /*div p{*/
+            /*!*后代元素选择器*!*/
+            /*font-size: 30px;*/
+            /*color: pink;*/
+        /*}*/
+
+        /*div>p{*/
+            /*!*子元素选择器*!*/
+            /*font-size: 30px;*/
+            /*color: pink;*/
+        /*}*/
+
+        /*.r1>div{*/
+            /*!*子元素选择器*!*/
+            /*font-size: 30px;*/
+            /*color: pink;*/
+        /*}*/
+
+        .r2+div{
+            /*毗邻元素选择器,匹配所有紧随.r2元素之后的同级元素F  */
+            font-size: 30px;
+            color: pink;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!--<a>alex</a>-->
+    <!--<p>ssssssss</p>-->
+    <!--<p id="ssww">ssssssss</p>-->
+        <!--<div>ooooo</div>-->
+    <p class="rr">ttttt</p>
+
+    <div class="r1">hello1
+        <div class="r2">hello2
+            <p>hello4</p>
+        </div>
+        <div>hello3
+        <p>AAAAA</p></div>
+    </div>
+</body>
+</html>
+
