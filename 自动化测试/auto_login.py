@@ -26,6 +26,7 @@ class testClass(object):
         def keyinfo(self, url, unname, un, pwname, pw, authenticate_code, au):
             """定位用户名和密码输入框并写入数据"""
             browser.get(url)    # get()方法打开url
+                # get()方法打开url
             time.sleep(0.1)             # 如果页面没有加载完成，继续向下执行可能会报错，要sleep几秒
             browser.find_element_by_id(unname).send_keys(un)  # 定位username输入框并使用send_keys()向其写入数据
             time.sleep(0.1)
@@ -33,7 +34,26 @@ class testClass(object):
             time.sleep(0.1)
             browser.find_element_by_id(authenticate_code).send_keys(au)
             browser.find_element_by_id('btn_login').click()
-            return {"test url": url, "Username": un, "Password": pw}
+            time.sleep(1)
+            browser.get('http://tnew.gxyclub.com/loanmanage/tyb_index?bieType=1')
+            time.sleep(1)
+            #browser.find_element_by_class_name('drop-down').click()
+            #browser.find_element_by_class_name("invest-btn").click()
+            browser.get('https://tnew.gxyclub.com/loanmanage/tyb_detail?id=361')
+
+            browser.find_element_by_id('investAmount').send_keys(200)
+            time.sleep(1)
+            browser.find_element_by_class_name('m-btn').click()
+            time.sleep(1)
+            browser.find_element_by_class_name('t-affirm').click()
+            time.sleep(2)
+            #browser.find_element_by_name('password').send_keys(123456)
+            browser.switch_to_window(browser.window_handles[1])
+            time.sleep(3)
+            browser.find_element_by_name('password').send_keys(123456)
+            browser.find_element_by_class_name('submit-btn').click()
+            time.sleep(1)
+            #return {"test url": url, "Username": un, "Password": pw}
 
         def keyyzm(self, yzmname, yzmpicid):
             """定位验证码输入框和图片，在用户协助下输入验证码，可根据需要切换图片"""
@@ -69,15 +89,17 @@ class testClass(object):
                 browser.quit()      # 使用quit()关闭
             return "\n ------本次测试用例运行结束，感谢使用，再见O(∩_∩)O~.------"
 
-time.sleep(3)
 
 # 实例化testClass为 SucLogin：输入正确的用户名，密码，验证码登录
 SucLogin = testClass()
 print "1.打开浏览器", SucLogin.openB()
 print "2.打开测试url，并输入用户名，密码"
 #SucLogin.keyinfo("https://tnew.gxyclub.com/toLogin")
-SucLogin.keyinfo("https://tnew.gxyclub.com/toLogin", "userName", "ltest1", "password", "123456", 'authCode', '0000')
-
+while True:
+    time.sleep(2)
+    SucLogin.keyinfo("https://tnew.gxyclub.com/toLogin", "userName", "fanqie", "password", "123456", 'authCode', '0000')
+    browser.quit()
+    time.sleep(2)
 # print "3.请配合输入验证码\n", SucLogin.keyyzm("Yzm", "ValidCode")
 # print "4.验证登陆是否成功\n", SucLogin.verifylogin("Submit", U"首页")
 #print("5.关闭浏览器\n", SucLogin.closeB())
