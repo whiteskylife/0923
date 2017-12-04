@@ -3,8 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        body{
+            border: 1px solid transparent;
+            /*让body和HTML之间的距离为0*/
+            margin: 0;
+        }
+        .div1{
+            background-color: aqua;
+            width: 300px;
+            height: 300px;
+            /*外层必须有边界border属性，内层盒子的margin属性才能真正显示正常*/
+            border: 1px solid transparent;
+        }
+        .div2{
+            background-color: blueviolet;
+            width: 100px;
+            height: 100px;
+            margin: 100px;
+        }
+    </style>
 </head>
 <body>
-
+       <div class="div1">
+           <div class="div2"></div>
+       </div>
 </body>
 </html>
