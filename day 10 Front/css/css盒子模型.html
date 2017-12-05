@@ -9,15 +9,15 @@
             /*让body和HTML之间的距离为0*/
             margin: 0;
         }
-        .div1{
+        .outer{
             background-color: aqua;
-            width: 200px;
-            height: 200px;
-            /*下面padding的作用：在原来外层盒子的基础上，上下左右都扩张了100px*/
-            /*padding: 100px;*/
-            border: 1px solid transparent;
+            width: 600px;
+            height: 600px;
+            /*小盒子找边界的依据：大盒子有没有边界(没有文本、padding、border等属性)，注释掉border属性：*/
+            /*border: 1px solid transparent;*/
         }
-        .div2{
+        .inner{
+            /*inner无法在outer中确定边界（因为注释了outer中的border属性，如果加上border属性则为边界），向上找到html层为边界*/
             background-color: blueviolet;
             width: 100px;
             height: 100px;
@@ -26,8 +26,9 @@
     </style>
 </head>
 <body>
-       <div class="div1">
-           <div class="div2"></div>
+       <div class="outer">
+           <div class="inner"></div>
+           <div class="inner"></div>
        </div>
 </body>
 </html>
