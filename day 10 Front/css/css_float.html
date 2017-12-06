@@ -11,35 +11,38 @@
            background: red;
             height: 50px;
             width: 100px;
+            position: absolute;
+            top: 50px;
         }
 
         .d2{
             background: greenyellow;
             height: 30px;
-            width: 600px;
-            float:left;
+            width: 60px;
         }
-
         .d3{
             background: black;
             height: 100px;
             width: 200px;
-            float: left;
-            clear: left;
         }
-
         .d4{
             background: blue;
-            height: 200px;
+            height: 1000px;
             width: 120px;
         }
-
         /*.father{*/
             /*position: relative;*/
+            /*top: 20px;*/
         /*}*/
+        .d5{
+            background: pink;
+            width: 600px;
+            height: 500px;
+        }
     </style>
 </head>
 <body>
+<div class="d5"></div>
 <div class="father">
     <div class="d1"></div>
     <div class="d2"></div>
@@ -50,3 +53,5 @@
 
 </body>
 </html>
+
+<!-- 需求：根据元素自身定位，并且脱离文档流-->
