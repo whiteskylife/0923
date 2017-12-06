@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .pg-header{
+            background-color: #2459a2;
+            height: 44px;
+        }
+        .w{
+            width: 980px;
+            background-color: pink;
+            /*让div居中的常用方法*/
+            margin: 0 auto;
+        }
+        ul{
+            list-style: none;
+            margin: 0;
+        }
+        ul li{
+            float: left;
+        }
+        .pg-header .logo{
+            float: left;
+        }
+        .pg-header .menu{
+            float: left;
+            line-height: 44px;
+        }
+        .pg-header .menu ul li:hover{
+            background-color: red;
+        }
+        .pg-header .w .menu ul li a{
+            color: white;
+            padding: 0 20px;
+            /*margin: 20px;*/
+            text-decoration: none;
+        }
+        .pg-header .account{
+            float: right;
+        }
+        .pg-header .account ul li a{
+            color: white;
+            text-decoration: none;
+            margin: 20px;
+        }
+        .pg-header .search{
+            float: right;
+        }
+
+        .pg-body{
+            /*height: 500px;*/
+            /*background-color: pink;*/
+        }
+
+        .pg-footer{
+            background-color: green;
+        }
+
+    </style>
+</head>
+
+<body>
+        <div class="pg-header">
+            <div class="w">
+                <div class="logo">
+                    <img src="http://dig.chouti.com/images/logo.png">
+                </div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="http://dig.chouti.com/all/hot/recent/1">全部</a></li>
+                        <li><a href="http://dig.chouti.com/all/hot/recent/1">42区</a></li>
+                        <li><a href="http://dig.chouti.com/all/hot/recent/1">段子</a></li>
+                        <li><a href="http://dig.chouti.com/all/hot/recent/1">图片</a></li>
+                    </ul>
+                </div>
+                <div class="search">
+                    <input type="text"/>
+                </div>
+                <div class="account">
+                    <ul>
+                        <li><a href="http://dig.chouti.com/all/hot/recent/1">注册</a></li>
+                        <li><a href="http://dig.chouti.com/all/hot/recent/1">登录</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="pg-body">
+            <div class="w" >
+                <div style="height: 300px;">
+                </div>
+            </div>
+        </div>
+        <div class="pg-footer">
+            <div class="w">aaa</div>
+        </div>
+</body>
+</html>
+
+
+
+
+
+
+<!--最常用的标签就是div+css，其他标签都是辅助-->
