@@ -7,6 +7,10 @@
         body{
             margin: 0;
         }
+        /** {*/
+            /*margin: 0;*/
+            /*padding: 0;*/
+        /*}*/
         .pg-header{
             background-color: #2459a2;
             height: 44px;
@@ -79,8 +83,8 @@
             /*background-color: white;*/
         }
         .pg-body .r-body {
-            width: 300px;
-            float: left;
+            width: 260px;
+            float: right;
             /*background-color: white;*/
         }
          .pg-body .test{
@@ -98,6 +102,10 @@
         .main-content{
             padding: 6px 28px 60px;
         }
+        .child-nav{
+            display: inline;
+            float: left;
+        }
         .child-nav a{
             display: inline-block;
             width: 60px;
@@ -105,10 +113,12 @@
             line-height: 26px;
             margin-top: 3px;
             margin-bottom: 13px;
+            color: #369;
             font-size: 12px;
             font-weight: 700;
             text-align:center;
         }
+
         .icons{
             background: url("http://dig.chouti.com/images/tip.png?v=2.9")  no-repeat 0 0;
         }
@@ -116,7 +126,148 @@
         .pg-footer{
             background-color: green;
         }
+        .sort-nav{
+            float: left;
+            margin-left: 144px;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        .sort-nav .active{
+            color:#b4b4b4;
+        }
+        .sort-nav a{
+            margin-left:10px;
+            color: #390;
+            text-align: center;
+        }
+        .publish-btn{
+            float: right;
+            background-color: #84a42b;
+            border: 1px solid #8aab30;
+            color: #fff;
+            height:30px;
+            line-height: 30px;
+            text-align: center;
+            width: 134px;
+            font-size: 14px;
+        }
+        .publish-btn .n1{
+            height: 11px;
+            width: 12px;
+            background-position:0 -184px;
+            display: inline-block;
+        }
+        .ico{
+            background: url("http://dig.chouti.com/images/icon.png") no-repeat 0 0;
+        }
 
+        .publish-btn .n2{
+            font-weight: 400;
+            margin-left: 8px;
+        }
+        /*.content-list{*/
+            /**/
+        /*}*/
+        .content-list .item{
+            clear: both;
+            padding-top: 10px;
+            border-bottom: 1px solid #dce7f4;
+            position: relative;
+        }
+        .content-list .item .news-pic{
+            float: right;
+            margin-left: 10px;
+
+        }
+        .news-pic img{
+            width: 60px;
+            height: 60px;
+            border: 1px solid #ccc;
+            padding: 1px;
+        }
+        .news-content{
+            height: 109px;
+        }
+        .news-content .part1 .show-content {
+            color: #369;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .content-list .item .content-source{
+            font-size: 13px;
+            color: #b4b4b4;
+            margin-left: 7px;
+        }
+        .content-list .item .news-content .content-kind{
+            font-size: 12px;
+            color: #b4b4b4;
+        }
+
+        /*.content-list .item .news-content .part2 .hand-icon{*/
+            /*background: url("http://dig.chouti.com/images/icon_18_118.png?v=2.13") no-repeat 0 0;*/
+        /*}*/
+
+        /*.content-list .item .news-content .part2 .icon-digg{*/
+            /*background-position: 0 -40px;*/
+        /*}*/
+        .part2{
+            width: 630px;
+            height: 20px;
+            padding-top: 6px;
+            margin-bottom: 6px;
+        }
+        /*.part2 span{*/
+            /*display: inline-block;*/
+        /*}*/
+        .content-list .item .news-content .part2 span{
+            display: inline-block;
+        }
+        .part2 .digg-a{
+            width: 54px;
+            height: 20px;
+        }
+        .part2 .discus-a{
+            width: 54px;
+            height: 20px;
+        }
+
+        .part2 .icon-digg{
+            width: 18px;
+            height: 18px;
+        }
+        .part2 .icon-digg{
+            background-position: 0 -40px;
+        }
+
+        .hand-icon{
+            background: url("http://dig.chouti.com/images/icon_18_118.png?v=2.13") no-repeat 0 0;
+        }
+        .part2 b{
+            color: #99aecb;
+            font-size: 14px;
+            font-weight: 700;
+            vertical-align: 4px;
+            margin-left: 7px;
+        }
+        .part2 .collect-a{
+            width: 69px;
+            height: 210px;
+        }
+        .part2 .icon-discus{
+            background-position: 0 -100px;
+            width: 18px;
+            height: 18px;
+            vertical-align: -1px;
+        }
+        .part2 .icon-collect{
+            background-position: 0 -160px;
+            width: 18px;
+            height: 18px;
+        }
+        .user-a img{
+            width: 19px;
+            height: 19px;
+        }
     </style>
 </head>
 
@@ -150,30 +301,90 @@
             <!--一个div加多个样式-->
             <div class="w test">
                 <div class="main-content">
+
                     <div class="l-body">
-                    <div class="l-body-top" style="margin-bottom: 0">
-                        <div class="child-nav">
-                            <a class="hotbtn icons">最热</a>
-                            <a class="newbtn">发现</a>
-                            <a>人类发布</a>
+                        <div class="l-body-top" style="margin-bottom: 0">
+                            <div class="child-nav">
+                                <a class="hotbtn icons">最热</a>
+                                <a class="newbtn">发现</a>
+                                <a>人类发布</a>
+                            </div>
+                            <div class="sort-nav">
+                                <a class="active hotbtn">即时排序</a>
+                                <a>24小时</a>
+                                <a>3天</a>
+                            </div>
+                            <div class="publish-btn">
+                                <span class="ico n1"></span>
+                                <span class="n2">发布</span>
+                            </div>
                         </div>
+                        <div class="content-list">
+                            <div class="item">
+                                <div class="news-pic">
+                                    <img src="//img3.chouti.com/CHOUTI_20171214/4D0DAA251CD94D76A91473A1B87260E6_W304H304=C120x120.png?quality=80">
+                                </div>
+                                <div class="news-content">
+                                    <div class="part1">
+                                        <a  class="show-content">
+
+
+
+
+
+
+
+													【贵州威宁一煤矿发生事故 已致5人遇难20人受伤】据贵州省威宁县消息，昨天18时38分，贵州省威宁县炉山镇孔家沟煤矿发生疑似瓦斯燃烧事故。截至目前，事故共造成5人遇难，20人受伤。目前，现场救援已经结束，受伤人员正在接受救治，事故原因调查、善后处置工作正在进行中。
+
+
+										</a>
+                                        <span class="content-source">-www.baidu.com</span>
+                                        <a class="n2">
+                                            <span class="content-kind">42区</span>
+                                        </a>
+                                    </div>
+                                    <div class="part2">
+                                        <a class="digg-a">
+                                            <span class="hand-icon icon-digg"></span>
+                                            <b>4</b>
+                                        </a>
+                                        <a class="discus-a">
+                                            <span class="hand-icon icon-discus"></span>
+                                            <b>1</b>
+                                        </a>
+                                        <a class="collect-a" >
+                                            <span class="hand-icon icon-collect"></span>
+                                            <b>私藏</b>
+                                        </a>
+                                        <a class="user-a">
+                                            <span><img src="//img3.chouti.com/group14/M03/86/CD/wKgCQVaTcMGwh8atAAAdHkSHEvg466=32x32.png?quality=80">
+                                            </span>
+                                            <b>万万没想到</b>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
 
-                </div>
                     <div class="r-body">右侧
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                </div>
-                    <div style="clear: both">2222222222222222</div>
-                </div>
+                        <p>1</p>
+                        <p>1</p>
+                        <p>1</p>
+                        <p>1</p>
+                        <p>1</p>
+                        <p>1</p>
+                        <p>1</p>
+                    </div>
 
+                    <div style="clear: both">bottom---2222222222222222</div>
+                </div>
             </div>
+
         </div>
+
         <div class="pg-footer">
             <div class="w">
                 <p style="display: inline">aaa</p>
