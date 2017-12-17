@@ -4,20 +4,42 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .c{
+        .c, .d, .e{
             background-color: red;
         }
-        .c .item{
+        .c .item, .d .item, .e .item{
             float: left;
             width: 30px;
+            height: 70px;
+            background-color: green;
+        }
+/*公共样式，作用相当于clear：both。即：在div下面再增加一个标签，把父标签拽起来，拉起来父标签的高度*/
+        .clear:after{
+            content: '111';
+            display: block;
+            clear: both;
+            visibility: hidden;
+            height:0;
         }
     </style>
 </head>
 <body>
-    <div class="c">
+    <div class="c clear">
         <div class="item">123</div>
         <div class="item">456</div>
+        <!--<div style="clear: both"></div>-->
+    </div>
 
+    <div class="d clear">
+        <div class="item">123</div>
+        <div class="item">456</div>
+        <!--<div style="clear: both"></div>-->
+    </div>
+
+    <div class="e clear">
+        <div class="item">123</div>
+        <div class="item">456</div>
+        <!--<div style="clear: both"></div>-->
     </div>
 
 </body>
