@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .ele{
+            background-color: #8a8a8a;
+            /*先设置好边框，鼠标移动上去hover的效果更自然平滑*/
+            border: 2px solid transparent;
+        }
+        .ele:hover{
+            border: 2px solid red;
+        }
+        .ele:hover .ele-item{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="ele">
+        <div>123</div>
+        <div class="ele-item">123</div>
+
+    </div>
+</body>
+</html>
