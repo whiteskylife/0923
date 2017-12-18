@@ -3,8 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .touch{
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        .touch .content{
+            position: absolute;
+            top: 0;
+            left:0;
+            right:0;
+            bottom: 0;
+            background-color: #8a8a8a;
+            /*透明度*/
+            opacity: 0.6;
+            text-align: center;
+            visibility: hidden;
+        }
+        .touch .content .c1{
+            font-size:32px;
+            padding: 30px 0;
+        }
+        .touch:hover .content{
+            visibility: visible;
+        }
+    </style>
 </head>
 <body>
-
+        <div class="touch">
+            <div><img src="1.png"></div>
+            <div class="content">
+                <div class="c1">WHISKY</div>
+                <div class="c2">1000-5000</div>
+            </div>
+        </div>
 </body>
 </html>
