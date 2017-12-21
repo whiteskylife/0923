@@ -33,10 +33,51 @@
 
     </style>
 </head>
-<body>
-    <div>账号<input type="text"></div>
-    <div>密码<input type="password"></div>
-    <input type="button" value="提交" onclick="submit();"/>
+<body style="margin: 0;">
+    <div>
+        <input type="button" value="提交" onclick="submit();"/>
+        <input type="button" value="全选" onclick="chooseall();"/>
+        <input type="button" value="取消" onclick="cancleall();"/>
+        <input type="button" value="反选" onclick="reverseall();"/>
+        <table>
+            <thead>
+                <tr>
+                    <th>选择</th>
+                    <th>主机名</th>
+                    <th>端口</th>
+                </tr>
+            </thead>
+            <tbody id="tb">
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>1.1.1.2</td>
+                    <td>190</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="test"></td>
+                    <td>1.1.1.21</td>
+                    <td>180</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>1.1.1.3</td>
+                    <td>170</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>1.1.1.4</td>
+                    <td>160</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>1.1.1.5</td>
+                    <td>150</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
 
     <!--遮罩层-->
     <div id="i1" class="c1 hide"></div>
@@ -58,6 +99,44 @@
             document.getElementById('i1').classList.add('hide');
             document.getElementById('i2').classList.add('hide');
         }
+        function chooseall(){
+            var tb = document.getElementById('tb');
+//            获取所有的tr
+            var tr_list = tb.children;
+            for(var i=0;i<tr_list.length; i++){
+//                循环所有的tr, current_tr
+                var checkbox  = tr_list[i].children[0].children[0];
+                checkbox.checked = true;
+            }
+        }
+
+        function cancleall() {
+            var tb = document.getElementById('tb');
+//            获取所有的tr
+            var tr_list = tb.children;
+            for (var i = 0; i < tr_list.length; i++) {
+//                循环所有的tr, current_tr
+                var checkbox = tr_list[i].children[0].children[0];
+                checkbox.checked = false;
+            }
+        }
+        function reverseall() {
+            var tb = document.getElementById('tb');
+//            获取所有的tr
+            var tr_list = tb.children;
+            for (var i = 0; i < tr_list.length; i++) {
+//                循环所有的tr, current_tr
+                var checkbox = tr_list[i].children[0].children[0];
+                if (checkbox.checked) {
+                    checkbox.checked = false;
+                }
+                else {
+                    checkbox.checked = true;
+                }
+            }
+        }
+
+
     </script>
 </body>
 </html>
