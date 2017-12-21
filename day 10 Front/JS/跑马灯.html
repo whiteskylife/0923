@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="i1">这是一个跑马灯JS小程序</div>
+    <script>
+//        滚动文字实现跑马灯
+        function func(){
+            var tag = document.getElementById('i1');
+            var content = tag.innerText;
+            var first_str = content.charAt(0);
+            var surplus_str = content.substring(1, content.length);
+            var new_content = surplus_str + first_str;
+
+            tag.innerText = new_content;
+        }
+        setInterval('func()', 1000);
+    </script>
+</body>
+</html>
