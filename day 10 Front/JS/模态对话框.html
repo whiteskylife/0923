@@ -120,12 +120,11 @@
                 checkbox.checked = false;
             }
         }
+
         function reverseall() {
             var tb = document.getElementById('tb');
-//            获取所有的tr
             var tr_list = tb.children;
             for (var i = 0; i < tr_list.length; i++) {
-//                循环所有的tr, current_tr
                 var checkbox = tr_list[i].children[0].children[0];
                 if (checkbox.checked) {
                     checkbox.checked = false;
@@ -138,5 +137,6 @@
 
 
     </script>
+
 </body>
 </html>
