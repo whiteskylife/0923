@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="button" onclick="AddEle();" value="click +">
+    <input type="button" onclick="AddEle2();" value="click +">
+    <div id="i1">1111111
+        <input type="text"/>
+    </div>
+
+    <script>
+//        创建标签第一种方式:通过字符串方式创建
+        function AddEle() {
+//            创建标签
+            var tag = "<input type='text'/>";
+//            将标签添加到i1里面
+            document.getElementById('i1').insertAdjacentHTML('beforeEnd',tag);
+        }
+
+//        创建标签第二种方式：通过对象方式创建
+        function AddEle2(){
+//            创建标签
+            var tag = document.createElement('input');
+            tag.setAttribute('type', 'text');
+            tag.style.fontSize = '16px';
+            tag.style.color = 'red';
+//            将标签添加到i1里面
+            document.getElementById('i1').appendChild(tag);
+        }
+    </script>
+</body>
+</html>
