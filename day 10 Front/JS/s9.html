@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #test{
+            background-color: red;
+            width: 300px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div id="test">
+        dsad
+    </div>
+    <script>
+        var mydiv = document.getElementById('test');
+        mydiv.addEventListener('click', function(){console.log('aaa')}, false);
+        mydiv.addEventListener('click', function(){console.log('bbb')}, false);
+    </script>
+</body>
+</html>

@@ -4,78 +4,69 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        body{
-            margin:0;
+        .hide{
+            display: none;
         }
-        .pg-header{
-            height: 48px;
-            background-color: #dddddd;
-        }
-        .pg-body .body-menu{
-            position: absolute;
-            width: 180px;
-            background-color: antiquewhite;
-            left: 0;
-        }
-        .pg-body .body-content{
-            position: absolute;
-            top: 48px;
-            left: 182px;
-            right: 0;
-            bottom: 0;
-            background-color: blueviolet;
-            /*可以注释overflow实现两种不同的布局方式*/
-            /*overflow: auto;*/
+        .item .header{
+            height: 35px;
+            background-color: royalblue;
+            line-height: 35px;
         }
     </style>
 </head>
 <body>
-    <div class="pg-header">whisky supervisor system</div>
-    <div class="pg-body">
-        <div class="body-menu">
-            <ul>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-            </ul>
+    <div style="height: 50px"></div>
+    <div style="width: 300px;">
+        <div class="item">
+            <!--<div id='m1' class="header" onclick="ChangeMenu('m1');"> 菜单1</div>-->
+            <div class="header" onclick="ChangeMenu(this);"> 菜单1</div>
+            <div class="content1 hide" >
+                <div>内容1</div>
+                <div>内容1</div>
+                <div>内容1</div>
+            </div>
         </div>
-        <div class="body-content">
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
+        <div class="item">
+            <div class="header" onclick="ChangeMenu(this);">菜单2</div>
+            <div class="content hide">
+                <div>内容2</div>
+                <div>内容2</div>
+                <div>内容2</div>
+            </div>
+        </div>
+        <div  class="item">
+            <div class="header" onclick="ChangeMenu(this);">菜单3</div>
+            <div class="content hide">
+                <div>内容3</div>
+                <div>内容3</div>
+                <div>内容3</div>
+            </div>
+        </div>
+        <div  class="item">
+            <div class="header" onclick="ChangeMenu(this);">菜单4</div>
+            <div class="content hide">
+                <div>内容4</div>
+                <div>内容4</div>
+                <div>内容4</div>
+            </div>
         </div>
     </div>
+
+    <script>
+        function ChangeMenu(ths){
+//            var current_header = document.getElementById(nid);
+            var current_header = ths;
+//            console.log(current_header.parentElement)
+//            找出所有的item标签
+            var item_list = current_header.parentElement.parentElement.children;
+//            全部添加hide，点击哪个标签，再去掉标签的hide属性
+            for(var i=0;i<item_list.length;i++){
+                var current_item = item_list[i];
+                current_item.children[1].classList.add('hide');
+            }
+            current_header.nextElementSibling.classList.remove('hide')
+        }
+    </script>
+
 </body>
 </html>
-
-管理后台
