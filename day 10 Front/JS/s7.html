@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form id="f1" action="http://www.baidu.com">
+        <input type="text"/>
+        <input type="submit" value="提交"/>
+        <!--利用JS让a标签(其他任何标签提交都可以用JS来搞)可以提交-->
+        <a onclick="submitForm();">a标签提交</a>
+    </form>
+
+    <script>
+        var obj = setInterval(function (){
+            console.log(1);
+            clearInterval(obj);
+        },1000);
+
+    </script>
+</body>
+</html>
