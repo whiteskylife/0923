@@ -3,8 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        body{
+            margin:0;
+        }
+        .pg-header{
+            background-color: black;
+            height: 50px;
+        }
+
+        .pg-body .menu{
+            position: absolute;
+            background-color: #dddddd;
+            left: 200px;
+            width: 180px;
+            float: left;
+        }
+        .pg-body .content{
+            position: absolute;
+            left: 385px;
+            right: 200px;
+            background-color: white;
+            float: right;
+
+        }
+        .pg-body .content .item{
+            height: 900px;
+        }
+    </style>
 </head>
 <body>
-
+    <div class="pg-header">
+        <div class="w">
+        </div>
+    </div>
+    <div class="pg-body">
+        <div class="menu">
+            <ul>
+                <li>第一章</li>
+                <li>第二章</li>
+                <li>第三章</li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="item">床前明月光</div>
+            <div class="item">疑是地上霜</div>
+            <div class="item">我是郭德纲</div>
+        </div>
+    </div>
 </body>
 </html>
