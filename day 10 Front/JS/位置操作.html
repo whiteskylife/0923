@@ -3,8 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
-<body>
+    <style>
+        .go-top{
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: dodgerblue;
+            color: white;
+        }
+        .hide{
+            display: none;
+        }
+        .go-top a{
+            visibility: hidden;
+        }
+        .go-top:hover a{
+            visibility: visible;
+        }
 
+    </style>
+</head>
+<body onscroll="Func();">
+    <div style="height: 2000px"></div>
+    <div id='i1' class="go-top hide">
+        <a href='javascript:void(0);' onclick="GoTop();">返回顶部</a>
+    </div>
+
+    <script>
+        function Func() {
+            var scrollpx = document.documentElement.scrollTop;
+            if(scrollpx>50){
+                document.getElementById('i1').classList.remove('hide');
+            }else{
+                document.getElementById('i1').classList.add('hide')
+            }
+        }
+        function GoTop() {
+//           有时浏览器无法获取 document.body.scrollTop = 0;的值，和HTML头部声明有关，用下面的参数
+            document.documentElement.scrollTop = 0;
+        }
+
+
+    </script>
 </body>
 </html>
