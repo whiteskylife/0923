@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+        <h2 id="h1">333
+            <span>123</span>
+            <a>123</a>
+        </h2>
+        <div id="container">
+            <div class="item">1</div>
+            <div class="item">2</div>
+
+        </div>
+
+        <script>
+            var h = document.getElementById('h1');
+            var c = document.getElementById('container');
+            //c.appendChild(h);
+            var newH = h.cloneNode(true); // 深克隆,标签里面的内容全部克隆，包括内容文本
+//            var newH = h.cloneNode(); //浅克隆
+            console.log(newH) // <h2 id="h1"></h2> 浅克隆只是克隆标签框架
+            c.appendChild(newH); // 浅克隆不复制文本
+        </script>
+</body>
+</html>

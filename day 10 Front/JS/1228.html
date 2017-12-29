@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改属性</title>
+</head>
+<body>
+
+    <div>
+        <input type="button" onclick="Func();" value="点我修改123">
+    </div>
+
+    <div id="x">
+        <div class="c1" alex="sb">123</div>
+        <div class="c1">123</div>
+        <div class="c1" alex="sb">123</div>
+        <div class="c1" alex="sb">123</div>
+        <div class="c1" >123</div>
+        <div class="c1" >123</div>
+        <div class="c1" alex="sb">123</div>
+    </div>
+
+    <script type="text/javascript">
+
+        function Func() {
+            var check = document.getElementById("x").children
+            for (var i=0;i<check.length;i++){
+                if (check[i].getAttribute("alex") == "sb"){
+                    check[i].innerText = "456"
+                }
+            }
+
+        }
+
+    </script>
+</body>
+</html>
+
+修改属性
