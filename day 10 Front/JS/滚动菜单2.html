@@ -33,6 +33,7 @@
             position: fixed;
             top:0;
         }
+
         .pg-body .menu .active{
             background-color: #8a8a8a;
             color: white;
@@ -70,6 +71,7 @@
         var items = document.getElementById('content').children;
         for(var i=0;i<items.length;i++){
             var currentItem = items[i];
+//            获取当前item的绝对高度：当前item标签距离父标签content高度 + content距离body顶部的高度
             var currentItemBodyTop = currentItem.offsetTop + currentItem.offsetParent.offsetTop;
             var currentItemWindowTop = currentItemBodyTop - huaGao;
             console.log(currentItemWindowTop);
