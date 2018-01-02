@@ -3,79 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style>
-        body{
-            margin:0;
-        }
-        .pg-header{
-            height: 48px;
-            background-color: #dddddd;
-        }
-        .pg-body .body-menu{
-            position: absolute;
-            width: 180px;
-            background-color: antiquewhite;
-            left: 0;
-            float: left;
-        }
-        .pg-body .body-content{
-            position: absolute;
-            top: 48px;
-            left: 182px;
-            right: 0;
-            bottom: 0;
-            float: right;
-            background-color: blueviolet;
-            /*可以注释overflow实现两种不同的布局方式*/
-            overflow: auto;
-        }
-    </style>
 </head>
 <body>
-    <div class="pg-header">whisky supervisor system</div>
-    <div class="pg-body">
-        <div class="body-menu">
-            <ul>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-                <li>11</li>
-            </ul>
-        </div>
-        <div class="body-content">
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-                <h1>123</h1><h1>123</h1>
-        </div>
-    </div>
+
+    <script>
+        function func() {
+            for(var i=0; i<3; i++){
+                function inner(){
+                    console.log(i);
+                }
+                setInterval(inner, 1000);
+            }
+        }
+        func()
+
+    </script>
 </body>
 </html>
+

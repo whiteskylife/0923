@@ -27,7 +27,7 @@
             float: right;
         }
         .pg-body .content .item{
-            height: 1900px;
+            height: 500px;
         }
         .pg-body .fixed{
             position: fixed;
@@ -60,6 +60,9 @@
 
     <script>
         function Scroll() {
+            var a = document.body.offsetHeight;
+            var b = document.getElementById('content').offsetHeight;
+            var c = document.documentElement.clientHeight;
             var huaGao = document.documentElement.scrollTop;
             var caiDan = document.getElementById('menu');
             if(huaGao>50){
@@ -71,15 +74,31 @@
         var items = document.getElementById('content').children;
         for(var i=0;i<items.length;i++){
             var currentItem = items[i];
-//            获取当前item的绝对高度：当前item标签距离父标签content高度 + content距离body顶部的高度
+//            获取当前item的绝对高度：当前item标签距离父标签content高度 + content距离body顶部的固定高度
             var currentItemBodyTop = currentItem.offsetTop + currentItem.offsetParent.offsetTop;
             var currentItemWindowTop = currentItemBodyTop - huaGao;
 //            console.log(currentItemWindowTop);
-//            当前文档的高度，offsetHeight？？？？？？
+//            当前item文档的高度
             var currentHeight = currentItem.offsetHeight;
 //          console.log(currentHeight);
-//            底部距离顶部的高度
+//            底部距离顶部的高度:item标签顶部到body距离 + item标签自身高度
             var bottomHeight = currentItemBodyTop + currentHeight;
+
+            if((a+b) == (huaGao+c)){
+                var mu = document.getElementById('menu').children[0].lastElementChild;
+                var lis = document.getElementById('menu').getElementsByTagName('li');
+                for( var m=0; m< lis.length; m++){
+                    var current_list = lis[m];
+                    if(current_list.getAttribute('class') == 'active'){
+                        current_list.classList.remove('active');
+                        break;
+                    }
+                }
+                mu.classList.add('active');
+                return
+            }
+
+
 
             if(currentItemWindowTop<0 && huaGao < bottomHeight ){
                 var ziji = caiDan.getElementsByTagName('li')[i];
