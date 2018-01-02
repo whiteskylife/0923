@@ -74,9 +74,10 @@
 //            获取当前item的绝对高度：当前item标签距离父标签content高度 + content距离body顶部的高度
             var currentItemBodyTop = currentItem.offsetTop + currentItem.offsetParent.offsetTop;
             var currentItemWindowTop = currentItemBodyTop - huaGao;
-            console.log(currentItemWindowTop);
-//            当前文档的高度
+//            console.log(currentItemWindowTop);
+//            当前文档的高度，offsetHeight？？？？？？
             var currentHeight = currentItem.offsetHeight;
+//          console.log(currentHeight);
 //            底部距离顶部的高度
             var bottomHeight = currentItemBodyTop + currentHeight;
 
