@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+    <div class="outer">111
+        <div>qqq</div>
+        <div class="div1">222
+            <div class="div6">666
+                <div class="div7">7777</div>
+            </div>
+        </div>
+        <div class="div2">333</div>
+        <div class="div3">444</div>
+        <div class="div4">555</div>
+        <p>666</p>
+        <div>99999</div>
+    </div>
+    <script>
+//        $(".div1~div").css("color", "red");
+//        匹配class为div1的标签的所有标签
+//        $(".div1").siblings().css("color", "red")
+        $(".div1").siblings("div").css("color", "red")
+    </script>
+
+</body>
+</html>

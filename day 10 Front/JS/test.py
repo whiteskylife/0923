@@ -23,6 +23,7 @@ def xo():
 相当于： lambda:x
 '''
 
+# 新浪面试
 
 li = [lambda:x for x in range(9)]
 print(li)
