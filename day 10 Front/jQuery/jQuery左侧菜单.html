@@ -2,9 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>jQuery左侧菜单</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .title{
+            color: yellow;
+            font-size: 20px;
+        }
+        .menu{
+            width: 30%;
+            height: 500px;
+            background-color: gray;
+            float: left;
+        }
+
+        .content{
+            width: 70%;
+            height: 500px;
+            background-color: blueviolet;
+            float: left;
+        }
+
+        .hide{
+            display: none;
+        }
+    </style>
 </head>
 <body>
+        <div class="outer">
+            <div class="menu">
+                <div class="item">
+                    <div class="title" onclick="show(this)">菜单一</div>
+                    <div class="con hide">
+                        <div>1111</div>
+                        <div>1111</div>
+                        <div>1111</div>
+                        <div>1111</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title" onclick="show(this)">菜单二</div>
+                    <div class="con hide">
+                        <div>2222</div>
+                        <div>2222</div>
+                        <div>2222</div>
+                        <div>2222</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title" onclick="show(this)">菜单三</div>
+                    <div class="con hide">
+                        <div>3333</div>
+                        <div>3333</div>
+                        <div>3333</div>
+                        <div>3333</div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <p>content</p><p>content</p>
+                <p>content</p><p>content</p>
+                <p>content</p><p>content</p>
+                <p>content</p><p>content</p>
+                <p>content</p><p>content</p>
+                <p>content</p><p>content</p>
+
+            </div>
+        </div>
+    <script src="jquery.min.js"></script>
+    <script>
+            function show(self) {
+                $(self).next().removeClass("hide");
+                $(self).parent().siblings().children(".con").addClass(".hide")
+            }
+    </script>
+
 
 </body>
 </html>
+
