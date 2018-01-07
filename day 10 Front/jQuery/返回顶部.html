@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>返回顶部</title>
+    <style>
+        .div1{
+            height: 200px;
+            background-color: yellowgreen;
+            width: 40%;
+            overflow: auto;
+        }
+        .div2{
+            height: 800px;
+            background-color: gray;
+        }
+        .div3{
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: cornflowerblue;
+            font-size: 22px;
+            cursor: pointer;
+        }
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+        <div class="div1">111
+            <p>222222</p><p>222222</p>
+            <p>222222</p><p>222222</p>
+            <p>222222</p><p>222222</p>
+            <p>222222</p><p>222222</p>
+            <p>222222</p><p>222222</p>
+            <p>222222</p><p>222222</p>
+        </div>
+        <div class="div2">111</div>
+        <div class="div3 hide" onclick="returnTop();">返回顶部</div>
+
+        <script src="jquery.min.js"></script>
+        <script>
+                window.onscroll=function (){
+                    var index = $(window).scrollTop();
+//                    console.log(index);
+                    if(index>50){
+                        $(".div3").removeClass("hide");
+                    }else{
+                        $(".div3").addClass("hide");
+                    }
+                };
+                function returnTop(){
+                    $(window).scrollTop(0)
+//                    不仅仅对window窗口进行操作，可以对任意标签进行操作
+//                    $(".div1").scrollTop(0);
+                }
+
+        </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正反选</title>
+</head>
+<body>
+    <button onclick="selectAll();">全选</button>
+    <button onclick="cancel();">取消</button>
+    <button onclick="reverse();">反选</button>
+    <!--<input type="button" value="test"/>-->
+    <table border="1">
+        <tr>
+            <td><input type="checkbox" /></td>
+            <td>1111111</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" /></td>
+            <td>1111111</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" /></td>
+            <td>1111111</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" /></td>
+            <td>1111111</td>
+        </tr>
+    </table>
+
+    <script src="jquery.min.js"></script>
+    <script>
+        function selectAll(){
+//            表单选择器支持简写    $("[type='checkbox']")----->$(":checkbox")
+//            格式：ancestor descendant  ==》 table :checkbox  (中间必须有空格)
+            $("table :checkbox").prop("checked", true)
+        }
+        function cancel(){
+            $("table :checkbox").prop("checked", false)
+        }
+        function reverse(){
+//            jQuery中的循环each函数
+            $("table :checkbox").each(
+                function(){
+//                    this指代每次循环时的类型为checkbox的标签
+                    if($(this).prop("checked")){
+                        $(this).prop("checked", false)
+                    }else{
+                        $(this).prop("checked", true)
+                    }
+                }
+            )
+        }
+    </script>
+</body>
+</html>

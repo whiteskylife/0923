@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script src="jquery.min.js"></script>
+    <script>
+        function f1(){
+            var li = [11, 22, 33];
+            $.each(li, function(k,v){
+                console.log(k, v);
+                if(k==1){
+                    return false;
+                }
+                }
+            );
+            console.log('end')
+        }
+        f1();
+//        注意：
+//        1.$.each中的return不会返回$.each的上层函数2
+//        2.$.each  return false 表示each循环退出，如果仅return无法退出循环
+    </script>
+</body>
+</html>
