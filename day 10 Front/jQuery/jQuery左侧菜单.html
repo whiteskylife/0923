@@ -76,6 +76,8 @@
             function show(self) {
                 $(self).next().removeClass("hide");
                 $(self).parent().siblings().children(".con").addClass("hide")
+//                这里也可以使用find：
+//              $(self).parent().siblings().find(".con").addClass("hide")
             }
     </script>
 

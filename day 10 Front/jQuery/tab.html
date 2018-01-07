@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tab</title>
+    <script src="jquery.min.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .outer{
+            width:70%;
+            background-color: gray;
+            margin: 0 auto;
+            height: 600px;
+        }
+        .menu{
+            background-color: yellow;
+            height: 50px;
+            line-height: 50px;
+            cursor: pointer;
+        }
+        .menu li{
+            display: inline-block;
+        }
+        .content{
+            background-color:cornflowerblue;
+            padding: 15px;
+            height: 100px;
+        }
+        .current{
+            background-color: aliceblue;
+            color: red;
+        }
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="outer">
+        <ul class="menu">
+            <li alex="c1" class="current" onclick="tab(this)">菜单一</li>
+            <li alex="c2" onclick="tab(this)">菜单二</li>
+            <li alex="c3" onclick="tab(this)">菜单三</li>
+        </ul>
+        <div class="content">
+            <div id="c1">内容一</div>
+            <div id="c2" class="hide">内容二</div>
+            <div id="c3" class="hide">内容三</div>
+        </div>
+    </div>
+
+    <script>
+        function tab(self){
+            $(self).addClass("current").siblings().removeClass("current");
+            var index = $(self).attr("alex");
+            $("#" + index).removeClass("hide").siblings().addClass("hide");
+        }
+    </script>
+</body>
+</html>
