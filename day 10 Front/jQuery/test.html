@@ -3,17 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="jquery.min.js"></script>
-</head>
-<body>
-    <div>
-        <input type="checkbox" alex="sb" name="newsletter" value="Hot Fuzz" />
-        <input type="checkbox" alex="sb" name="newsletter" value="Cold Fusion" />
-        <input type="checkbox" name="accept" value="Evil Plans" />
-    </div>
-    <script>
-        $("[alex='sb']").attr("checked", true);
-    </script>
+    <style>
+        body{
+            margin:0;
+        }
+        .pg-header{
+            background-color: black;
+            height: 50px;
+        }
 
+        .pg-body .menu{
+            position: absolute;
+            background-color: #dddddd;
+            left: 200px;
+            width: 180px;
+            float: left;
+        }
+        .pg-body .content{
+            position: absolute;
+            left: 385px;
+            right: 200px;
+            background-color: white;
+            float: right;
+        }
+        .pg-body .content .item{
+            height: 500px;
+        }
+        .pg-body .fixed{
+            position: fixed;
+            top:0;
+        }
+
+        .pg-body .menu .active{
+            background-color: #8a8a8a;
+            color: white;
+        }
+    </style>
+</head>
+<body onscroll="Scroll();">
+    <div class="pg-header"></div>
+
+    <div class="pg-body">
+        <div id="menu" class="menu">
+            <ul>
+                <li>第一章</li>
+                <li>第二章</li>
+                <li>第三章</li>
+            </ul>
+        </div>
+        <div id='content' class="content">
+            <div class="item">床前明月光</div>
+            <div class="item">疑是地上霜</div>
+            <div class="item">我是郭德纲</div>
+        </div>
+    </div>
+
+    <script>
+        function Scroll() {
+            var a = document.body.offsetHeight;
+            var b = document.getElementById('content').offsetHeight;
+            var c = document.documentElement.clientHeight;
+            var huaGao = document.documentElement.scrollTop;
+            var caiDan = document.getElementById('menu');
+            if(huaGao>50){
+                caiDan.classList.add('fixed');
+            }else{
+                caiDan.classList.remove('fixed');
+            }
+
+        var items = document.getElementById('content').children;
+        for(var i=0;i<items.length;i++){
+            var currentItem = items[i];
+//            获取当前item的绝对高度：当前item标签距离父标签content高度 + content距离body顶部的固定高度
+            var currentItemBodyTop = currentItem.offsetTop + currentItem.offsetParent.offsetTop;
+            var currentItemWindowTop = currentItemBodyTop - huaGao;
+//            console.log(currentItemWindowTop);
+//            当前item文档的高度
+            var currentHeight = currentItem.offsetHeight;
+//          console.log(currentHeight);
+//            底部距离顶部的高度:item标签顶部到body距离 + item标签自身高度
+            var bottomHeight = currentItemBodyTop + currentHeight;
+
+            if((a+b) == (huaGao+c)){
+                var mu = document.getElementById('menu').children[0].lastElementChild;
+                var lis = document.getElementById('menu').getElementsByTagName('li');
+                for( var m=0; m< lis.length; m++){
+                    var current_list = lis[m];
+                    if(current_list.getAttribute('class') == 'active'){
+                        current_list.classList.remove('active');
+                        break;
+                    }
+                }
+                mu.classList.add('active');
+                return
+            }
+
+
+
+            if(currentItemWindowTop<0 && huaGao < bottomHeight ){
+                var ziji = caiDan.getElementsByTagName('li')[i];
+                ziji.className= 'active';
+                var lis = caiDan.getElementsByTagName('li');
+                for(var j=0;j<lis.length;j++){
+                    if(ziji == lis[j]){
+
+                    }else{
+                        lis[j].classList.remove('active');
+                    }
+                }
+                break;
+            }
+        }
+
+        }
+
+    </script>
 </body>
 </html>
+
+滚动菜单解决

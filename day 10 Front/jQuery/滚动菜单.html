@@ -152,7 +152,7 @@
             }
 
         if($(document).height()===$(window).height()+ws){
-                $(".catalog").children(":last").css("fontSize", "60px").siblings().css("fontSize",'15px');
+                $(".catalog").children(":last").css("fontSize", "40px").siblings().css("fontSize",'15px');
 //                如果此处不加return，会继续执行下面的each循环，此处的css样式被覆盖,不加return这段代码要放到下面去，效率不高
                 return
         }
@@ -160,6 +160,10 @@
         $(".content").children().each(function (){
                 var offset = $(this).offset().top;
                 var total = $(this).height() + offset;
+                if( ws < 50 ){
+                    $(".catalog-item").css("fontSize","15px");
+                }
+
                 if( ws>offset && ws<total ){
                     var index = $(this).attr("menu");
 //                    拼凑出$("[auto-to="function1"]")
