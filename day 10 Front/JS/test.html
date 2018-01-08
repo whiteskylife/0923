@@ -1,23 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title></title>
 
-    <script>
-        function func() {
-            for(var i=0; i<3; i++){
-                function inner(){
-                    console.log(i);
+
+
+    <body>
+        <script>
+//        function Interval() {
+//        s1 = setInterval(function () {
+//            console.log(123)
+//        },1000);
+//        s2 = setInterval(function () {
+//            console.log(123)
+//        },1000);
+//        console.log("提前1")  // 定时器是在函数最后才执行的
+//         }
+//
+//         Interval();
+            function func(){
+                for(var i=0;i<3;i++){
+                    setInterval(function(){
+                        console.log(i);
+                    }, 1000);
                 }
-                setInterval(inner, 1000);
             }
-        }
-        func()
-
-    </script>
-</body>
+            func();
+        </script>
+    </body>
 </html>
 
