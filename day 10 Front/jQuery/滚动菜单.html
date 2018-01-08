@@ -153,8 +153,8 @@
 
         if($(document).height()===$(window).height()+ws){
                 $(".catalog").children(":last").css("fontSize", "60px").siblings().css("fontSize",'15px');
-//                如果此处不加return，会继续执行下面的each循环，此处的css样式被覆盖
-//                return
+//                如果此处不加return，会继续执行下面的each循环，此处的css样式被覆盖,不加return这段代码要放到下面去，效率不高
+                return
         }
 
         $(".content").children().each(function (){
