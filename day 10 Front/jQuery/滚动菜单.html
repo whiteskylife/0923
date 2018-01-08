@@ -151,11 +151,11 @@
                 $(".catalog").removeClass("fixed");
             }
 
-//        if($(document).height()===$(window).height()+ws){
-//                $(".catalog").children(":last").css("fontSize", "60px").siblings().css("fontSize",'15px');
-////                如果此处不加return，会继续执行下面的each循环，此处的css样式被覆盖
+        if($(document).height()===$(window).height()+ws){
+                $(".catalog").children(":last").css("fontSize", "60px").siblings().css("fontSize",'15px');
+//                如果此处不加return，会继续执行下面的each循环，此处的css样式被覆盖
 //                return
-//        }
+        }
 
         $(".content").children().each(function (){
                 var offset = $(this).offset().top;
@@ -165,9 +165,10 @@
 //                    拼凑出$("[auto-to="function1"]")
                     var new_index = "[auto-to="+index+"]";
                     $(new_index).css("fontSize", "40px").siblings().css("fontSize","15px");
-                }else if($(document).height()===$(window).height()+ws){
-                    $(".catalog").children(":last").css("fontSize", "40px").siblings().css("fontSize",'15px');
-                    }
+                }
+//                else if($(document).height()===$(window).height()+ws){
+//                    $(".catalog").children(":last").css("fontSize", "40px").siblings().css("fontSize",'15px');
+//                    }
             }
 
         )
