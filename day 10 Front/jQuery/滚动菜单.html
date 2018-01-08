@@ -160,7 +160,8 @@
         $(".content").children().each(function (){
                 var offset = $(this).offset().top;
                 var total = $(this).height() + offset;
-                if( ws < 50 ){
+//                var header_height = $(".pg-header").height();
+                if( ws < $(".pg-header").height() ){
                     $(".catalog-item").css("fontSize","15px");
                 }
 
