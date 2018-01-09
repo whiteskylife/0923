@@ -34,7 +34,7 @@
         <div class="outer">
             <div class="menu">
                 <div class="item">
-                    <div class="title" onclick="show(this)">菜单一</div>
+                    <div class="title">菜单一</div>
                     <div class="con hide">
                         <div>1111</div>
                         <div>1111</div>
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="item">
-                    <div class="title" onclick="show(this)">菜单二</div>
+                    <div class="title" >菜单二</div>
                     <div class="con hide">
                         <div>2222</div>
                         <div>2222</div>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="item">
-                    <div class="title" onclick="show(this)">菜单三</div>
+                    <div class="title">菜单三</div>
                     <div class="con hide">
                         <div>3333</div>
                         <div>3333</div>
@@ -65,20 +65,26 @@
                 <p>content</p><p>content</p>
                 <p>content</p><p>content</p>
                 <p>content</p><p>content</p>
-                <p>content</p><p>content</p>
-                <p>content</p><p>content</p>
-                <p>content</p><p>content</p>
+
 
             </div>
         </div>
     <script src="jquery.min.js"></script>
     <script>
-            function show(self) {
-                $(self).next().removeClass("hide");
-                $(self).parent().siblings().children(".con").addClass("hide")
+        <!--绑定格式说明:找到需要绑定事件的标签,再把函数放到标签中-->
+        $(".title").click(function () {
+                $(this).next().removeClass("hide");
+                $(this).parent().siblings().children(".con").addClass("hide")
+            }
+            
+        );
+//            function show(self) {
+//                $(self).next().removeClass("hide");
+//                $(self).parent().siblings().children(".con").addClass("hide")
+
 //                这里也可以使用find：
 //              $(self).parent().siblings().find(".con").addClass("hide")
-            }
+//            }
     </script>
 
 

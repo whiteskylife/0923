@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="c1">
+        <p>hello</p>
+    </div>
+    <button>division</button>
+    <button>Clone Me!</button>
+    <button>division</button>
+
+    <script src="jquery.min.js"></script>
+    <script>
+//         $("#c1").append("<b>uuuu</b>");
+         // 相当于
+        //   $("<b>uuuu</b>").appendTo("#c1")
+
+        $("button").click(function(){
+            $(this).clone(true).insertBefore(this);
+            }
+        )
+
+
+    </script>
+</body>
+</html>
+
