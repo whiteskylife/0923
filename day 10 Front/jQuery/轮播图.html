@@ -13,22 +13,48 @@
         }
         .outer{
             width: 500px;
-            height: 500px;
+            height: 375px;
             border:dashed cadetblue 5px;
             margin:0 auto;
+            position: relative;
         }
+        .num{
+            position: absolute;
+            left: 0;
+            top:0;
+            font-size: 0;
+            width: 100%;
+            text-align: center;
+        }
+        .num li{
+            height: 20px;
+            width: 20px;
+            font-weight: bold;
+            background-color: darkgray;
+            border-radius: 60%;
+            text-align: center;
+            display: inline-block;
+            font-size: 15px;
+        }
+
+        .outer .img li{
+            position: absolute;
+            left: 0;
+            bottom:0;
+         }
+        
     </style>
 </head>
 <body>
     <div class="outer">
-        <ul>
-            <li><img src="1.png"></li>
+        <ul class="img">
+            <li><img src="5.jpg"></li>
             <li><img src="2.jpg"></li>
             <li><img src="3.jpg"></li>
             <li><img src="4.jpg"></li>
-            <li><img src="5.jpg"></li>
+            <li><img src="1.png"></li>
         </ul>
-        <ul>
+        <ul class="num">
             <li>1</li>
             <li>2</li>
             <li>3</li>
