@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.min.js"></script>
+    <script>
+//        $(document).ready(function () {
+//            jQuery.extend({
+//                s1:function (arg) {
+//                    var val = $(arg).text();
+//                    return val + "by whisky";
+//                },
+//                s2:function () {
+//
+//                }
+//            })
+//        });
+
+
+    </script>
+</head>
+<body>
+        <div id="title">666666666</div>
+        <script>
+        jQuery.extend({
+            s1:function (arg) {
+                var val = $(arg).text();
+                console.log(val)
+                return val + "by whisky";
+            },
+            s2:function () {
+
+            }
+        });
+        var ret = $.s1('#title');
+        console.log(ret)
+        </script>
+</body>
+</html>
