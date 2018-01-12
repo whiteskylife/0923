@@ -21,7 +21,8 @@
         .num{
             position: absolute;
             left: 0;
-            top:0;
+            bottom:0;
+            /*去掉li元素之间的换行符--font-size: 0;*/
             font-size: 0;
             width: 100%;
             text-align: center;
@@ -35,6 +36,8 @@
             text-align: center;
             display: inline-block;
             font-size: 15px;
+            margin: 5px;
+            cursor: pointer;
         }
 
         .outer .img li{
@@ -42,7 +45,34 @@
             left: 0;
             bottom:0;
          }
-        
+        .button{
+            height: 60px;
+            width: 40px;
+            background-color: darkgrey;
+            position: absolute;
+            /*left:0;*/
+            top: 50%;
+            margin-top: -30px;
+            opacity: 0.6;
+            font-size: 40px;
+            font-weight:bolder;
+            /*文本水平居中*/
+            text-align: center;
+            /*文本竖直居中*/
+            line-height: 60px;
+            display: none;
+        }
+        .btn_right{
+            right:0;
+        }
+        .outer:hover .button{
+            /*<div style="display:none">隐藏</div>*/
+            /*<div style="display:block">显示</div>*/
+            display: block;
+        }
+        .outer .num li.current{
+            background-color: red;
+        }
     </style>
 </head>
 <body>
@@ -62,8 +92,21 @@
             <li>5</li>
         </ul>
 
-        <div class="btn_left"> < </div>
-        <div class="btn_right"> > </div>
+        <div class="btn_left button"> < </div>
+        <div class="btn_right button"> > </div>
     </div>
+
+<script src="jquery.min.js"></script>
+<script>
+    $(function () {
+        $(".num li").first().addClass('current');
+        $(".num li").mouseover(function () {
+            $(this).addClass('current').siblings().removeClass('current');
+            var index = $(this).index();
+            $(".img li").eq(index).fadeIn(500).siblings().fadeOut()
+        })
+    })
+
+</script>
 </body>
 </html>
