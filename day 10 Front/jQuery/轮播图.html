@@ -31,7 +31,8 @@
             height: 20px;
             width: 20px;
             font-weight: bold;
-            background-color: darkgray;
+            background-color: black;
+            color: white;
             border-radius: 60%;
             text-align: center;
             display: inline-block;
@@ -64,6 +65,10 @@
         }
         .btn_right{
             right:0;
+            cursor: pointer;
+        }
+        .btn_left{
+            cursor: pointer;
         }
         .outer:hover .button{
             /*<div style="display:none">隐藏</div>*/
@@ -99,11 +104,44 @@
 <script src="jquery.min.js"></script>
 <script>
     $(function () {
+//        手动轮播
         $(".num li").first().addClass('current');
         $(".num li").mouseover(function () {
             $(this).addClass('current').siblings().removeClass('current');
             var index = $(this).index();
-            $(".img li").eq(index).fadeIn(500).siblings().fadeOut()
+            i = index
+            $(".img li").eq(index).fadeIn(500).siblings().fadeOut(500)
+        });
+//自动轮播开始
+        i = 0;
+        var time = setInterval(move, 1000);
+        function move() {
+            if(i==5){
+                i = -1;
+            }
+            i++;
+            $(".num li").eq(i).addClass("current").siblings().removeClass("current");
+            $(".img li").eq(i).fadeIn(1000).siblings().fadeOut(500)
+        }
+
+//        鼠标悬停停止轮播
+        $(".outer").hover(function () {
+            clearInterval(time);
+        },function () {
+            time=setInterval(move, 1500);
+        });
+
+//        点击左右按钮轮播
+        $(".btn_right").click(function () {
+            move()
+        });
+        $(".btn_left").click(function () {
+//            因move中有个i++ 已经加一，所以此处为i=i-2
+            if(i==0){
+                i = 5
+            }
+            i -= 2;
+            move()
         })
     })
 
