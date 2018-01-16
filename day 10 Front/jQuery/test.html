@@ -7,15 +7,20 @@
     </style>
 </head>
 <body>
+    <script src="jquery.min.js"></script>
     <script>
-        function func(){
-            for(var i=0;i<3;i++){
-                setInterval(function(){
-                    console.log(i);
-                },1000);
-            }
+        function f1(){
+            var li = [11, 22, 33];
+            $.each(li, function(k,v){
+                console.log(k, v);
+                if(k==1){
+                    return false;
+                }
+                }
+            );
+            console.log('end')
         }
-        func()
+        f1();
     </script>
 
 </body>

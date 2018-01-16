@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+        <div class="outer">
+            <div class="section">
+                <div class="icons" style="display: inline-block;">
+                    <a onclick="add(this);"><button>+</button></a>
+                </div>
+                <div class="inputs" style="display: inline-block;">
+                    <input type="checkbox">
+                    <input type="text" value="IP">
+                </div>
+            </div>
+        </div>
+<script>
+    function add(self) {
+//        不能直接克隆section如这样：$(".section").clone().appendTo(".outer"),否则第二次会添加两个
+        var item = $(self).parent().parent().clone();
+        $(".outer").append(item);
+        item.find("button").text("-");
+        item.find("a").attr("onclick", "remove(this);")
+    }
+//    减号删除标签
+    function remove(self) {
+        $(self).parent().parent().remove()
+    }
+</script>
+</body>
+</html>

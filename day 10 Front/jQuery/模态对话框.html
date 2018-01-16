@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.min.js"></script>
+    <style>
+        .shade{
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            z-index:20;
+        }
+        .modal{
+            position: fixed;
+            left:50%;
+            top:50%;
+            height: 300px;
+            width: 400px;
+            z-index: 30;
+            margin-left: -200px;
+            margin-top: -150px;
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+        <div>
+            <input type="button" value="添加" onclick="Edit(this);"/>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>主机名</th>
+                        <th>IP</th>
+                        <th>端口</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td target="host">c1.com</td>
+                        <td target="ip">1.1.1.1</td>
+                        <td target="port">8888</td>
+                        <td onclick="Edit(this);">Edit</td>
+                    </tr>
+                    <tr>
+                        <td target="host">c2.com</td>
+                        <td target="ip">1.1.1.1</td>
+                        <td target="port">8888</td>
+                        <td onclick="Edit(this);">Edit</td>
+                    </tr>
+                    <tr>
+                        <td target="host">c3.com</td>
+                        <td target="ip">1.1.1.1</td>
+                        <td target="port">8888</td>
+                        <td onclick="Edit(this);">Edit</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="shade hide"></div>
+        <div class="modal hide">
+            <form action="" method="get" style="padding-left: 101px;padding-top: 58px;">
+                <p><input type="text" id="host" name="host"/></p>
+                <p><input type="text" id="ip" name="ip"/></p>
+                <p><input type="text" id="port" name="port"/></p>
+                <input type="submit" value="提交" onclick="return SubmitForm();">
+                <input type="button" value="取消" onclick="HideModal();">
+            </form>
+        </div>
+
+        <script>
+//            表单验证
+
+            function SubmitForm() {
+                var flag = true;
+                $(".modal").find('input[type="text"]').each(function () {
+                    var value = $(this).val();
+                    if(value.trim().length == 0){
+                        flag = false;
+                        return false        // 作用：退出each循环
+                    }
+                });
+                return flag;
+            }
+            function Edit(ths) {
+//                根据索引去查找弊端：当表格中某一列需要删除时，要改动很多地方
+                $(".shade,.modal").removeClass("hide");
+                var preList = $(ths).prevAll();
+                preList.each(function () {
+                    var text = $(this).text();
+                    var target = $(this).attr('target');
+                    $("#"+ target).val(text)
+                })
+            }
+            function HideModal(){
+                $(".shade,.modal").addClass("hide");
+                $(".modal").find('input[type="text"]').val("")
+            }
+        </script>
+</body>
+</html>
