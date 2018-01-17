@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    .outer{
+        width: 430px;
+        height: 430px;
+        border: 5px dashed cornflowerblue;
+        margin-top: 100px;
+        margin-left: 100px;
+    }
+    .outer .small_box{
+        position: relative;
+    }
+    .outer .small_box .float{
+        height: 130px;
+        width: 130px;
+        background-color: gray;
+        opacity: 0.4;
+        position: absolute;
+        display: none;
+    }
+    .outer .big_box{
+        position: absolute;
+        left: 546px;
+        top: 100px;
+        width: 440px;
+        height: 440px;
+        overflow: hidden;
+        border: 5px solid red;
+    }
+    </style>
+</head>
+<body>
+<div>
+    <div class="outer">
+        <div class="small_box">
+            <div class="float"></div>
+            <img src="watch1.jpg">
+        </div>
+        <div class="big_box">
+            <img src="watch2.jpg">
+        </div>
+    </div>
+</div>
+</body>
+</html>
