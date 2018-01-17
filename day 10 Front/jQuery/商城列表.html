@@ -215,12 +215,34 @@
 
             function change(menuF, menuS, menuT) {
                 $(menuF).bind("mouseover", function () {
-                    $(menuS).parent().removeClass('hide')
+                    $(menuS).parent().removeClass('hide');
                 });
                 $(menuF).bind('mouseout', function () {
-                    $(menuS).parent().addClass('hide')
+                    $(menuS).parent().addClass('hide');
                 });
 
+            $(menuS).children().bind('mouseover', function () {
+                $(menuS).parent().removeClass('hide');
+                var item = $(menuT).find('[float-id="' + $(this).attr('float-content') + '"]');
+                $(item).removeClass('hide').siblings().addClass('hide');
+
+            });
+
+            $(menuS).children().bind('mouseout', function () {
+                $(menuS).parent().addClass('hide');
+            });
+
+            $(menuT).children().bind('mouseover', function () {
+                $(menuS).parent().removeClass('hide');
+                $(this).removeClass('hide');
+//                $(menuT).children().bind('mouseout', function () {
+//                    $(menuS).parent().addClass('hide');
+//                })
+            });
+            $(menuT).children().bind('mouseout', function () {
+                $(menuS).parent().addClass('hide');
+//                $(this).addClass('hide');
+            });
             }
 
         </script>
