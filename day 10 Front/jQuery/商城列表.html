@@ -235,14 +235,11 @@
             $(menuT).children().bind('mouseover', function () {
                 $(menuS).parent().removeClass('hide');
                 $(this).removeClass('hide');
-//                $(menuT).children().bind('mouseout', function () {
-//                    $(menuS).parent().addClass('hide');
-//                })
+                $(menuT).children().bind('mouseout', function () {
+                    $(menuS).parent().addClass('hide');
+                })
             });
-            $(menuT).children().bind('mouseout', function () {
-                $(menuS).parent().addClass('hide');
-//                $(this).addClass('hide');
-            });
+
             }
 
         </script>
