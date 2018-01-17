@@ -208,7 +208,22 @@
 
 
 <script src="jquery.min.js"></script>
+        <script>
+            $(function () {
+                change("#all_menu_catagory", "#nav_all_menu", "#nav_all_content")
+            });
 
+            function change(menuF, menuS, menuT) {
+                $(menuF).bind("mouseover", function () {
+                    $(menuS).parent().removeClass('hide')
+                });
+                $(menuF).bind('mouseout', function () {
+                    $(menuS).parent().addClass('hide')
+                });
+
+            }
+
+        </script>
 
 </body>
 </html>
