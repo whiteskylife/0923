@@ -36,8 +36,14 @@
         border: 5px solid red;
         display: none;
     }
+
+    .outer .big_box img{
+        position: absolute;
+    }
+
     </style>
 </head>
+
 <body>
     <div class="outer">
         <div class="small_box">
@@ -76,21 +82,28 @@
 //            小面板跟随鼠标的mousemove事件，要滑动的距离,X/Y两个方向
             var mouse_left = event.clientX-float_width_half-outer_left;
             var mouse_top = event.clientY-float_height_half-outer_top;
-
+//            固定小面板左右移动范围
             if(mouse_left<0){
                 mouse_left = 0;
             }else if(mouse_left>small_box_width-float_width){
                 mouse_left = small_box_width-float_width;
             }
-
+//          固定小面板上下移动范围
             if(mouse_top<0){
                 mouse_top = 0;
             }else if(mouse_top>small_box_height-float_height){
                 mouse_top = small_box_height-float_height;
             }
+//          定义放大比例 = 大图自身的宽、高 - 大图外层div的宽、高 / 小图自身宽、高 - float层标签的宽、高
+//          定义放大比例 = 大图自身允许移动的宽、高               / 小图自身允许移动的宽、高
+            console.log($('.big_box').width());
+            var percentX=($('.big_box img').width()-$('.big_box').width())/(small_box_width-float_width);
+            var percentY=($('.big_box img').height()-$('.big_box').height())/(small_box_height-float_height);
 
             $('.float').css('left', mouse_left+"px");
             $('.float').css('top', mouse_top+"px");
+            $('.big_box img').css('left', -percentX*mouse_left + "px");
+            $('.big_box img').css('top', -percentY*mouse_top + "px");
 
         })
     </script>
