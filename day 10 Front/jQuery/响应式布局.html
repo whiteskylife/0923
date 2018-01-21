@@ -4,20 +4,23 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.css">
+    <style>
+        .container{
+            width: 980px !important;
+        }
+    </style>
 </head>
 <body>
-
-<form class="form-inline">
-  <div class="form-group">
-    <label for="exampleInputName2">Name</label>
-    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputEmail2">Email</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-  </div>
-  <button type="submit" class="btn btn-default">Send invitation</button>
-</form>
+    <div class="container" style="background-color: red">
+        <div class="row">
+            <div class="col-xs-3 col-xs-offset-3">456</div>
+        </div>
+<!--上面3行代码效果等同于下面4行-->
+        <div class="row">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-3">456</div>
+        </div>
+    </div>
 
 </body>
 </html>

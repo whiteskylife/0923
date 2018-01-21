@@ -1,20 +1,7 @@
 #!/usr/bin/env python
 # -*-coding:utf-8 -*-
 from wsgiref.simple_server import make_server
-
-
-def new():
-    return 'new'
-
-
-def index():
-    return 'index'
-
-
-URLS = {
-    '/new': new,
-    '/index': index,
-}
+from urls import URLS
 
 
 def RunServer(environ, start_response):
