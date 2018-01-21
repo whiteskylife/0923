@@ -3,6 +3,7 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
+# 解决报错：UnicodeDecodeError: 'ascii' codec can't decode byte 0xe8
 import os
 from jinja2 import Template
 
