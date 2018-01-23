@@ -14,10 +14,11 @@ class MainHandler(tornado.web.RequestHandler):
     def post(self, *args, **kwargs):
         self.write("Hello, world")
 
-
+# 对于静态文件的处理
 settings = {
     "template_path": "tpl",        # 模板路径配置
     'static_path': 'static',       # 静态文件指定路径
+    # "static_url_prefix": '/prefix_folder/'  # 如果写上了static_url_prefix , 会去static_path路径中去找对应的路径，
 }
 
 # 路由映射，路由系统
