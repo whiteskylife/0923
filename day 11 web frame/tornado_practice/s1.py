@@ -3,16 +3,20 @@
 
 import tornado.ioloop
 import tornado.web
+INPUTS_LIST = []
 
 
 # 处理请求的类:
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         # self.write("Hello, world")
-        self.render('s1.html')
+        self.render('s1.html', xxxooo=INPUTS_LIST)
 
     def post(self, *args, **kwargs):
-        self.write("Hello, world")
+        name = self.get_argument('xxx')     # 获取用户提交的数据
+        INPUTS_LIST.append(name)
+        self.render("s1.html", xxxooo=INPUTS_LIST)
+
 
 # 对于静态文件的处理
 settings = {

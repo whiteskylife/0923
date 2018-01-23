@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>whisky</title>
-    <link rel="icon" href="http://www.jd.com/favicon.ico">
     <link rel="stylesheet" href="../static/common.css">
 </head>
 
@@ -11,6 +10,17 @@
     <div style="background-color: pink">
         <h1>whisky</h1>
     </div>
+    <form method="post" action="/index">
+        <input type="text" name="xxx" />
+        <h1>提交内容：</h1>
+        <input type="submit" value="提交" />
+    </form>
+    <h1>展示内容：</h1>
+    <ul>
+        {% for item in xxxooo %}
+        <li>{{item}}</li>
+        {% end %}
+    </ul>
     <script src="../static/jquery.min.js"></script>
     <script>
                 $("div").mouseover(function () {
