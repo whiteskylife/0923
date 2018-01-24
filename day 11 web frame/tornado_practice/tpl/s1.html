@@ -3,25 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>whisky</title>
-    <link rel="stylesheet" href="../static/common.css">
+    <!--<link rel="stylesheet" href='{{ static_url("../static/common.css")}}' />-->
+    <link rel="stylesheet" href='{{ static_url("common.css")}}' />
 </head>
 
 <body>
     <div style="background-color: pink">
         <h1>whisky</h1>
     </div>
-    <form method="post" action="/index">
+    <form method="get" action="/index">
         <input type="text" name="xxx" />
         <h1>提交内容：</h1>
         <input type="submit" value="提交" />
     </form>
     <h1>展示内容：</h1>
+    <!--uimethod使用-->
+    <h3>{{ func(npm) }}</h3>
+    <!--UImodule使用-->
+    <h3>{% module custom() %}</h3>
     <ul>
         {% for item in xxxooo %}
-        <li>{{item}}</li>
+            {% if item == "alex" %}
+                <li style="color:red">{{item}}</li>
+            {% else %}
+                <li>{{item}}</li>
+            {% end %}
         {% end %}
     </ul>
-    <script src="../static/jquery.min.js"></script>
+    <!--<script src='{{ static_url("../static/jquery.min.js")}}'></script>-->
+    <script src='{{ static_url("jquery.min.js")}}'></script>
     <script>
                 $("div").mouseover(function () {
                     $('div').css("backgroundColor", "green")
