@@ -1,6 +1,284 @@
-* {
-    margin:0;
+body{
+    margin: 0;
 }
-div{
-    background-color: black;
+/** {*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+/*}*/
+.pg-header{
+    background-color: #2459a2;
+    height: 44px;
+    /*z-index: 1000;*/
+    position: fixed; right: 0;left: 0;
+}
+.w{
+    width: 960px;
+    /*让div居中的常用方法*/
+    margin: 0 auto;
+}
+ul{
+    list-style: none;
+    margin: 0;
+}
+ul li{
+    /*一般来讲，从左到右的布局都用float*/
+    float: left;
+}
+.pg-header .logo{
+    float: left;
+    margin-top: 11px;
+}
+.pg-header .menu{
+    float: left;
+    line-height: 44px;
+    font-size: 12px;
+}
+.pg-header .menu ul li:hover{
+    color: #fff;
+    background-color: #204982;
+}
+.pg-header .w .menu ul li a{
+    color: white;
+    padding: 0 20px;
+    /*margin: 20px;*/
+    text-decoration: none;
+}
+.pg-header .account{
+    float: right;
+    font-size: 12px;
+}
+.pg-header .account ul li a{
+    line-height: 44px;
+    color: white;
+    text-decoration: none;
+    /*margin: 20px;*/
+    padding: 13px 20px;
+
+}
+.pg-header .account ul li a:hover{
+    /*background-color: #204982;*/
+    background-color: cornflowerblue;
+}
+
+.pg-header .search{
+    float: right;
+}
+
+.pg-body{
+    /*height: 500px;*/
+    background-color: #ededed;
+    padding-top: 44px;
+}
+.pg-body .l-body{
+    /*padding: 6px 28px 60px;*/
+    /*background-color: #fff;*/
+    width: 630px;
+    float: left;
+    /*background-color: white;*/
+}
+.pg-body .r-body {
+    width: 260px;
+    float: right;
+    /*background-color: white;*/
+}
+ .pg-body .test{
+    background-color: white;
+ }
+.l-body-top{
+    border-bottom: 1px solid #ccdcef;
+    height: 43px;
+}
+.child-nav .hotbtn{
+    background-position:0 -299px;
+    color: #333;
+}
+
+.main-content{
+    padding: 6px 28px 60px;
+}
+.child-nav{
+    display: inline;
+    float: left;
+}
+.child-nav a{
+    display: inline-block;
+    width: 60px;
+    height: 26px;
+    line-height: 26px;
+    margin-top: 3px;
+    margin-bottom: 13px;
+    color: #369;
+    font-size: 12px;
+    font-weight: 700;
+    text-align:center;
+}
+
+.icons{
+    background: url("http://dig.chouti.com/images/tip.png?v=2.9")  no-repeat 0 0;
+}
+
+.pg-footer{
+    background-color: green;
+}
+.sort-nav{
+    float: left;
+    margin-left: 144px;
+    margin-top: 10px;
+    font-size: 12px;
+}
+.sort-nav .active{
+    color:#b4b4b4;
+}
+.sort-nav a{
+    margin-left:10px;
+    color: #390;
+    text-align: center;
+}
+.publish-btn{
+    float: right;
+    background-color: #84a42b;
+    border: 1px solid #8aab30;
+    color: #fff;
+    height:30px;
+    line-height: 30px;
+    text-align: center;
+    width: 134px;
+    font-size: 14px;
+}
+.publish-btn .n1{
+    height: 11px;
+    width: 12px;
+    background-position:0 -184px;
+    display: inline-block;
+}
+.ico{
+    background: url("http://dig.chouti.com/images/icon.png") no-repeat 0 0;
+}
+
+.publish-btn .n2{
+    font-weight: 400;
+    margin-left: 8px;
+}
+/*.content-list{*/
+    /**/
+/*}*/
+.content-list .item{
+    clear: both;
+    padding-top: 10px;
+    border-bottom: 1px solid #dce7f4;
+    overflow: hidden;
+    position: relative;
+}
+.content-list .item .news-pic{
+    float: right;
+    margin-left: 10px;
+
+}
+.news-pic img{
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ccc;
+    padding: 1px;
+}
+/*.news-content{*/
+    /*height: 109px;*/
+/*}*/
+.news-content .part1 .show-content {
+    color: #369;
+    font-size: 14px;
+    font-weight: 700;
+}
+.content-list .item .content-source{
+    font-size: 13px;
+    color: #b4b4b4;
+    margin-left: 7px;
+}
+.content-list .item .news-content .content-kind{
+    font-size: 12px;
+    color: #b4b4b4;
+}
+
+/*.content-list .item .news-content .part2 .hand-icon{*/
+    /*background: url("http://dig.chouti.com/images/icon_18_118.png?v=2.13") no-repeat 0 0;*/
+/*}*/
+
+/*.content-list .item .news-content .part2 .icon-digg{*/
+    /*background-position: 0 -40px;*/
+/*}*/
+.part2{
+    /*width: 630px;*/
+    /*height: 20px;*/
+    padding-top: 6px;
+    margin-bottom: 16px;
+}
+/*.part2 span{*/
+    /*display: inline-block;*/
+/*}*/
+.content-list .item .news-content .part2 span{
+    display: inline-block;
+}
+.part2 .digg-a{
+    /*width: 54px;*/
+    /*height: 20px;*/
+    min-width:54px;
+}
+.part2 .discus-a{
+    /*width: 54px;*/
+    /*height: 20px;*/
+    min-width:54px;
+}
+
+.part2 .icon-digg{
+    width: 18px;
+    height: 18px;
+}
+.part2 .icon-digg{
+    background-position: 0 -40px;
+}
+
+.hand-icon{
+    background: url("http://dig.chouti.com/images/icon_18_118.png?v=2.13") no-repeat 0 0;
+}
+.part2 b{
+    color: #99aecb;
+    font-size: 14px;
+    font-weight: 700;
+    vertical-align: 4px;
+    margin-left: 7px;
+}
+.part2 .collect-a{
+    width: 69px;
+    height: 210px;
+}
+.part2 .icon-discus{
+    background-position: 0 -100px;
+    width: 18px;
+    height: 18px;
+    vertical-align: -1px;
+}
+.part2 .icon-collect{
+    background-position: 0 -160px;
+    width: 18px;
+    height: 18px;
+}
+.user-a img{
+    width: 19px;
+    height: 19px;
+}
+.part2 span{
+    display: inline-block;
+}
+.time-a{
+    text-decoration: none;
+}
+.time-into b{
+    color: #e59373;
+    font-weight: 400;
+    font-size: 1px;
+}
+.time-into i{
+    color: #ccc;
+    font-weight: 400;
+    font-size: 1px;
+    vertical-align: 4px;
 }
