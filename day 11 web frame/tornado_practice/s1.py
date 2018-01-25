@@ -7,7 +7,11 @@ import uimethod as mt       # 导入
 import uimodule as md
 
 INPUTS_LIST = []
-
+USER_INFO = {'is_login': None}
+NEWS_LIST = [
+    {'title': '我是一个title', 'content': '我是内容部分'},
+    {'title': '我是一个title2', 'content': '我是内容部分2'}
+]
 
 # 处理请求的类:
 # class MainHandler(tornado.web.RequestHandler):
@@ -26,7 +30,27 @@ INPUTS_LIST = []
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
-        self.render('chouti.html')
+        self.render('chouti.html', user_info=USER_INFO, new_list=NEWS_LIST)
+
+
+class LoginHandler(tornado.web.RequestHandler):
+
+    def post(self, *args, **kwargs):
+        username = self.get_argument('username', None)
+        pwd = self.get_argument('pwd', None)
+        if username == 'alex' and pwd == '123':
+            USER_INFO['is_login'] = True
+            USER_INFO['username'] = username
+        self.render('chouti.html', user_info=USER_INFO, new_list=NEWS_LIST)
+
+
+class PublishHandler(tornado.web.RequestHandler):
+    def post(self, *args, **kwargs):
+        title = self.get_argument('title', None)
+        content = self.get_argument('content', None)
+        temp = {'title': title, 'content':content}
+        NEWS_LIST.append(temp)
+        self.redirect('/index')
 
 settings = {
     "template_path": "tpl",        # 模板路径配置(存放HTML)
@@ -40,7 +64,10 @@ settings = {
 application = tornado.web.Application([
     # (r"/index", MainHandler),
     (r"/index", IndexHandler),
+    (r"/login", LoginHandler),
+    (r"/publish", PublishHandler),
 ], **settings)
+
 
 if __name__ == "__main__":
     application.listen(8000)

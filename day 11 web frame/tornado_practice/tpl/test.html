@@ -3,8 +3,8 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>抽屉新热榜</title>
-    <link rel="stylesheet" href='{{static_url("common.css") }}' />
-    <link rel="stylesheet" href='{{static_url("plugins/bootstrap/css/bootstrap.css") }}' />
+    <link rel="stylesheet" href='{{static_url("css/commons.css") }}' />
+    <link rel="stylesheet" href='{{static_url("plugins/bootstrap3/css/bootstrap.css") }}' />
 
 </head>
 <body>
@@ -42,16 +42,15 @@
                     <i>+</i>
                 </b>
             </a>
-
-            {% if user_info['is_login'] %}
-            <a href="/user/link/saved/1" id="loginUserNc" class="userPro-Box">
-                <img src="http://img2.chouti.com/CHOUTI_05B313F703D34646848BCC5571510683_W148H148=30x30).jpg" id="userProImg">
-                <span class="u-nick" id="userProNick">{{user_info["username"]}}</span>
-                <em id="userProArr"></em>
-            </a>
+            {% if user_info["is_login"] %}
+                <a href="/user/link/saved/1" id="loginUserNc" class="userPro-Box">
+                    <img src="http://img2.chouti.com/CHOUTI_05B313F703D34646848BCC5571510683_W148H148=30x30).jpg" id="userProImg">
+                    <span class="u-nick" id="userProNick">{{user_info["username"]}}</span>
+                    <em id="userProArr"></em>
+                </a>
             {% else %}
-                <a onclick="Login();">登录</a>
-                <a>注册</a>
+            <a onclick="Login();">登录</a>
+            <a>注册</a>
             {% end %}
         </div>
         <div class="user-opr-box" id="userOprBox" style="left: 869px; display: none;">
@@ -137,7 +136,6 @@
 
 </div>
 
-<!--引入bootstrap模态框-->
 <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -145,7 +143,6 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="exampleModalLabel">用户登录</h4>
       </div>
-
         <form action="/login" method="post">
         <div class="modal-body">
 
@@ -164,13 +161,10 @@
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">提交</button>
           </div>
-
         </form>
-
     </div>
   </div>
 </div>
-
 <div class="modal fade" id="pub" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -201,10 +195,8 @@
   </div>
 </div>
 
-
-<script src='{{static_url("jquery-3.2.1.js") }}'></script>
-<script src='{{static_url("plugins/bootstrap/js/bootstrap.js")}}'></script>
-
+<script src='{{static_url("js/jquery-2.1.4.min.js") }}'></script>
+<script src='{{static_url("plugins/bootstrap3/js/bootstrap.js") }}' ></script>
 <script>
     $(function(){
         $('#loginUserNc,#userOprBox').mouseover(function(){
@@ -221,13 +213,8 @@
     function Publish() {
         $('#pub').modal('show');
     }
-//    function Login() {
-//        $('#login').modal('show');
-//    }
-//    function Publish() {
-//        $('#pub').modal('show');
-//    }
 </script>
 </body>
 </html>
 
+index.html 其实在这用不着，只是这个是附带发布文章用的。。。那个案例一起搞过来了
