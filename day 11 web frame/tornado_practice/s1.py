@@ -41,15 +41,18 @@ class LoginHandler(tornado.web.RequestHandler):
         if username == 'alex' and pwd == '123':
             USER_INFO['is_login'] = True
             USER_INFO['username'] = username
-        self.render('chouti.html', user_info=USER_INFO, new_list=NEWS_LIST)
+        # self.render('chouti.html', user_info=USER_INFO)
+        self.redirect('/index')
 
 
 class PublishHandler(tornado.web.RequestHandler):
     def post(self, *args, **kwargs):
-        title = self.get_argument('title', None)
-        content = self.get_argument('content', None)
-        temp = {'title': title, 'content':content}
-        NEWS_LIST.append(temp)
+        # 如果没有登录不能发布消息
+        if USER_INFO['is_login']:
+            title = self.get_argument('title', None)
+            content = self.get_argument('content', None)
+            temp = {'title': title, 'content':content}
+            NEWS_LIST.append(temp)
         self.redirect('/index')
 
 settings = {
