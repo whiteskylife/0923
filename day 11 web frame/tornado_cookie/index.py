@@ -3,7 +3,7 @@
 
 import tornado.ioloop
 import tornado.web
-
+import time
 # render中的文件不要加/等路径
 
 
@@ -18,7 +18,6 @@ class ManagerHandler(tornado.web.RequestHandler):
         if val == '1':
             self.render('manager.html')
         else:
-            print('-----------')
             self.redirect('/login')
 
 
@@ -30,8 +29,14 @@ class LoginHandler(tornado.web.RequestHandler):
     def post(self, *args, **kwargs):
         username = self.get_argument('username', None)
         pwd = self.get_argument('password', None)
+        check = self.get_argument('auto', None)  # 勾选复选框时，check的值为1，未勾选值为0
         if username == 'alex' and pwd == '123':
-            self.set_cookie('auth', '1')
+            if check:
+                self.set_cookie('auth', '1', expires_days=7)
+            else:
+                # 默认10秒超时
+                r = time.time() + 3  # 设置超时，3s后cookie消失
+                self.set_cookie('auth', '1', expires=r)
             self.redirect('/manager')
         else:
             self.render('login.html', status_text='登录失败')
