@@ -5,9 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-        <input type="text" name="username" />
-        <input type="password" name="password" />
-        <input type="checkbox" name="auto" value="1" />7天免登陆
+        <input id='user' type="text" name="username" />
+        <input id='pwd' type="password" name="password" />
+        <input id='check' type="checkbox" name="auto" value="1" />7天免登陆
         <input type="button" value="登录" onclick="SubmitForm();" />
 
         <script>
@@ -15,12 +15,15 @@
             function SubmitForm() {
 //                触发事件，创建一个xml对象
                 xhr = new XMLHttpRequest();
-//                打开一个链接,最后一个参数默认为true就好，为false时页面会锁死
-                xhr.open('GET', '/login', true);
+//                打开一个链接,最后一个参数默认为true就好，为false时页面会锁死，
+//                xhr.open('GET', '/login', true);
+//                如果为POST请求，要加一个setRequestHeader请求头,GET方法无需设置setRequestHeader请求头
+                xhr.open('POST', '/login', true);
 //                绑定一个事件/回调函数，当readyState（XmlHttpRequest对象的一个属性）的值改变时自动触发执行其对应的函数（回调函数）
                 xhr.onreadystatechange = func;
-//                 用于发送请求 参数：body： 要发送的数据（字符串类型）
-                xhr.send();
+                xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded, charset=UTF-8');
+//                 用于发送请求到后台， 参数：body： 要发送的数据（字符串类型）
+                xhr.send("username=" + document.getElementById('user').value + ";password=" + document.getElementById('pwd').value);
             }
             function func() {
                 if(xhr.readyState == 4){

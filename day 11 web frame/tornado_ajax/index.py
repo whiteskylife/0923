@@ -13,8 +13,9 @@ class LoginHandler(tornado.web.RequestHandler):
         self.render('login.html')
 
     def post(self, *args, **kwargs):
-        pass
-
+        print(self.get_argument('username'))
+        print(self.get_argument('password'))
+        self.write('ok')    #write方法作用相当于console.log()
 
 settings = {
     "template_path": "views",  # 模板路径配置(存放HTML)
