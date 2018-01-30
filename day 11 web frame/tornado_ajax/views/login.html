@@ -14,7 +14,7 @@
             xhr = null;
             function SubmitForm() {
 //                触发事件，创建一个xml对象
-                var xhr = new XMLHttpRequest();
+                xhr = new XMLHttpRequest();
 //                打开一个链接,最后一个参数默认为true就好，为false时页面会锁死
                 xhr.open('GET', '/login', true);
 //                绑定一个事件/回调函数，当readyState（XmlHttpRequest对象的一个属性）的值改变时自动触发执行其对应的函数（回调函数）
@@ -22,9 +22,12 @@
 //                 用于发送请求 参数：body： 要发送的数据（字符串类型）
                 xhr.send();
             }
-            
             function func() {
-                console.log(1);
+                if(xhr.readyState == 4){
+                    console.log(1);
+//                   responseText 服务器返回的数据（字符串类型）
+                    console.log(xhr.responseText)
+                }
             }
         </script>
 
