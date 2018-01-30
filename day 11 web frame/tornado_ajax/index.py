@@ -3,7 +3,6 @@
 
 import tornado.ioloop
 import tornado.web
-import time
 
 
 # render中的文件不要加/等路径
@@ -29,6 +28,7 @@ class LoginHandler(tornado.web.RequestHandler):
 settings = {
     "template_path": "views",  # 模板路径配置(存放HTML)
     # 'cookie_secret': 'aiuasdhflashjdfoiuashdfiuh' # 加密cookie的盐
+    "static_path": 'static',
 }
 
 # 路由映射，路由系统
