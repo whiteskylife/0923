@@ -28,7 +28,7 @@ class LoginHandler(tornado.web.RequestHandler):
 settings = {
     "template_path": "views",  # 模板路径配置(存放HTML)
     # 'cookie_secret': 'aiuasdhflashjdfoiuashdfiuh' # 加密cookie的盐
-    "static_path": 'static',
+    "static_path": 'static',    # 注册引入jQuery的静态目录
 }
 
 # 路由映射，路由系统

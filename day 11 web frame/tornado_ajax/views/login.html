@@ -11,44 +11,10 @@
         <input type="button" value="登录" onclick="SubmitForm();" />
         <script src="{{ static_url('jquery-1.9.1.js')}}"></script>
         <script>
-            xhr = null;
             function SubmitForm() {
-//                触发事件，创建一个xml对象
-                xhr = new XMLHttpRequest();
-//                打开一个链接,最后一个参数默认为true就好，为false时页面会锁死，
-//                xhr.open('GET', '/login', true);
-//                如果为POST请求，要加一个setRequestHeader请求头,GET方法无需设置setRequestHeader请求头
-                xhr.open('POST', '/login', true);
-//                绑定一个事件/回调函数，当readyState（XmlHttpRequest对象的一个属性）的值改变时自动触发执行其对应的函数（回调函数）
-                xhr.onreadystatechange = func;
-                xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded, charset=UTF-8');
-//                 用于发送前台页面输入的用户名和密码请求到后台（后台由get_argument获取相应变量）， 参数：body（字符串类型）： 要发送的数据
-                xhr.send("username=" + document.getElementById('user').value + ";password=" + document.getElementById('pwd').value);
-            }
-
-            function func() {
-                if(xhr.readyState == 4){
-//readyState
-//       状态值（整数）
-//
-//       详细：
-//          0-未初始化，尚未调用open()方法；
-//          1-启动，调用了open()方法，未调用send()方法；
-//          2-发送，已经调用了send()方法，未接收到响应；
-//          3-接收，已经接收到部分响应数据；
-//          4-完成，已经接收到全部响应数据
-                    console.log(1);
-//                   responseText 服务器返回的数据（字符串类型）
-//                    console.log(xhr.responseText);
-                    var data = xhr.responseText;
-//                    字符串转化为对象
-                    var ret_dict = JSON.parse(data);
-                    if(ret_dict.status){        // 后台字典中验证通过，status值为True
-
-                    }else {
-                        alert(ret_dict.message); // 取后台字典中的message的值
-                    }
-                }
+                $.post('/login', {'username': $('#user').val(), 'password': $('#pwd').val()}, function (callback) {
+                   console.log(callback);
+                });
             }
         </script>
 

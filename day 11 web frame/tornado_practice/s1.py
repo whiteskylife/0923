@@ -55,6 +55,7 @@ class PublishHandler(tornado.web.RequestHandler):
             NEWS_LIST.append(temp)
         self.redirect('/index')
 
+
 settings = {
     "template_path": "tpl",        # 模板路径配置(存放HTML)
     'static_path': 'static',       # 静态文件指定路径（存放JS、CSS）
