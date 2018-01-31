@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*-coding:utf-8 -*-
+# 抽屉：用ajax实现了登录，发布，但无法redirect跳转，必须手动刷新， cookie功能没写，由user_info字典后台判断是否登录以及状态
 
 import tornado.ioloop
 import tornado.web
