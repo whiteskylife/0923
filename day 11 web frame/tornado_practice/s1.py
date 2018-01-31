@@ -37,12 +37,12 @@ class LoginHandler(tornado.web.RequestHandler):
 
     def post(self, *args, **kwargs):
         username = self.get_argument('username', None)
-        pwd = self.get_argument('pwd', None)
+        pwd = self.get_argument('password', None)
         if username == 'alex' and pwd == '123':
             USER_INFO['is_login'] = True
             USER_INFO['username'] = username
         # self.render('chouti.html', user_info=USER_INFO)
-        self.redirect('/index')
+            self.redirect('/index')
 
 
 class PublishHandler(tornado.web.RequestHandler):
@@ -52,6 +52,7 @@ class PublishHandler(tornado.web.RequestHandler):
             title = self.get_argument('title', None)
             content = self.get_argument('content', None)
             temp = {'title': title, 'content':content}
+            print(title, content)
             NEWS_LIST.append(temp)
         self.redirect('/index')
 

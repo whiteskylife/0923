@@ -139,6 +139,7 @@
 </div>
 
 <!--引入bootstrap模态框-->
+<!--登录模态框-->
 <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -147,31 +148,29 @@
         <h4 class="modal-title" id="exampleModalLabel">用户登录</h4>
       </div>
 
-        <form action="/login" method="post">
         <div class="modal-body">
 
           <div class="form-group">
             <label class="control-label">用户名:</label>
-            <input type="text" name="username" class="form-control" >
+            <input id='user' type="text" name="username" class="form-control" >
           </div>
           <div class="form-group">
             <label  class="control-label">密码:</label>
-            <input type="password" name="pwd" class="form-control" >
+            <input id='pwd' type="password" name="password" class="form-control" >
           </div>
 
+        </div>
 
-          </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">提交</button>
+            <button type="submit" class="btn btn-primary" onclick="SubmitForm();">提交</button>
           </div>
 
-        </form>
 
     </div>
   </div>
 </div>
-
+<!--发布模态框-->
 <div class="modal fade" id="pub" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -179,9 +178,9 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">发布新闻</h4>
       </div>
-        <form action="/publish" method="post">
-        <div class="modal-body">
+        <!--<form action="/publish" method="post">-->
 
+         <div class="modal-body">
           <div class="form-group">
             <label class="control-label">标题:</label>
             <input type="text" name="title" class="form-control" >
@@ -190,14 +189,14 @@
               <label  class="control-label">内容:</label>
               <textarea class="form-control" name="content"></textarea>
           </div>
+        </div>
 
-
-          </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">提交</button>
+            <button type="submit" class="btn btn-primary" onclick="SubmitForm1();">提交</button>
           </div>
-        </form>
+
+        <!--</form>-->
     </div>
   </div>
 </div>
@@ -216,13 +215,23 @@
             $('#loginUserNc').removeClass('active');
         })
     });
+//    显示登录模态框
     function Login() {
         $('#login').modal('show');
     }
+//    显示发布模态框
     function Publish() {
         $('#pub').modal('show');
     }
 
+    function SubmitForm() {
+        $.post('/login', {'username': $('#user').val(), 'password': $('#pwd').val()});
+//        console.log({'username': $('#user').val(), 'password': $('#pwd').val()})
+    }
+    
+    function SubmitForm1() {
+        $.post('/publish', {'title': '1111111111111111111111111', 'content':'22222222'})
+    }
 </script>
 </body>
 </html>
