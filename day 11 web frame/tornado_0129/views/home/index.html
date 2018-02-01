@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>提交数据</h1>
-    <form method="post" action="/index/">
+    <form method="post" action="/index/{{current_page}}">
         <input name="username" type="text" />
         <input name="email" type="text" />
         <input type="submit" value="提交" />
@@ -22,11 +22,17 @@
         <tbody>
             {% for line in list_info%}
                 <tr>
-                    <td>{{line['username']}}</td>
+                    <td>{% raw line['username'] %}</td>
                     <td>{{line['email']}}</td>
                 </tr>
             {% end %}
         </tbody>
     </table>
+    <div class="page">
+        <a href="/index/1">1</a>
+        <a href="/index/2">2</a>
+        <a href="/index/3">3</a>
+        <a href="/index/4">4</a>
+    </div>
 </body>
 </html>

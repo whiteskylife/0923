@@ -12,7 +12,7 @@ settings = {
     "static_path": 'statics',    # 注册引入jQuery的静态目录
 }
 
-# 路由映射，路由系统
+# 路由映射，路由系统，正则匹配输入的url，交给对应的类处理
 application = tornado.web.Application([
     (r"/index/(?P<page>\d*)", home.IndexHandler),
 ], **settings)
