@@ -14,7 +14,7 @@ settings = {
 
 # 路由映射，路由系统
 application = tornado.web.Application([
-    (r"/index/(\d*)", home.IndexHandler),
+    (r"/index/(?P<page>\d*)", home.IndexHandler),
 ], **settings)
 
 
