@@ -7,7 +7,7 @@ import tornado.web
 LIST_INFO = [
     {'username': 'alex', 'email': 'whisky@163.com'},
 ]
-for i in range(99):
+for i in range(199):
     temp_dic = {'username': 'alex'+str(i), 'email': str(i) + '123@qq.com'}
     LIST_INFO.append(temp_dic)
 
@@ -32,8 +32,19 @@ class IndexHandler(tornado.web.RequestHandler):
         if surplus > 0:     # all_pager为页数，如果存在余数并大于0，则说明有多余的内容，总页数加一来显示，余数为0,则页数为all_pager
             all_pager += 1  # 总页数加一来显示余下内容
         list_page = []
-        for p in range(all_pager):
-            temp = '<a href="/index/%s">%s</a>' % (p+1, p+1)
+
+        start_page = page - 5
+        if start_page < 0:
+            start_page = 1
+        end_page = page + 5
+        if end_page > all_pager:
+            end_page = all_pager
+
+        for p in range(start_page, end_page):      # 生成HTML页码
+            if p + 1 == page:           # 当p等于用户输入的页码：page时，表示处在当前页
+                temp = '<a class="active" href="/index/%s">%s</a>' % (p + 1, p + 1)
+            else:
+                temp = '<a href="/index/%s">%s</a>' % (p+1, p+1)
             list_page.append(temp)
         str_page = "".join(list_page)
 
