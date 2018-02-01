@@ -29,8 +29,8 @@ class IndexHandler(tornado.web.RequestHandler):
         end = page * 5
         current_list = LIST_INFO[start:end]
         all_pager, surplus = divmod(len(LIST_INFO), 5)
-        if surplus > 0:
-            all_pager += 1
+        if surplus > 0:     # all_pager为页数，如果存在余数并大于0，则说明有多余的内容，总页数加一来显示，余数为0,则页数为all_pager
+            all_pager += 1  # 总页数加一来显示余下内容
         list_page = []
         for p in range(all_pager):
             temp = '<a href="/index/%s">%s</a>' % (p+1, p+1)
