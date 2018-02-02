@@ -12,48 +12,74 @@ for i in range(200):
     LIST_INFO.append(temp_dic)
 
 
-class IndexHandler(tornado.web.RequestHandler):
-
-    def get(self, page):
-        # print(nid)
-        # self.write('ok')
+class Pagination:
+    def __init__(self, current_page, total_page, n):
+        """
+        :param current_page:  当前页
+        :param total_page: 总页数
+        :param n: 每页显示n条数据
+        """
         try:
-            page = int(page)
+            current_page = int(current_page)
         except:
-            page = 1
-        if page < 1:
-            page = 1
-        # if page > len(LIST_INFO):
-        #     page =
-        start = (page - 1) * 5
-        end = page * 5
-        current_list = LIST_INFO[start:end]
-        all_pager, surplus = divmod(len(LIST_INFO), 5)
-        if surplus > 0:     # all_pager为页数，如果存在余数并大于0，则说明有多余的内容，总页数加一来显示，余数为0,则页数为all_pager
-            all_pager += 1  # 总页数加一来显示余下内容
-        list_page = []
+            current_page = 1
+        if current_page < 1:
+            current_page = 1
+
+        self.current_page = current_page
+        self.total_page = total_page
+        self.n = n
+
+    @property
+    def start(self):
+        # 根据当前页取5条数据，确定每页显示的信息数目
+        return (self.current_page - 1) * self.n
+
+    @property
+    def end(self):
+        # 根据当前页取5条数据，确定每页显示的信息数目
+        return self.current_page * self.n
+
+    def page_str(self):
         # 调整分页开始
-        start_page = page - 5
+        start_page = self.current_page - 5
         if start_page < 0:
             start_page = 0
-        end_page = page + 5
-        if end_page > all_pager:
-            end_page = all_pager
+        end_page = self.current_page + 5
+        if end_page > self.total_page:
+            end_page = self.total_page
 
-        if page < 5:
+        if self.current_page < 5:
             end_page = 10
-        if page + 5 > all_pager:
-            start_page = all_pager - 10
+        if self.current_page + 5 > self.total_page:
+            start_page = self.total_page - 10
         # 调整分页结束
+
+        list_page = []
         for p in range(start_page, end_page):      # 生成HTML页码
-            if p + 1 == page:           # 当p等于用户输入的页码：page时，表示处在当前页
+            if p + 1 == self.current_page:           # 当p等于用户输入的页码：page时，表示处在当前页
                 temp = '<a class="active" href="/index/%s">%s</a>' % (p + 1, p + 1)
             else:
                 temp = '<a href="/index/%s">%s</a>' % (p+1, p+1)
             list_page.append(temp)
         str_page = "".join(list_page)
+        return str_page
 
-        self.render('home/index.html', list_info=current_list, current_page=page, str_page=str_page)
+
+class IndexHandler(tornado.web.RequestHandler):
+    # 路由系统来调用这个类
+    def get(self, page):
+        # 定义总页数
+        all_pager, surplus = divmod(len(LIST_INFO), 5)  # 每页显示5条数据
+        if surplus > 0:     # all_pager为页数，如果存在余数并大于0，则说明有多余的内容，总页数加一来显示，余数为0,则页数为all_pager
+            all_pager += 1  # 总页数加一来显示余下内容
+
+        page_obj = Pagination(page, all_pager)          # 传入当前输入页和总页数
+
+        current_list = LIST_INFO[page_obj.start:page_obj.end]   # page_obj 返回，每页应该显示的信息数目
+
+        self.render('home/index.html', list_info=current_list, current_page=page_obj.current_page,
+                    str_page=page_obj.page_str())
 
     def post(self, page):
         # 这个page是从前端html中传过来的
