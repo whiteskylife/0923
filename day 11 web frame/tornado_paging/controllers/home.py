@@ -98,12 +98,13 @@ class Pagination:
         # 跳转页码：
         jump_page = """<input type="text" /><a onclick="Jump('%s', this);" >Go</a>""" % (base_url, )
         script = """<script>
-                    var reg = /^[0-9a-zA-Z]+$/
-                    
+                    var reg = /^[0-9]+$/
                     function Jump(baseUrl, ths) {
                         var val = ths.previousElementSibling.value;
-                        if(val.trim().length>0){
+                        if(val.trim().length>0 && reg.test(val)){
                             location.href = baseUrl + val;
+                        }else{
+                        alert('请输入数字')
                         }
                     }
                 </script>"""
@@ -119,12 +120,6 @@ class IndexHandler(tornado.web.RequestHandler):
     # 路由系统来调用这个类
     def get(self, page):
         page_obj = Pagination(page, len(LIST_INFO), 5)          # 传入当前输入页和总页数,每页显示信息数
-
-        first_page = 1
-        last_page = len(LIST_INFO)
-        pre_page = page_obj.current_page - 1
-        next_page = page_obj.current_page + 1
-
         current_list = LIST_INFO[page_obj.start:page_obj.end]   # page_obj 返回，每页应该显示的信息数目
         str_page = page_obj.page_str('/index/')
         # 组装好分页数据render由方法传给前台
