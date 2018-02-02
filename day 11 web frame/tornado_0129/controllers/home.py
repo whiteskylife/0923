@@ -13,12 +13,18 @@ for i in range(200):
 
 
 class Pagination:
-    def __init__(self, current_page, total_page, n):
+    def __init__(self, current_page, all_item, n):
         """
         :param current_page:  当前页
         :param total_page: 总页数
         :param n: 每页显示n条数据
         """
+        # 定义总页数
+        self.n = n
+        all_pager, surplus = divmod(all_item, self.n)  # 每页显示5条数据
+        if surplus > 0:     # all_pager为页数，如果存在余数并大于0，则说明有多余的内容，总页数加一来显示，余数为0,则页数为all_pager
+            all_pager += 1  # 总页数加一来显示余下内容
+        self.total_page = all_pager
         try:
             current_page = int(current_page)
         except:
@@ -27,8 +33,6 @@ class Pagination:
             current_page = 1
 
         self.current_page = current_page
-        self.total_page = total_page
-        self.n = n
 
     @property
     def start(self):
@@ -40,8 +44,12 @@ class Pagination:
         # 根据当前页取5条数据，确定每页显示的信息数目
         return self.current_page * self.n
 
-    def page_str(self):
-        # 调整分页开始
+    def page_str(self, base_url):
+        """
+        :param base_url: 自定义路径 格式: /path/
+        :return:
+        """
+        # 调整分页开始, 固定显示十个页码号
         start_page = self.current_page - 5
         if start_page < 0:
             start_page = 0
@@ -56,11 +64,11 @@ class Pagination:
         # 调整分页结束
 
         list_page = []
-        for p in range(start_page, end_page):      # 生成HTML页码
+        for p in range(start_page, end_page):        # 生成HTML页码
             if p + 1 == self.current_page:           # 当p等于用户输入的页码：page时，表示处在当前页
-                temp = '<a class="active" href="/index/%s">%s</a>' % (p + 1, p + 1)
+                temp = '<a class="active" href="%s%s">%s</a>' % (base_url, p + 1, p + 1)
             else:
-                temp = '<a href="/index/%s">%s</a>' % (p+1, p+1)
+                temp = '<a href="%s%s">%s</a>' % (base_url, p+1, p+1)
             list_page.append(temp)
         str_page = "".join(list_page)
         return str_page
@@ -69,17 +77,14 @@ class Pagination:
 class IndexHandler(tornado.web.RequestHandler):
     # 路由系统来调用这个类
     def get(self, page):
-        # 定义总页数
-        all_pager, surplus = divmod(len(LIST_INFO), 5)  # 每页显示5条数据
-        if surplus > 0:     # all_pager为页数，如果存在余数并大于0，则说明有多余的内容，总页数加一来显示，余数为0,则页数为all_pager
-            all_pager += 1  # 总页数加一来显示余下内容
 
-        page_obj = Pagination(page, all_pager)          # 传入当前输入页和总页数
+        page_obj = Pagination(page, len(LIST_INFO), 5)          # 传入当前输入页和总页数,每页显示信息数
 
         current_list = LIST_INFO[page_obj.start:page_obj.end]   # page_obj 返回，每页应该显示的信息数目
+        str_page = page_obj.page_str('/index/')
 
         self.render('home/index.html', list_info=current_list, current_page=page_obj.current_page,
-                    str_page=page_obj.page_str())
+                    str_page=str_page)
 
     def post(self, page):
         # 这个page是从前端html中传过来的
