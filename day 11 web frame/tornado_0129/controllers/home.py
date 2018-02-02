@@ -46,6 +46,7 @@ class Pagination:
 
     def page_str(self, base_url):
         """
+        用于生成页码，返回给调用者
         :param base_url: 自定义路径 格式: /path/
         :return:
         """
@@ -65,6 +66,8 @@ class Pagination:
 
         list_page = []
         for p in range(start_page, end_page):        # 生成HTML页码
+            # first_page = '<a href="%s">首页</a>' % base_url,
+            # last_page = '<a href="%s">首页</a>' % base_url
             if p + 1 == self.current_page:           # 当p等于用户输入的页码：page时，表示处在当前页
                 temp = '<a class="active" href="%s%s">%s</a>' % (base_url, p + 1, p + 1)
             else:
@@ -77,14 +80,19 @@ class Pagination:
 class IndexHandler(tornado.web.RequestHandler):
     # 路由系统来调用这个类
     def get(self, page):
-
         page_obj = Pagination(page, len(LIST_INFO), 5)          # 传入当前输入页和总页数,每页显示信息数
+
+        first_page = 1
+        last_page = len(LIST_INFO)
+        pre_page = page_obj.current_page - 1
+        next_page = page_obj.current_page + 1
 
         current_list = LIST_INFO[page_obj.start:page_obj.end]   # page_obj 返回，每页应该显示的信息数目
         str_page = page_obj.page_str('/index/')
-
+        # 组装好分页数据render由方法传给前台
         self.render('home/index.html', list_info=current_list, current_page=page_obj.current_page,
-                    str_page=str_page)
+                    str_page=str_page, first_page=first_page, last_page=last_page, pre_page=pre_page,
+                    next_page=next_page)
 
     def post(self, page):
         # 这个page是从前端html中传过来的
