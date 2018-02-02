@@ -65,6 +65,17 @@ class Pagination:
         # 调整分页结束
 
         list_page = []
+
+        # 首页
+        firt_page = '<a href="%s%s">首页</a>' % (base_url, 1)
+        list_page.append(firt_page)
+        # 上一页
+        if self.current_page == 1:
+            pre_page = '<a href="javascript:;">上一页</a>'
+        else:
+            pre_page = '<a href="%s%s">上一页</a>' % (base_url, self.current_page - 1)
+        list_page.append(pre_page)
+
         for p in range(start_page, end_page):        # 生成HTML页码
             # first_page = '<a href="%s">首页</a>' % base_url,
             # last_page = '<a href="%s">首页</a>' % base_url
@@ -73,6 +84,33 @@ class Pagination:
             else:
                 temp = '<a href="%s%s">%s</a>' % (base_url, p+1, p+1)
             list_page.append(temp)
+
+        # 下一页
+        if self.current_page == self.total_page:
+            next_page = '<a href="javascript:;">下一页</a>'
+        else:
+            next_page = '<a href="%s%s">下一页</a>' % (base_url, self.current_page + 1)
+        list_page.append(next_page)
+        # 尾页
+        last_page = '<a href="%s%s">尾页</a>' % (base_url, self.total_page)
+        list_page.append(last_page)
+
+        # 跳转页码：
+        jump_page = """<input type="text" /><a onclick="Jump('%s', this);" >Go</a>""" % (base_url, )
+        script = """<script>
+                    var reg = /^[0-9a-zA-Z]+$/
+                    
+                    function Jump(baseUrl, ths) {
+                        var val = ths.previousElementSibling.value;
+                        if(val.trim().length>0){
+                            location.href = baseUrl + val;
+                        }
+                    }
+                </script>"""
+
+        list_page.append(jump_page)
+        list_page.append(script)
+
         str_page = "".join(list_page)
         return str_page
 
@@ -90,9 +128,7 @@ class IndexHandler(tornado.web.RequestHandler):
         current_list = LIST_INFO[page_obj.start:page_obj.end]   # page_obj 返回，每页应该显示的信息数目
         str_page = page_obj.page_str('/index/')
         # 组装好分页数据render由方法传给前台
-        self.render('home/index.html', list_info=current_list, current_page=page_obj.current_page,
-                    str_page=str_page, first_page=first_page, last_page=last_page, pre_page=pre_page,
-                    next_page=next_page)
+        self.render('home/index.html', list_info=current_list, current_page=page_obj.current_page, str_page=str_page)
 
     def post(self, page):
         # 这个page是从前端html中传过来的

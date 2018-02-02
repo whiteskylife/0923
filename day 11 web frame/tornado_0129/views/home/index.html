@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .outer{
-            height: 30px;
-        }
         .page{
             padding: 10px;
             float: left;
@@ -47,14 +44,8 @@
             {% end %}
         </tbody>
     </table>
-    <div class="outer">
-        <div style="float: left;"><a href="/index/{{first_page}}">首页</a></div>
-        <div style="float: left;"><a href="/index/{{pre_page}}">上一页</a></div>
-        <div class="page" style="float: left; line-height: 30px">
+        <div class="page">
             {% raw str_page %}
         </div>
-        <div style="float: left;"><a href="/index/{{next_page}}">下一页</a></div>
-        <div style="float: left;"><a href="/index/{{last_page}}">尾页</a></div>
-    </div>
 </body>
 </html>

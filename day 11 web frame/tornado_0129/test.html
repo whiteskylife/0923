@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="button" />
+
+<script>
+    function Jump(baseUrl, ths) {
+        var val = ths.previousElementSibling.value;
+        if(val.trim().length>0){
+            location.href = baseUrl + val;
+        }
+    }
+</script>
+
+</body>
+</html>
