@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>母版</title>
+    <style>
+        .pg-header{
+            height: 48px;
+            background-color: black;
+        }
+        .pg-footer{
+            height: 100px;
+            background-color: #dddddd;
+        }
+    </style>
+    <!--上面是公用样式-->
+    <!--下面是某页面自定义样式-->
+    {% block css %}{% end %}
+</head>
+<body>
+    <div class="pg-header">
+    </div>
+    <div class="pg-content">
+        {% block body %}{% end %}
+    </div>
+    <div class="pg-footer">asdfasd</div>
+    <script src="xxxxj"></script>
+    <!--上面是公用JS-->
+    <!--下面是某页面自定义JS-->
+    {% block js %}{% end %}
+</body>
+</html>
