@@ -39,4 +39,4 @@ if __name__ == "__main__":
 
 # 登录测试：http://127.0.0.1:8000/index?u=whisky
 
-# 基于cookie实现用户验证
+
