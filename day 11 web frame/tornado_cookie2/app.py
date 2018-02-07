@@ -31,8 +31,8 @@ class Session:
 
     def set_value(self, key, value):
         """
-        :param key: 定义session的key
-        :param value: 定义session的value
+        :param key: 定义session用户信息的key
+        :param value: 定义session用户信息的value
         :return:
         """
         # 在container中加入随机字符串
@@ -46,8 +46,8 @@ class Session:
 
     def get_value(self, key):
         """
-        :param key:传入session的key
-        :return: 返回session的value
+        :param key:传入session用户信息的key
+        :return: 返回session用户信息的value
         """
         # 获取客户端的随机字符串
         # 从container中获取专属于我的数据
@@ -75,6 +75,7 @@ class ManagerHandler(tornado.web.RequestHandler):
             self.write('登录成功')
         else:
             self.write('失败')
+
 settings = {
     'template_path': 'views',
     'static_path': 'statics'
