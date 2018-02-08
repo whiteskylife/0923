@@ -16,7 +16,7 @@ container = {}
 class Session:
     def __init__(self, handler):
         """
-        :param handler: 传进来的IndexHandler对象，具有了set_cookie方法
+        :param handler: 即是：Session(self)中的self，是传进来的IndexHandler对象，具有了set_cookie方法
         """
         self.handler = handler
         self.random_str = None
@@ -30,7 +30,7 @@ class Session:
         random_str = obj.hexdigest()  # 根据时间生成随机字符串
         return random_str
 
-    def set_value(self, key, value):
+    def __setitem__(self, key, value):
         """
         :param key: 定义session用户信息的key
         :param value: 定义session用户信息的value
@@ -59,7 +59,7 @@ class Session:
         self.handler.set_cookie("___kakaka___", self.random_str)
         # 生产开发中，如果没有定义cookie超时时间，此处不需设置cookie，如果设置了cookie超时时间，到了时间之前再次访问时，应该重新写一次cookie，相当于延长一下超时时间，否则原来的cookie到了超时时间则过期
 
-    def get_value(self, key):
+    def __getitem__(self, key):
         """
         :param key:传入session用户信息的key
         :return: 返回session用户信息的value
@@ -77,25 +77,35 @@ class Session:
         return value
 
 
-class IndexHandler(tornado.web.RequestHandler):
-    def get(self):
+class BaseHandler(tornado.web.RequestHandler):
+    def initialize(self):                       # initialize是RequestHandler类中初始化最后执行的方法
+        self.session = Session(self)          # self.session对象中封装session；Session(self)：传递self对象是为了在Session类中可以调用set_cookie方法
+
+
+class IndexHandler(BaseHandler):
+    def get(self):                       # 此处self会默认传递给父类、基类
         if self.get_argument('u', None) in ['whisky', 'alex']:     # 设置u值默认为None，否则访问不带u参数会报400错误
-            s = Session(self)
-            s.set_value('is_login', True)   # 初始化创建session的key和value
-            s.set_value('name', self.get_argument('u', None))
+            # s = Session(self)                                 # 传递self对象是为了在Session类中可以调用set_cookie方法
+            # self.session.set_value('is_login', True)               # 初始化创建session的key和value
+            # self.session.set_value('name', self.get_argument('u', None))
+            self.session['is_login'] = True
+            self.session['name'] = self.get_argument('u', None)
             print(container)
         else:
             self.write('请用正确的用户名登录')
 
 
-class ManagerHandler(tornado.web.RequestHandler):
+class ManagerHandler(BaseHandler):
     def get(self):
-        s = Session(self)
-        val = s.get_value('is_login')
+        # s = Session(self)                 # 传递self对象是为了在Session类中可以调用set_cookie方法
+        # val = self.session.get_value('is_login')
+        val = self.session['is_login']
         if val:
-            self.write(s.get_value('name'))
+            # self.write(self.session.get_value('name'))
+            self.write(self.session['name'])
         else:
             self.write('失败')
+
 
 settings = {
     'template_path': 'views',
