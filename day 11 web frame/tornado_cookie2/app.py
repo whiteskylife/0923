@@ -107,6 +107,29 @@ class ManagerHandler(BaseHandler):
             self.write('失败')
 
 
+class LoginHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        self.render('index.html')
+
+    def post(self, *args, **kwargs):
+        user = self.get_argument('user', None)
+        pwd = self.get_argument('pwd', None)
+        code = self.get_argument('code', None)
+
+
+class CheckCodeHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        # 生成图片并返回
+        import io
+        import check_code
+        mstream = io.BytesIO()      # 相当于内存中临时创建了一个文件
+        img, code = check_code.create_validate_code()       # 创建图片，并写入验证码
+        img.save(mstream, "GIF")
+        # 通过session为每个用户保存其验证码
+        self.session["CheckCode"] = code
+        self.write(mstream.getvalue())              # 返回图片内容
+
+
 settings = {
     'template_path': 'views',
     'static_path': 'statics'
@@ -115,6 +138,8 @@ settings = {
 application = tornado.web.Application([
     (r"/index", IndexHandler),
     (r"/manager", ManagerHandler),
+    (r"/login", LoginHandler),
+    (r"/check_code", CheckCodeHandler),
 ], **settings)
 
 if __name__ == "__main__":
