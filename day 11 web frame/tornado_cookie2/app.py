@@ -55,6 +55,7 @@ class Session:
                     random_str = self.__generate_random_str()
                     container[random_str] = {}
             self.random_str = random_str
+        # 定义session的key和value
         container[self.random_str][key] = value
         self.handler.set_cookie("___kakaka___", self.random_str)
         # 生产开发中，如果没有定义cookie超时时间，此处不需设置cookie，如果设置了cookie超时时间，到了时间之前再次访问时，应该重新写一次cookie，相当于延长一下超时时间，否则原来的cookie到了超时时间则过期

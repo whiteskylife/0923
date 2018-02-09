@@ -14,6 +14,10 @@ container[rand_str]['alex'] = '111'
 print(container)
 print(container.keys())
 
+# set_cookie(key, value)
+
+# container = { value : { '用户信息': '111'}}
+
 # {'87ba085c5f01c3e28969c05af466fae6': {'alex': '111'}}
 # { cookie字符串：                     { 用户信息，session  }}
 
