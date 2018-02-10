@@ -4,8 +4,7 @@
 import tornado.ioloop
 import tornado.web
 
-# 把session封装为一个类，开发时无需关注生成字符串、设置cookie等细节，直接设置session的key和value即可，注意：代码中cookie的key是写死的
-
+# 结合session实现的验证码，每个用户登录生成验证码，保存到用户对应的session中
 container = {}
 # container = {
 #     '第一个人的随机字符串': {},
@@ -159,6 +158,7 @@ if __name__ == "__main__":
     tornado.ioloop.IOLoop.instance().start()
 
 
-# 登录测试：http://127.0.0.1:8000/index?u=whisky
+# 登录测试session：http://127.0.0.1:8000/index?u=whisky
+# 登录测试验证码：http://127.0.0.1:8000/login
 
 
