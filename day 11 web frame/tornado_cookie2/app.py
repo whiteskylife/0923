@@ -110,12 +110,23 @@ class ManagerHandler(BaseHandler):
 
 class LoginHandler(BaseHandler):
     def get(self, *args, **kwargs):
-        self.render('index.html')
+        self.render('index.html', status='')
 
     def post(self, *args, **kwargs):
         user = self.get_argument('user', None)
         pwd = self.get_argument('pwd', None)
         code = self.get_argument('code', None)
+        check_code = self.session['CheckCode']
+        try:
+            if code.upper() == check_code.upper():
+                self.write('验证码正确')
+            else:
+                # self.redirect('/index')
+                self.render('index.html', status='验证码错误')
+        except:
+            print('验证码错误')
+            self.write('验证码错误')
+            self.render('index.html')
 
 
 class CheckCodeHandler(BaseHandler):
