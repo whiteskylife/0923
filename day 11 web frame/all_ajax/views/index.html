@@ -5,33 +5,29 @@
     <title></title>
 </head>
 <body>
-
-    <p>
-        <input type="button" onclick="XmlSendRequest();" value='Ajax请求' />
-    </p>
-
-
-    <script type="text/javascript" src="/statics/jquery-1.12.4.js"></script>
+    <input type="file" id="img" />
+    <input type="button" onclick="UploadFile();" value="jQuery-ajax上传文件" />
+    <script src="/statics/jquery-1.12.4.js"></script>
     <script>
+        function UploadFile(){
+            var fileObj = $("#img")[0].files[0];
+            var form = new FormData();
+            form.append("user", "v1");
+            form.append("favor", "1");
+            form.append("file_upload", fileObj);
 
-        function XmlSendRequest(){
             $.ajax({
-                //url：请求地址
-                url: "/index"
-                //type：请求方式，GET、POST（1.9.0之后用method）,
-                type: 'POST',
-                //data：要发送的数据
-                data: {'k1': 'v1'},
-                //dataType：将服务器端返回的数据转换成指定类型,"text": 将服务器端返回的内容转换成普通文本格式
-                dataType: 'text',
-                //function中data：后台返回的数据，statusText状态码，xmlHttpRequest：jQuery内部创建的xmlHttpRequest对象
-                success: function(data, statusText, xmlHttpRequest){
-                    console.log(data);
+                type:'POST',
+                url: '/index',
+                data: form,
+                processData: false,  // tell jQuery not to process the data 告诉jQuery不要处理我提交的数据，一定要加上
+                contentType: false,  // tell jQuery not to set contentType  告诉jQuery不要处理我提交的数据，一定要加上
+                success: function(arg){
+                    console.log(arg);
                 }
             })
         }
-
-
     </script>
 </body>
 </html>
+
