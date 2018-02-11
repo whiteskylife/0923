@@ -11,7 +11,7 @@ container = {}
 #     '第二个人的随机字符串': {'k1': 111, 'parents': '你'},
 # }
 
-
+'''
 class Session:
     def __init__(self, handler):
         """
@@ -139,18 +139,27 @@ class CheckCodeHandler(BaseHandler):
         # 通过session为每个用户保存其验证码
         self.session["CheckCode"] = code
         self.write(mstream.getvalue())              # 返回图片内容
+'''
+
+
+class CsrfHandler(tornado.web.RequestHandler):
+
+    def get(self, *args, **kwargs):
+        self.render('csrf.html')
+
+    def post(self, *args, **kwargs):
+        self.write('csrf.post')
 
 
 settings = {
     'template_path': 'views',
-    'static_path': 'statics'
+    'static_path': 'static',
+    'static_url_prefix': '/static/',
+    'xsrf_cookies': True            # 开启CSRF伪造请求验证
 }
 
 application = tornado.web.Application([
-    (r"/index", IndexHandler),
-    (r"/manager", ManagerHandler),
-    (r"/login", LoginHandler),
-    (r"/check_code", CheckCodeHandler),
+    (r"/csrf", CsrfHandler),
 ], **settings)
 
 if __name__ == "__main__":

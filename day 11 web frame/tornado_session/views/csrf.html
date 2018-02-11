@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/csrf" method="post">
+  {% raw xsrf_form_html() %}
+  <input type="text" name="message"/>
+  <input type="submit" value="Post"/>
+    <input type="button" value="Ajax CSRF" onclick="SubmitCsrf();" />
+</form>
+    <script src="/static/jquery-1.12.4.js"></script>
+    <script>
+        function getCookie(name) {
+            var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
+            return r ? r[1] : undefined;
+        }
+
+        function SubmitCsrf() {
+            $.post({
+                url:'/csrf',
+                data: {'k1': 'v1'},
+                success: function (callback) {
+                    console.log(callback);
+                }
+            });
+        }
+
+
+    </script>
+        
+</body>
+</html>
