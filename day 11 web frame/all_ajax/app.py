@@ -10,12 +10,14 @@ class IndexHandler(tornado.web.RequestHandler):
         self.render('index.html')
 
     def post(self, *args, **kwargs):
+        print(self.get_argument('k1'))
         self.write('{"status": 1, "message": "mmm"}')
 
 
 settings = {
     'template_path': 'views',
-    'static_path': 'statics'
+    'static_path': 'statics',
+    'static_url_prefix': '/statics/'
 }
 
 application = tornado.web.Application([
