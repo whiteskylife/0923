@@ -19,15 +19,17 @@
         }
 
         function SubmitCsrf() {
+            var nid = getCookie('_xsrf');
             $.post({
                 url:'/csrf',
-                data: {'k1': 'v1'},
+                data: {'k1': 'v1', "_xsrf": nid},
                 success: function (callback) {
+                    // ajax请求发送成功后，自动执行
+                    // callback, 服务器write的数据callback="csrf.post"
                     console.log(callback);
                 }
             });
         }
-
 
     </script>
         
