@@ -9,6 +9,7 @@
   {% raw xsrf_form_html() %}
   <input type="text" name="message"/>
   <input type="submit" value="Post"/>
+  <input type="submit" value="haha"/>
     <input type="button" value="Ajax CSRF" onclick="SubmitCsrf();" />
 </form>
     <script src="/static/jquery-1.12.4.js"></script>
@@ -30,8 +31,6 @@
                 }
             });
         }
-
     </script>
-        
 </body>
 </html>
