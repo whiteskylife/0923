@@ -5,29 +5,23 @@
     <title></title>
 </head>
 <body>
-    <input type="file" id="img" />
-    <input type="button" onclick="UploadFile();" value="jQuery-ajax上传文件" />
-    <script src="/statics/jquery-1.12.4.js"></script>
-    <script>
-        function UploadFile(){
-            var fileObj = $("#img")[0].files[0];
-            var form = new FormData();
-            form.append("user", "v1");
-            form.append("favor", "1");
-            form.append("file_upload", fileObj);
+    <ul>
+        {% for item in img_list%}
+        <li><img style="height: 200px; width: 200px;" src="/statics/img/{{item}}"></li>
+        {% end %}
+    </ul>
 
-            $.ajax({
-                type:'POST',
-                url: '/index',
-                data: form,
-                processData: false,  // tell jQuery not to process the data 告诉jQuery不要处理我提交的数据，一定要加上
-                contentType: false,  // tell jQuery not to set contentType  告诉jQuery不要处理我提交的数据，一定要加上
-                success: function(arg){
-                    console.log(arg);
-                }
-            })
-        }
-    </script>
+    <form action="/index" method="POST" enctype="multipart/form-data">
+        <input type="text" name="user" />
+        <h3>爱好</h3>
+        <input name="favor" type="checkbox" value="1"/>篮球;
+        <input name="favor" type="checkbox" value="2"/>足球;
+        <input name="favor" type="checkbox" value="3"/>玻璃球;
+        <input type="file" name="file_upload" />
+        <input type="submit" value="提交"/>
+    </form>
+
 </body>
 </html>
 
+index.html

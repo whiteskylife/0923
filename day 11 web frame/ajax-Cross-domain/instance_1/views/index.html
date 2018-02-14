@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <input type="button" value="Ajax" onclick="DoAjax();">
+        <script src="/statics/jquery-1.12.4.js"></script>
+        <script>
+            function DoAjax() {
+                $.ajax({
+                    url:'/index',
+                    type:'POST',
+                    data:{'k1': 'v1'},
+                    success:function (arg) {
+                        console.log(arg);
+                    }
+                });
+            }
+        </script>
+</body>
+</html>
