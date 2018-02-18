@@ -6,10 +6,15 @@
 </head>
 <body>
         <input type="button" value="Ajax" onclick="DoAjax();"/>
+        <input type="button" value="JsonpAjax" onclick="JsonpAjax();"/>
         <script src="/statics/jquery-1.12.4.js"></script>
         <script src="http://whisky.com:8002/statics/jquery.cookie.js"></script>
         <script>
+            function func(arg) {
+                console.log(arg)
+            }
             function DoAjax() {
+                //直接跨域请求，服务器端返回数据被浏览器阻止
                 $.ajax({
                     url:'http://whisky.com:8002/index',
                     type:'POST',
@@ -18,6 +23,24 @@
                         console.log(arg);
                     }
                 });
+            }
+//            function JsonpAjax() {
+//                // JSONP方式原生ajax实现跨域请求
+//                // 服务器端instance_2返回t2.get,而非t2.post，说明用的是get方法
+//                var tag = document.createElement('script');  // 构造script标签
+//                tag.src = 'http://whisky.com:8002/index';     // 构造script标签
+//                document.head.appendChild(tag);
+//                document.head.removeChild(tag);
+//            }
+            
+            function JsonpAjax() {
+                // jQuery方式实现Jsonp跨域请求
+                $.ajax({
+                    url: "http://whisky.com:8002/index",
+                    dataType: 'jsonp',
+                    //jsonP: 'callback',      // 表示把callback=func发送到服务器端
+                    jsonpCallBack: 'func'  // 发送成功之后自动执行的函数，相当于告知服务器你要把数据封装到我指定的函数中再返回，在客户端定义好服务器返回的函数即可
+                })
             }
         </script>
 </body>
