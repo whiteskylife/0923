@@ -5,12 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-        <input type="button" value="Ajax" onclick="DoAjax();">
+        <input type="button" value="Ajax" onclick="DoAjax();"/>
         <script src="/statics/jquery-1.12.4.js"></script>
+        <script src="http://whisky.com:8002/statics/jquery.cookie.js"></script>
         <script>
             function DoAjax() {
                 $.ajax({
-                    url:'/index',
+                    url:'http://whisky.com:8002/index',
                     type:'POST',
                     data:{'k1': 'v1'},
                     success:function (arg) {
