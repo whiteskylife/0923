@@ -7,8 +7,8 @@ import tornado.web
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        # self.write('t2.get')
-        self.write('func([11, 22, 33])')
+        callback = self.get_argument('callback')
+        self.write('%s([11,22,33]);' % callback)
 
     def post(self, *args, **kwargs):
         self.write('t2.post')
