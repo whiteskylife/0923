@@ -5,6 +5,24 @@
     <title>Title</title>
 </head>
 <body>
+        <input type="button" value="Ajax" onclick="DoAjax();"/>
+        <input type="button" value="Ajax" onclick="DoAjax();"/>
+        <script src="/statics/jquery-1.12.4.js"></script>
+        <script>
 
+            function DoAjax() {
+                $.ajax({
+                    url:'http://whisky.com:8002/index',
+                    type:'POST',
+                    data:{'k1': 'v1'},
+                    success:function (arg) {
+                        console.log(arg);
+                    }
+                });
+            }
+
+        </script>
 </body>
 </html>
+
+index.html（jsonp的ajax、jQuery-ajax两种写法）

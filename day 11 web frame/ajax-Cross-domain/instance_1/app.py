@@ -17,8 +17,7 @@ class CorsHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('cors.html')
 
-    def post(self, *args, **kwargs):
-        self.write('t1.post')
+
 
 
 settings = {
