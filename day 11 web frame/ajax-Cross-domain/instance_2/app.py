@@ -14,6 +14,14 @@ class IndexHandler(tornado.web.RequestHandler):
         self.write('t2.post')
 
 
+class CorsHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write('{"status":1, "message": "get"}')
+
+    def post(self, *args, **kwargs):
+        self.write('{"status":1, "message": "post"}')
+
+
 settings = {
     'template_path': 'views',
     'static_path': 'statics',
@@ -22,6 +30,7 @@ settings = {
 
 application = tornado.web.Application([
     (r"/index", IndexHandler),
+    (r"/cors", CorsHandler),
 ], **settings)
 
 if __name__ == "__main__":
