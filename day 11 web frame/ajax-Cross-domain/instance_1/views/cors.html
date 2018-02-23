@@ -6,6 +6,7 @@
 </head>
 <body>
         <input type="button" value="Ajax" onclick="DoAjax();"/>
+        <input type="button" value="DoAjaxComplex" onclick="DoAjaxComplex();"/>
         <script src="/statics/jquery-1.12.4.js"></script>
         <script>
 
@@ -20,7 +21,20 @@
                 });
             }
 
+            function DoAjaxComplex() {
+                $.ajax({
+                    url:'http://whisky.com:8002/cors',
+                    type:'PUT',
+                    headers: {"h1": "xxoo"},  // 设置headers
+                    data:{'k1': 'v1'},
+                    success:function (arg) {
+                        console.log(arg);
+                    }
+                });
+            }
         </script>
 </body>
 </html>
 
+<!-- 没有跨域时，访问：http://whisky.com:8001/cors点击Ajax报错：Failed to load http://whisky.com:8002/cors: No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://whisky.com:8001' is therefore not allowed access.
+说明服务器端返回数据时没有携带Access-Control-Allow-Origin这个响应头-->
