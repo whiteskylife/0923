@@ -7,6 +7,11 @@
 <body>
     <form action="/home" method="POST">
         <input type="text" name="ip" placeholder="ip" />
+
+        <!--当error_dict有值时再提示-->
+        {% if error_dict %}
+        <span>{{error_dict['ip']}}</span>
+        {% end %}
         <input type="submit" />
     </form>
 </body>
