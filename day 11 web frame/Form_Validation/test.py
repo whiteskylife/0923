@@ -9,5 +9,18 @@ import re
 # }
 # print(menu)
 
-res = re.match('^a', 'Chenronghua123')
-print(res)
+
+class Foo:
+    def __init__(self):
+        print('11111111111')
+
+    def run(self):
+        print('22222222222')
+
+obj = Foo()
+obj.run()
+# if type(obj) == Foo
+print(type(obj))
+print(Foo)
+
+
