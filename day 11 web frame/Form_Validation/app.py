@@ -133,8 +133,7 @@ class CheckBoxFiled:
             # 用户输入允许为空
             self.is_valid = True      # 设置封装值为真，表示验证通过
             self.value = input_value
-        else:       # 当81行要求输入不为空时候 翻译：否则，如果 有 内容，即不为空时
-            # 用户有输入要求不允许为空,这一要验证正则了。
+        else:       # 不允许为空 翻译：否则，如果 有 内容，即不为空时
             if not input_value:  # 输入为空,返回错误信息。 错误信息字典
                 if self.error_dict.get('required', None):  # 81行定义的错误信息。如果未定义则自己定义
                     self.error = self.error_dict['required']
@@ -145,10 +144,65 @@ class CheckBoxFiled:
                 self.value = input_value
 
 
+class FileFiled:
+    REGULAR = "^(\w+\.pdf)|(\w+\.mp3)|(\w+\.py)$"  # 静态 字段
+
+    def __init__(self, error_dict=None, required=True):
+        """
+        :param error_dict: 自定义显示用户输入错误
+        :param required:   默认表示必须要填值
+        """
+        # 封装了错误信息 ，如果没有传入一个包含错误信息的字典，则使用默认，如果有则覆盖默认
+        self.error_dict = {}
+        if error_dict:  # 81 行实例化 传入的错误信息,如果不传 则为None,则不会执行
+            self.error_dict.update(error_dict)  # 将实例化时候 传入的错误信息封装
+
+        self.required = required  # 81 行实例化 传入的是否为空字段,默认是浏览器输入不许为空
+
+        self.error = None   # 错误信息
+        self.value = []   # 匹配的值是什么
+        self.is_valid = True
+        self.name = None
+        self.success_file_name_list = []
+
+    def validate(self, name, all_file_name_list):
+        """
+        :param name: 字段名
+        :param all_file_name_list: 所有文件的文件名
+        :return:
+        """
+
+        self.name = name
+        if not self.required:
+            # 用户输入允许为空
+            self.is_valid = True      # 设置封装值为真，表示验证通过
+            self.value = all_file_name_list
+        else:
+            if not all_file_name_list:
+                self.is_valid = False
+                if self.error_dict.get('required', None):
+                    self.error = self.error_dict['required']
+                else:
+                    self.error = "%s is required" % name
+            else:
+                # 循环所有文件名
+                for file_name in all_file_name_list:
+                    ret = re.match(FileFiled.REGULAR, file_name) # 获取 静态字段的正则字符串,跟用户的input输入内容匹配
+                    if not ret:
+                        self.is_valid = False       # 验证没有通过
+                        if self.error_dict.get('required', None):
+                            self.error = self.error_dict['required']
+                        else:
+                            self.error = "%s is required" % name
+                        break
+                    else:  # 有一个文件正确就加入文件列表
+                        self.value.append(file_name)
+
+
 class BaseForm:
     def check_valid(self, handle):
         """
-         获取用户提交的数据，将用户提交的数据和正则表达式匹配
+         获取用户提交的数据，将用户提交的数据传递到对应的类中进行正则表达式匹配，返回匹配结果和正确/错误等自定义信息
         :param handle: post方法中的self，里面封装了get_argument方法，可以直接取前端传过来的参数值
         :return:返回正则匹配结果：成功-True；失败：false，正则匹配成功后返回一个字典，失败返回错误信息
         """
@@ -162,6 +216,14 @@ class BaseForm:
                 # print('question：--------' + str(type(regular)))
                 # print('question：--------' + str(CheckBoxFiled))
                 input_value = handle.get_arguments(key)  # 对于CheckBox来说，input_value就是用户提交name="favor"的列表
+            elif type(regular) == FileFiled:
+                # 文件上传功能，获取文件名,放入一个列表中
+                file_list = handle.request.files.get(key)   # [{'body':'xx', 'filename':'xx'},{'body':'xx', 'filename':'xx'}]
+                input_value = []
+                # if file_list:
+                for item in file_list:
+                    input_value.append(item['filename'])
+                # 所有文件名验证
             else:
                 input_value = handle.get_argument(key)
             # 将具体的验证放在IPFiled中
@@ -188,6 +250,7 @@ class HomeForm(BaseForm):
         self.ip = IPFiled(required=True, error_dict={'required': '不能为空...', 'valid': '格式错误了'})
         self.host = StringFiled(required=False)
         self.favor = CheckBoxFiled(required=True, error_dict={'required': '必须选择一个...', 'valid': '格式错误了'})      # 验证成功后，favor中的数据为用户选择列表
+        self.fafafa = FileFiled(required=True)
 
 
 class IndexHandler(tornado.web.RequestHandler):
@@ -206,6 +269,8 @@ class HomeHandler(tornado.web.RequestHandler):
         self.render('home.html', error_dict=None)
 
     def post(self, *args, **kwargs):
+        # files = self.request.files.get('fafafa', [])        # 表示获取提交过来的所有文件，如[文件1， 文件2]，前端文件name相同
+
         obj = HomeForm()
         is_valid, success_dict, error_dict = obj.check_valid(self)
         if is_valid:

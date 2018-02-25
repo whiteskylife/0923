@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-    <form action="/home" method="POST">
+    <form action="/home" method="POST" enctype="multipart/form-data" >
         <input type="text" name="ip" placeholder="ip" />
         <input type="text" name="host" placeholder="host" />
         <p>
@@ -13,10 +13,11 @@
             <input type="checkbox" name="favor" value="2" />足球；
             <input type="checkbox" name="favor" value="3" />羽毛球；
         </p>
-        <!--当error_dict有值时再提示-->
-        {% if error_dict %}
-        <span>{{error_dict['ip']}}</span>
-        {% end %}
+        <p>
+            <input type="file" name="fafafa" />
+            <input type="file" name="fafafa" />
+        </p>
+
         <input type="submit" />
     </form>
 </body>
