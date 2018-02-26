@@ -13,7 +13,12 @@ class IndexHandler(tornado.web.RequestHandler):
     def post(self, *args, **kwargs):
         val = self.request.files.get('fafafa', [])   # 注意checkbox必须用get_arguments，加s的参数
         # val = self.request.files['fafafa']   # 注意checkbox必须用get_arguments，加s的参数
-        print(type(val), val)                          # 输出 ['2', '3']
+        print(type(val), val)
+        # 当提交一个文件时：输出 <class 'list'> [{'content_type': 'text/plain', 'body': b'1', 'filename': 'app.py'}]
+        # 两个文件输出：
+        # <class 'list'> [{'filename': 'app.py', 'body': b'1', 'content_type': 'text/plain'},
+        # {'filename': 'app1.py', 'body': b'2', 'content_type': 'text/plain'}]
+        # 提交空输出：   <class 'list'> []
 
 
 settings = {

@@ -17,7 +17,10 @@
             <input type="file" name="fafafa" />
             <input type="file" name="fafafa" />
         </p>
-
+        <!--当error_dict有值时再提示-->
+        {% if error_dict %}
+        <span>{{error_dict['ip']}}</span>
+        {% end %}
         <input type="submit" />
     </form>
 </body>
