@@ -18,13 +18,16 @@ Base = declarative_base()   # 生成一个SQLORM基类
 class User(Base):
     __tablename__ = 'users'   # 定义一个表名
 
-    id = Column(Integer, primary_key=True)  # 主键特点：非空且唯一
-    name = Column(String(40))
-    fullname = Column(String(40))
+    id = Column(Integer, primary_key=True, autoincrement=True)  # 主键特点：非空且唯一
+    name = Column(String(40), index=True)                       # 要指定数据长度， index普通索引
+    fullname = Column(String(40), unique=True)                  # unique唯一索引
     password = Column(String(40))
 
     def __repr__(self):
-       return "<User(name='%s', fullname='%s', password='%s')>" % (
+        """
+        :return:返回对象具体值
+        """
+        return "<User(name='%s', fullname='%s', password='%s')>" % (
                             self.name, self.fullname, self.password)
 
 
@@ -48,7 +51,7 @@ session = MySession()
 # session.commit()    # 提交到数据库
 
 #print(">>>",session.query(User).filter_by(name='ed').first())
-print(session.query(User).all())  # 打印表中的所有内容，User类中的 __repr__ 方法中把对象的值返回，才能打印出值而非对象
+print(session.query(User).all())  # （获取到一个包含所有对象的列表，每个对象中包含SQL查询的数据）打印表中的所有内容，User类中的 __repr__ 方法中把对象的值返回，才能打印出值而非对象
 for row in session.query(User).order_by(User.id):
      print(row)
 # for row in session.query(User).filter(User.name.in_(['alex', 'wendy', 'jack'])):＃这里的名字是完全匹配
