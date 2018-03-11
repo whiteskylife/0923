@@ -40,20 +40,20 @@ session = MySession()
 # session.add(ed_user)  # 向数据库中插入数据
 # our_user = session.query(User).filter_by(name='ed').first()
 # SELECT * FROM users WHERE name="ed" LIMIT 1;
-session.add_all([                       # 插入多条数据
-    User(name='alex', fullname='Alex Li', password='456'),
-    User(name='alex', fullname='Alex old', password='789'),
-    User(name='peiqi', fullname='Peiqi Wu', password='sxsxsx')])
-
-session.commit()    # 提交到数据库
+# session.add_all([                       # 插入多条数据
+#     User(name='alex', fullname='Alex Li', password='456'),
+#     User(name='alex', fullname='Alex old', password='789'),
+#     User(name='peiqi', fullname='Peiqi Wu', password='sxsxsx')])
+#
+# session.commit()    # 提交到数据库
 
 #print(">>>",session.query(User).filter_by(name='ed').first())
 print(session.query(User).all())  # 打印表中的所有内容，User类中的 __repr__ 方法中把对象的值返回，才能打印出值而非对象
-# for row in session.query(User).order_by(User.id):
-#      print(row)
+for row in session.query(User).order_by(User.id):
+     print(row)
 # for row in session.query(User).filter(User.name.in_(['alex', 'wendy', 'jack'])):＃这里的名字是完全匹配
 #     print(row)
-# for row in session.query(User).filter(~User.name.in_(['ed', 'wendy', 'jack'])):
+# for row in session.query(User).filter(~User.name.in_(['ed', 'wendy', 'jack'])):  # ~User 取反name不在列表中的拿出来
 #     print(row)
 #print(session.query(User).filter(User.name == 'ed').count())
 #from sqlalchemy import and_, or_
