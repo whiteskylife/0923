@@ -36,7 +36,7 @@ Base.metadata.create_all(engine)  # 调用子类中的字段创建所有表结�
 
 # ed_user = User(name='xiaoyu', fullname='Xiaoyu Liu', password='123')  # 创建一个对象包含了要插入的数据
 # print(ed_user)
-# 这两行触发sessionmaker类下的__call__方法，return得到 Session实例，赋给变量session，所以session可以调用Session类下的add，add_all等方法
+# 准备插入数据（插入数据前要创建session），这两行触发sessionmaker类下的__call__方法，return得到 Session实例，赋给变量session，所以session可以调用Session类下的add，add_all等方法
 MySession = sessionmaker(bind=engine)
 session = MySession()
 
