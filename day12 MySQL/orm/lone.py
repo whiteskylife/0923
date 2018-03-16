@@ -31,18 +31,20 @@ class User(Base):
                             self.name, self.fullname, self.password)
 
 
+# 建表
 Base.metadata.create_all(engine)  # 调用子类中的字段创建所有表结构
 # Base.metadata.drop_all(engine)  # 删除
 
-# ed_user = User(name='xiaoyu', fullname='Xiaoyu Liu', password='123')  # 创建一个对象包含了要插入的数据
-# print(ed_user)
-# 准备插入数据（插入数据前要创建session），这两行触发sessionmaker类下的__call__方法，return得到 Session实例，赋给变量session，所以session可以调用Session类下的add，add_all等方法
+
+# 创建session对象，准备插入数据（查询、插入数据前要创建session），这两行触发sessionmaker类下的__call__方法，return得到 Session实例，赋给变量session，所以session可以调用Session类下的add，add_all等方法
 MySession = sessionmaker(bind=engine)
 session = MySession()
 
+
+# ed_user = User(name='xiaoyu', fullname='Xiaoyu Liu', password='123')  # 创建一个对象,包含了要插入的数据
 # session.add(ed_user)  # 向数据库中插入数据
-# our_user = session.query(User).filter_by(name='ed').first()
-# SELECT * FROM users WHERE name="ed" LIMIT 1;
+# our_user = session.query(User).filter_by(name='ed').first()  # SELECT * FROM users WHERE name="ed" LIMIT 1;
+
 # session.add_all([                       # 插入多条数据
 #     User(name='alex', fullname='Alex Li', password='456'),
 #     User(name='alex', fullname='Alex old', password='789'),
@@ -51,16 +53,23 @@ session = MySession()
 # session.commit()    # 提交到数据库
 
 #print(">>>",session.query(User).filter_by(name='ed').first())
-print(session.query(User).all())  # （获取到一个包含所有对象的列表，每个对象中包含SQL查询的数据）打印表中的所有内容，User类中的 __repr__ 方法中把对象的值返回，才能打印出值而非对象
+
+# all方法查询所有
+print(session.query(User).all())  # （获取到一个包含所有对象的列表，每个对象中包含SQL查询的数据）打印表中的所有内容，User类中的 __repr__ 方法中把对象的值返回，才能打印出值而非对象的内存地址
 for row in session.query(User).order_by(User.id):
-     print(row)
+    print(row)
+
 # for row in session.query(User).filter(User.name.in_(['alex', 'wendy', 'jack'])):＃这里的名字是完全匹配
 #     print(row)
 # for row in session.query(User).filter(~User.name.in_(['ed', 'wendy', 'jack'])):  # ~User 取反name不在列表中的拿出来
 #     print(row)
-#print(session.query(User).filter(User.name == 'ed').count())
-#from sqlalchemy import and_, or_
+# print(session.query(User).filter(User.name == 'ed').count())
 
+
+
+
+# 与和或的关系查询
+# from sqlalchemy import and_, or_
 # for row in session.query(User).filter(and_(User.name == 'ed', User.fullname == 'Ed Jones')):
 #     print(row)
 # for row in session.query(User).filter(or_(User.name == 'ed', User.name == 'wendy')):

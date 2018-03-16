@@ -6,7 +6,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, UniqueConstraint, In
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy import create_engine
 
-engine = create_engine('mysql+pymysql://root:123@192.168.2.202:3306/com')
+engine = create_engine('mysql+pymysql://root:123@192.168.1.110:3306/com')
 
 Base = declarative_base()
 
