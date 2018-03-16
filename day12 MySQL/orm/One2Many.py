@@ -6,12 +6,12 @@ from sqlalchemy import Column, Integer, String, ForeignKey, UniqueConstraint, In
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy import create_engine
 
-engine = create_engine('mysql+pymysql://root:123@192.168.1.110:3306/com')
+engine = create_engine('mysql+pymysql://root:123456@192.168.1.110:3306/com')
 
 Base = declarative_base()
 
 
-# 一对多，先创建两张表, 外键约束写在“多”的表中
+# 一对多，先创建两张表, 外键约束写在想设置为“多”的表中,看表结构和表内容就明白了
 class Men(Base):
     __tablename__ = 'men'
     id = Column(Integer, primary_key=True)
