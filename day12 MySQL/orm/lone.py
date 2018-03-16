@@ -10,7 +10,7 @@ print(sqlalchemy.__version__)
 
 # 连接数据库，指定用哪个插件
 # engine = create_engine('mysql+pymysql://root:123@192.168.2.202:3306/com', echo=True)    # echo:把由类翻译好的SQL打印出来
-engine = create_engine('mysql+pymysql://root:123@192.168.2.202:3306/com')    # echo:把由类翻译好的SQL打印出来
+engine = create_engine('mysql+pymysql://root:123456@192.168.1.110:3306/com')    # echo:把由类翻译好的SQL打印出来
 
 Base = declarative_base()   # 生成一个SQLORM基类
 
@@ -25,7 +25,7 @@ class User(Base):
 
     def __repr__(self):
         """
-        :return:返回对象具体值
+        :return:返回对象具体值而非对象的内存地址
         """
         return "<User(name='%s', fullname='%s', password='%s')>" % (
                             self.name, self.fullname, self.password)
