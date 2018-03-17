@@ -54,7 +54,7 @@ session = MySession()
 
 #print(">>>",session.query(User).filter_by(name='ed').first())
 
-# all方法查询所有
+# all方法查询所有,返回一个包含对象的列表
 print(session.query(User).all())  # （获取到一个包含所有对象的列表，每个对象中包含SQL查询的数据）打印表中的所有内容，User类中的 __repr__ 方法中把对象的值返回，才能打印出值而非对象的内存地址
 for row in session.query(User).order_by(User.id):
     print(row)
