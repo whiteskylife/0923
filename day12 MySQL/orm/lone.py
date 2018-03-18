@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*-coding:utf-8 -*-
+# SQLalchemy基本操作：
 
 import sqlalchemy
 from sqlalchemy import create_engine
@@ -64,7 +65,6 @@ for row in session.query(User).order_by(User.id):
 # for row in session.query(User).filter(~User.name.in_(['ed', 'wendy', 'jack'])):  # ~User 取反name不在列表中的拿出来
 #     print(row)
 # print(session.query(User).filter(User.name == 'ed').count())
-
 
 
 

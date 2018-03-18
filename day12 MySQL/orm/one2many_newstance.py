@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*-coding:utf-8 -*-
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 
@@ -14,7 +12,7 @@ engine = create_engine('mysql+pymysql://root:123456@192.168.1.110:3306/com')
 
 Base = declarative_base()
 
-
+# 一对多，先创建两张表, 外键约束写在想设置为“多”的表中,看表结构和表内容就明白了
 class Father(Base):
     __tablename__ = 'father'
 
@@ -22,7 +20,7 @@ class Father(Base):
     name = Column(String(32))
     age = Column(String(16))
     son = relationship('Son')       # son字段不会在表中生成，只是一个关系字段
-    # son = relationship('Son', backref='father')      # backref:相当于在Son中定义father = relationship('Father')
+    # son = relationship('Son', backref='father')      # backref:相当于在Son中定义father = relationship('Father'),它的值可以随意命名
 
     # def __repr__(self):
     #     return "name is %s, age is %s" % (self.name, self.age)
@@ -63,7 +61,8 @@ session = Session()
 #     print(i.name)
 
 # s1 = session.query(Son).filter_by(id=2).first()     # s1 返回一个过滤之后的儿子对象
-# print(s1.father.name, s1.father.age, s1.father.id)  # 调用Son中的relationship(内部用的join...on内部做了封装),因为是一对多的关系，不需要加索引（列表中的索引）
+# print(s1.father.name, s1.father.age, s1.father.id)
+# 调用Son中的relationship(内部用的join...on内部做了封装),因为是一对多的关系，不需要加索引（列表中的索引）
 
 
 
@@ -79,11 +78,10 @@ session = Session()
 f1 = session.query(Father).filter_by(id=1).first()
 w3 = Son(name='little alvin6', age=5)
 print(f1.son)
-f1.son.append(w3)
+f1.son.append(w3)               # 建立关联关系
 print(f1.son)
 session.add(f1)
 session.commit()
-
 
 
 # # f1.son = [w1, w2]
