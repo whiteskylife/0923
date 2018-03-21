@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding utf-8 -*-
 
-# !/usr/bin/env python
-# -*- coding:utf-8 -*-
+
 from multiprocessing import Pool
 import time
 
@@ -181,3 +180,39 @@ gevent.joinall([
 # 以后发送http请求，一个线程利用协程就搞定了，性能高， 爬虫模块scrapy内部就利用了gevent（遇到IO请求，自动切换下一个任务），gevent又调用了greenlet（调用协程），Python中涉及到高性能大多都和gevent有关系
 import scrapy
 '''
+
+
+import threading
+import time
+
+
+def run(n):
+    print('task ----------------', n)
+    time.sleep(3)
+
+
+# def run2(n):
+#     print('task2-----------------', n)
+#     time.sleep(3)
+
+
+t = threading.Thread(target=run, args=(1, ))
+t.setDaemon(True)
+t.start()
+
+t1 = threading.Thread(target=run, args=(2, ))
+t1.setDaemon(True)
+t1.start()
+
+
+t2 = threading.Thread(target=run, args=(3, ))
+t2.setDaemon(True)
+t2.start()
+
+# 上面的代码执行时，同时输出函数中的print内容,setDaemon为true时不会等待run方法中的3秒，主线程结束，直接退出程序
+# Join & Daemon
+# Some threads do background tasks, like sending keepalive packets, or performing periodic garbage collection, or whatever.
+# These are only useful when the main program is running, and it's okay to kill them off once the other, non-daemon, threads have exited.
+
+# Without daemon threads, you'd have to keep track of them, and tell them to exit, before your program can completely quit.
+# By setting them as daemon threads, you can let them run and forget about them, and when your program quits, any daemon threads are killed automatically.
