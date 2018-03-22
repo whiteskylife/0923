@@ -28,8 +28,10 @@ for severity in severities:
     # 如果需要绑定多个routing_key，直接channel.queue_bind多个routing_key即可，exchange和queue参数都相同，可以用for循环绑定
 print(' [*] Waiting for logs. To exit press CTRL+C')
 
+
 def callback(ch, method, properties, body):
     print(" [x] %r:%r" % (method.routing_key, body))
+
 
 channel.basic_consume(callback,
                       queue=queue_name,

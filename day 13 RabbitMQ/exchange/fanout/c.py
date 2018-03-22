@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*-coding:utf-8 -*-
-
+#  工作模式：发布订阅
 import pika
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
@@ -13,7 +13,7 @@ channel.exchange_declare(exchange='logs',       # 如果生产者还未启动，
 result = channel.queue_declare(exclusive=True)  # 消费者创建一个队列
 queue_name = result.method.queue                # 随机给队列命名
 
-channel.queue_bind(exchange='logs',             # 把队列绑定到交换机上（queue_name绑定到logs上），实际就是订阅的动作
+channel.queue_bind(exchange='logs',             # 把队列绑定到发布者或订阅者创建的交换机上（queue_name绑定到logs上），实际就是订阅的动作
                    queue=queue_name)
 
 print(' [*] Waiting for logs. To exit press CTRL+C')

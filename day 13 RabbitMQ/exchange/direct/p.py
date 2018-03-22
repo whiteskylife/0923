@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*-coding:utf-8 -*-
 # 工作模式：direct 关键字， 相当于fanout模式多加了个条件：routing_key，如果消费者绑定的routing_key值和生产者一致，才能取到信息
+#
 import pika
 import sys
 
