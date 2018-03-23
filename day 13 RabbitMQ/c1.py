@@ -2,11 +2,11 @@
 # -*-coding:utf-8 -*-
 # 工作模式：简单队列
 import pika
-
+import time
 # ########################## 消费者 ##########################
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-    host='localhost'))
+    host='192.168.1.110'))
 channel = connection.channel()
 
 channel.queue_declare(queue='hello')  # 当队列存在时，不会重复创建，没有则创建；目的：防止生产者没有启动，队列不存在报错
@@ -21,6 +21,8 @@ def callback(ch, method, properties, body):         # 必须要自定义一个�
     :return:
     """
     print(" [x] Received %r" % body)
+    time.sleep(body.count(b'.'))
+    print(" [x] Done-------time.sleep--%s" % body.count(b'.'))
 
 
 channel.basic_consume(callback,          # 取队列中的数据，并在内部执行回调函数callback

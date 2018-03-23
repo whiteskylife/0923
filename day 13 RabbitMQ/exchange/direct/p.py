@@ -6,14 +6,14 @@ import pika
 import sys
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='localhost'))
+        host='192.168.1.110'))
 channel = connection.channel()
 
 channel.exchange_declare(exchange='direct_logs',
                          exchange_type='direct')
 
 severity = sys.argv[1] if len(sys.argv) > 1 else 'info'
-message = ' '.join(sys.argv[2:]) or 'Hello World!'
+message = ' '.join(sys.argv[2:]) or 'Hello World!------------direct'
 channel.basic_publish(exchange='direct_logs',
                       routing_key=severity,             # routing_key 生产者定义一个字符串，消费者绑定路由时，
                       body=message)

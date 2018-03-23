@@ -10,11 +10,11 @@ import pika
 import sys
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='localhost'))
+        host='192.168.1.110'))
 channel = connection.channel()
 
 channel.exchange_declare(exchange='logs',         # 创建一个交换机并命名（消费者通过名字来绑定队列），把信息放入交换机，（注意：生产者无需创建队列，只需创建一个交换机，把信息放入即可）
-                         exchange_type='fanout')
+                         exchange_type='fanout')    # #订阅发布模式 ，由路由器名称logs来选择队列分发消息
 
 message = ' '.join(sys.argv[1:]) or "info: Hello World!"
 channel.basic_publish(exchange='logs',          # 指定交换机名字，放到哪个交换机里面

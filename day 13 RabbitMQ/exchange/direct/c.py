@@ -6,7 +6,7 @@ import pika
 import sys
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='localhost'))
+        host='192.168.1.110'))
 channel = connection.channel()
 
 channel.exchange_declare(exchange='direct_logs',
