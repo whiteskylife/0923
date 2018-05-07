@@ -11,4 +11,6 @@ obj.connect(ip_port)
 ret_bytes = obj.recv(1024)
 ret_str = str(ret_bytes, encoding='utf-8')
 print(ret_str)
-obj.sendall(bytes('i am client', encoding='utf-8'))
+while True:
+    data = input('>')
+    obj.send(bytes(data,encoding='utf-8'))
