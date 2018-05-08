@@ -8,6 +8,7 @@ password:qweqwe
 oneMonth:1
 """
 head = {}
+requests.request()
 # 写入User Agent信息
 head['User-Agent'] = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36'
 # r0 = requests.Request('http://dig.chouti.com/', headers=head)
