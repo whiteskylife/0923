@@ -17,7 +17,8 @@ r0 = requests.get('http://dig.chouti.com/', headers=head)
 print(r0.text)
 # print(r0_cookie_dict)
 r1 = requests.post(
-    'https://dig.chouti.com/login',
+    # 'https://dig.chouti.com/login',
+    'https://ywww.gxyclub.com',
     data={
         'phone': '8617748672617',
         'password': '',

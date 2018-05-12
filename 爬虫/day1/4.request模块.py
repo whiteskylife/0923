@@ -2,6 +2,7 @@
 # -*-coding:utf-8 -*-
 
 import requests
+
 # 1. 调用关系
 # requests.get()
 # requests.post()
@@ -16,7 +17,6 @@ requests.get(                        # get请求中没有data参数，data是请
     cookies={},
     headers={}                      # 设置请求头
 )
-
 # http://www.baidu.com?k1=v2&nid=888
 
 # requests.post(
